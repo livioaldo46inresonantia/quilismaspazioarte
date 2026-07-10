@@ -10,7 +10,7 @@ HTML
         .sottotitolo { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; font-style: italic; }
         .opera { margin-bottom: 60px; background: white; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         img { width: 100%; display: block; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
-        img:hover { opacity: 0.8; }
+        img:hover { opacity: 0.8; transform: scale(1.01); }
         .info-quadro { text-align: center; }
         .info-quadro p { margin: 5px 0; }
         .anno-misure { font-size: 18px; color: #333; }
@@ -19,14 +19,17 @@ HTML
         
         /* Finestra popup */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
-        .modal-content { background: white; margin: 10% auto; padding: 30px; width: 80%; max-width: 600px; border-radius: 8px; }
-        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .modal-content { background: white; margin: 5% auto; padding: 40px; width: 80%; max-width: 700px; border-radius: 8px; max-height: 80vh; overflow-y: auto; }
+        .close { color: #aaa; float: right; font-size: 32px; font-weight: bold; cursor: pointer; line-height: 20px; }
         .close:hover { color: black; }
+        .modal-content h2 { margin-top: 0; color: #222; }
+        .modal-content p { line-height: 1.7; color: #333; font-size: 17px; }
+        .nota { font-style: italic; color: #666; margin-top: 20px; font-size: 15px; }
     </style>
 </head>
 <body>
     <h1>Periodo Padova 1975</h1>
-    <p class="sottotitolo">QuilismaSpazioArte presenta</p>
+    <p class="sottotitolo">QuilismaSpazioArte - Custode temporaneo</p>
 
     <div class="opera">
         <img src="images/fortun1.jpg" alt="Opera 1 - 1975" onclick="mostraStoriaPadova()">
@@ -47,7 +50,7 @@ HTML
     <div class="opera">
         <img src="images/fortun3.jpg" alt="Opera 3 - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
-            <p class="anno-misure">1975 - 50x60 cm</p>
+            <p class="anno-misure">Ritratto - 1975 - 50x60 cm</p>
             <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
@@ -64,10 +67,11 @@ HTML
     <div id="bioModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="chiudiModal('bioModal')">&times;</span>
-            <h2>ANTONIO FORTUN</h2>
-            <p><strong>Qui metti la sua biografia.</strong></p>
-            <p>Esempio: Antonio Fortun nasce a... Studia a... Il periodo padovano 1975 rappresenta...</p>
-            <p>Scrivimi il testo che vuoi e lo inserisco io.</p>
+            <h2>ANTONIO FORTUN PAESA</h2>
+            <p><strong>1945 Samper del Salz, Zaragoza - 1999 Saragozza</strong></p>
+            <p>Antonio Fortún è considerato un riferimento della pittura aragonese contemporanea. Ha esposto in vari paesi e alcune sue opere sono presenti in collezioni e musei anche fuori dalla Spagna.</p>
+            <p>Nel suo paese natale, Samper del Salz, è stato inaugurato nel 2000 l'<em>Espacio Antonio Fortún</em>, spazio espositivo nato per mostrare le opere che l'artista cedette al suo paese. La sua opera è promossa anche da una fondazione/archivio a lui dedicato.</p>
+            <p class="nota">Opere da collezioni private. Custode temporaneo: QuilismaSpazioArte</p>
         </div>
     </div>
 
@@ -76,9 +80,10 @@ HTML
         <div class="modal-content">
             <span class="close" onclick="chiudiModal('padovaModal')">&times;</span>
             <h2>Il Periodo Padova 1975</h2>
-            <p><strong>Qui metti la storia del periodo.</strong></p>
-            <p>Esempio: Nel 1975 Antonio Fortun si trasferisce a Padova dove... Le opere di questo periodo sono caratterizzate da... I colori, le forme, l'influenza della città...</p>
-            <p>Scrivimi il testo che vuoi e lo inserisco io.</p>
+            <p>Nel 1975 Antonio Fortún fu ospite a Padova in un contesto di amicizia e scambio umano e artistico, assieme ad altri artisti fra cui il pittore Benvenuto Scomparin.</p>
+            <p>In Riviera Paleocapa 10/b e nello studio di architettura in via Vescovado 79 - sede anche del Centro Musica Antica di Padova - Fortún dipinse le opere qui esposte. Fra queste, un ritratto: non realistico, ma trasfigurazione gestuale, documento umano di quel momento.</p>
+            <p><strong>Nel 1975 Fortún non dipingeva solo forme. Dipingeva legami.</strong> Fu un periodo di intensa ispirazione legato a relazioni personali significative. Le opere di questo ciclo, realizzate nello stesso anno e nello stesso luogo, costituiscono un episodio biografico preciso nella vita dell'artista: quasi un micro-ciclo narrativo.</p>
+            <p class="nota">Opere realizzate a Padova nel 1975. Provenienza diretta documentabile.</p>
         </div>
     </div>
 
@@ -95,7 +100,6 @@ HTML
             document.getElementById(id).style.display = 'none';
         }
         
-        // Chiudi cliccando fuori
         window.onclick = function(event) {
             if (event.target.className === 'modal') {
                 event.target.style.display = 'none';
@@ -105,3 +109,4 @@ HTML
 
 </body>
 </html>
+
