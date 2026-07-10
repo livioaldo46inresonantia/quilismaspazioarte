@@ -3,117 +3,218 @@ HTML
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Periodo Padova 1975 - ANTONIO FORTUN</title>
+    <title>Periodo Padova 1975 - ANTONIO FORTUN | QuilismaSpazioArte</title>
     <style>
-        body { font-family: Georgia, serif; max-width: 900px; margin: 40px auto; padding: 20px; background: #f9f9f9; }
-        h1 { text-align: center; font-size: 36px; color: #222; margin-bottom: 10px; }
-        .sottotitolo { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; font-style: italic; }
-        .opera { margin-bottom: 60px; background: white; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        img { width: 100%; display: block; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
-        img:hover { opacity: 0.8; transform: scale(1.01); }
-        .info-quadro { text-align: center; }
-        .info-quadro p { margin: 5px 0; }
-        .titolo-opera { font-size: 20px; color: #222; font-style: italic; margin-bottom: 8px; }
-        .tecnica { font-size: 16px; color: #555; }
-        .anno-misure { font-size: 18px; color: #333; }
-        .artista { font-size: 20px; color: #111; margin-top: 10px; cursor: pointer; }
-        .artista:hover { color: #0066cc; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Finestra popup */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
-        .modal-content { background: white; margin: 5% auto; padding: 40px; width: 80%; max-width: 700px; border-radius: 8px; max-height: 80vh; overflow-y: auto; }
-        .close { color: #aaa; float: right; font-size: 32px; font-weight: bold; cursor: pointer; line-height: 20px; }
-        .close:hover { color: black; }
-        .modal-content h2 { margin-top: 0; color: #222; }
-        .modal-content p { line-height: 1.7; color: #333; font-size: 17px; }
-        .nota { font-style: italic; color: #666; margin-top: 20px; font-size: 15px; }
+        body { 
+            font-family: 'Georgia', serif; 
+            background: #0a0a0a;
+            color: #e0e0e0;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #333;
+        }
+        
+        h1 { 
+            font-size: 42px; 
+            color: #f5f5f5; 
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .sottotitolo { 
+            font-size: 16px; 
+            color: #888; 
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        
+        .galleria {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* SPOT GALLERIA */
+        .opera {
+            margin-bottom: 120px;
+            position: relative;
+            padding: 60px 40px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+        }
+        
+        /* Effetto luce spot dall'alto */
+        .opera::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse at center, rgba(255,255,240,0.15) 0%, rgba(255,255,240,0.05) 40%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .opera img {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 0 40px rgba(255,255,255,0.1),
+                0 20px 60px rgba(0,0,0,0.8);
+            border: 8px solid #1a1a1a;
+        }
+        
+        .opera img:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 0 60px rgba(255,255,255,0.2),
+                0 25px 80px rgba(0,0,0,0.9);
+        }
+        
+        .info-quadro {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .info-quadro p {
+            margin: 8px 0;
+        }
+        
+        .titolo-opera {
+            font-size: 22px;
+            color: #f5f5f5;
+            font-style: italic;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        
+        .tecnica {
+            font-size: 15px;
+            color: #999;
+        }
+        
+        .anno-misure {
+            font-size: 17px;
+            color: #bbb;
+        }
+        
+        .artista {
+            font-size: 18px;
+            color: #ccc;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+        
+        .artista:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        /* Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: #1a1a1a;
+            margin: 5% auto;
+            padding: 50px;
+            width: 85%;
+            max-width: 700px;
+            border: 1px solid #333;
+            box-shadow: 0 0 50px rgba(255,255,255,0.1);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close {
+            color: #666;
+            float: right;
+            font-size: 38px;
+            font-weight: 300;
+            cursor: pointer;
+            line-height: 20px;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: #fff;
+        }
+        
+        .modal-content h2 {
+            margin-top: 0;
+            color: #f5f5f5;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .modal-content p {
+            line-height: 1.8;
+            color: #ccc;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-content strong {
+            color: #fff;
+        }
+        
+        .nota {
+            font-style: italic;
+            color: #777;
+            margin-top: 30px;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #2a2a2a;
+        }
     </style>
 </head>
 <body>
-    <h1>Periodo Padova 1975</h1>
-    <p class="sottotitolo">QuilismaSpazioArte - Custode temporaneo</p>
-
-    <div class="opera">
-        <img src="images/fortun1.jpg" alt="Omaggio a Livio - 1975" onclick="mostraStoriaPadova()">
-        <div class="info-quadro">
-            <p class="titolo-opera">Omaggio a Livio</p>
-            <p class="tecnica">Acrilico su tela</p>
-            <p class="anno-misure">1975 - 60x80 cm</p>
-            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
-        </div>
+    <div class="header">
+        <h1>PERIODO PADOVA 1975</h1>
+        <p class="sottotitolo">QuilismaSpazioArte - Custode temporaneo</p>
     </div>
 
-    <div class="opera">
-        <img src="images/fortun2.jpg" alt="Opera 2 - 1975" onclick="mostraStoriaPadova()">
-        <div class="info-quadro">
-            <p class="tecnica">Acrilico su tela</p>
-            <p class="anno-misure">1975 - 60x50 cm</p>
-            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
+    <div class="galleria">
+        <div class="opera">
+            <img src="images/fortun1.jpg" alt="Omaggio a Livio - 1975" onclick="mostraStoriaPadova()">
+            <div class="info-quadro">
+                <p class="titolo-opera">Omaggio a Livio</p>
+                <p class="tecnica">Acrilico su tela</p>
+                <p class="anno-misure">1975 - 60x80 cm</p>
+                <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
+            </div>
         </div>
-    </div>
 
-    <div class="opera">
-        <img src="images/fortun3.jpg" alt="Opera 3 - 1975" onclick="mostraStoriaPadova()">
-        <div class="info-quadro">
-            <p class="tecnica">Acrilico su tela</p>
-            <p class="anno-misure">1975 - 50x60 cm</p>
-            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
-        </div>
-    </div>
-
-    <div class="opera">
-        <img src="images/fortun4.jpg" alt="Opera 4 - 1977" onclick="mostraStoriaPadova()">
-        <div class="info-quadro">
-            <p class="tecnica">Acrilico su cartoncino</p>
-            <p class="anno-misure">1977 - 25x17,50 cm</p>
-            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
-        </div>
-    </div>
-
-    <!-- Popup Bio Artista -->
-    <div id="bioModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="chiudiModal('bioModal')">&times;</span>
-            <h2>ANTONIO FORTUN PAESA</h2>
-            <p><strong>1945 Samper del Salz, Zaragoza - 1999 Saragozza</strong></p>
-            <p>Antonio Fortún è considerato un riferimento della pittura aragonese contemporanea. Ha esposto in vari paesi e alcune sue opere sono presenti in collezioni e musei anche fuori dalla Spagna.</p>
-            <p>Nel suo paese natale, Samper del Salz, è stato inaugurato nel 2000 l'<em>Espacio Antonio Fortún</em>, spazio espositivo nato per mostrare le opere che l'artista cedette al suo paese. La sua opera è promossa anche da una fondazione/archivio a lui dedicato.</p>
-            <p class="nota">Opere da collezioni private. Custode temporaneo: QuilismaSpazioArte</p>
-        </div>
-    </div>
-
-    <!-- Popup Storia Padova -->
-    <div id="padovaModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="chiudiModal('padovaModal')">&times;</span>
-            <h2>Il Periodo Padova 1975</h2>
-            <p>Nel 1975 Antonio Fortún fu ospite a Padova in un contesto di amicizia e scambio umano e artistico, assieme agli artisti Benvenuto e Livio.</p>
-            <p>In Riviera Paleocapa 10/b e nello studio di architettura in via Vescovado 79 - sede anche del Centro Musica Antica di Padova - Fortún dipinse le opere qui esposte.</p>
-            <p><strong>Nel 1975 Fortún non dipingeva solo forme. Dipingeva legami.</strong> Fu un periodo di intensa ispirazione legato a relazioni personali significative. Le opere di questo ciclo, realizzate nello stesso anno e nello stesso luogo, costituiscono un episodio biografico preciso nella vita dell'artista: quasi un micro-ciclo narrativo.</p>
-            <p class="nota">Opere realizzate a Padova nel 1975. Provenienza diretta documentabile.</p>
-        </div>
-    </div>
-
-    <script>
-        function mostraBioArtista() {
-            document.getElementById('bioModal').style.display = 'block';
-        }
-        
-        function mostraStoriaPadova() {
-            document.getElementById('padovaModal').style.display = 'block';
-        }
-        
-        function chiudiModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-        
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = 'none';
-            }
-        }
-    </script>
-
-</body>
-</html>
-
+        <div class="opera">
+            <img src="images/fortun2.jpg" alt="Opera 2 - 1975" onclick="mostraStoriaPadova()">
+            <div class="info-quadro">
+                <p class="tecnica">Acrilico su tela</p>
+                <p class="anno-misure">1975 - 60x50 cm</p>
+                <p class="artista" onclick="mostraBioArtista(
