@@ -13,6 +13,8 @@ HTML
         img:hover { opacity: 0.8; transform: scale(1.01); }
         .info-quadro { text-align: center; }
         .info-quadro p { margin: 5px 0; }
+        .titolo-opera { font-size: 20px; color: #222; font-style: italic; margin-bottom: 8px; }
+        .tecnica { font-size: 16px; color: #555; }
         .anno-misure { font-size: 18px; color: #333; }
         .artista { font-size: 20px; color: #111; margin-top: 10px; cursor: pointer; }
         .artista:hover { color: #0066cc; }
@@ -32,8 +34,10 @@ HTML
     <p class="sottotitolo">QuilismaSpazioArte - Custode temporaneo</p>
 
     <div class="opera">
-        <img src="images/fortun1.jpg" alt="Opera 1 - 1975" onclick="mostraStoriaPadova()">
+        <img src="images/fortun1.jpg" alt="Omaggio a Livio - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
+            <p class="titolo-opera">Omaggio a Livio</p>
+            <p class="tecnica">Acrilico su tela</p>
             <p class="anno-misure">1975 - 60x80 cm</p>
             <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
@@ -42,15 +46,18 @@ HTML
     <div class="opera">
         <img src="images/fortun2.jpg" alt="Opera 2 - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
+            <p class="tecnica">Acrilico su tela</p>
             <p class="anno-misure">1975 - 60x50 cm</p>
             <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
 
     <div class="opera">
-        <img src="images/fortun3.jpg" alt="Opera 3 - 1975" onclick="mostraStoriaPadova()">
+        <img src="images/fortun3.jpg" alt="Ritratto - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
-            <p class="anno-misure">Ritratto - 1975 - 50x60 cm</p>
+            <p class="titolo-opera">Ritratto</p>
+            <p class="tecnica">Acrilico su tela</p>
+            <p class="anno-misure">1975 - 50x60 cm</p>
             <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
@@ -58,6 +65,7 @@ HTML
     <div class="opera">
         <img src="images/fortun4.jpg" alt="Opera 4 - 1977" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
+            <p class="tecnica">Acrilico su cartoncino</p>
             <p class="anno-misure">1977 - 25x17,50 cm</p>
             <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
@@ -80,7 +88,7 @@ HTML
         <div class="modal-content">
             <span class="close" onclick="chiudiModal('padovaModal')">&times;</span>
             <h2>Il Periodo Padova 1975</h2>
-            <p>Nel 1975 Antonio Fortún fu ospite a Padova in un contesto di amicizia e scambio umano e artistico, assieme ad altri artisti fra cui il pittore Benvenuto Scomparin.</p>
+            <p>Nel 1975 Antonio Fortún fu ospite a Padova in un contesto di amicizia e scambio umano e artistico, assieme agli artisti Benvenuto e Livio.</p>
             <p>In Riviera Paleocapa 10/b e nello studio di architettura in via Vescovado 79 - sede anche del Centro Musica Antica di Padova - Fortún dipinse le opere qui esposte. Fra queste, un ritratto: non realistico, ma trasfigurazione gestuale, documento umano di quel momento.</p>
             <p><strong>Nel 1975 Fortún non dipingeva solo forme. Dipingeva legami.</strong> Fu un periodo di intensa ispirazione legato a relazioni personali significative. Le opere di questo ciclo, realizzate nello stesso anno e nello stesso luogo, costituiscono un episodio biografico preciso nella vita dell'artista: quasi un micro-ciclo narrativo.</p>
             <p class="nota">Opere realizzate a Padova nel 1975. Provenienza diretta documentabile.</p>
