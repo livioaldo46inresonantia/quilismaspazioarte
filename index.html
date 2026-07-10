@@ -9,13 +9,19 @@ HTML
         h1 { text-align: center; font-size: 36px; color: #222; margin-bottom: 10px; }
         .sottotitolo { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; font-style: italic; }
         .opera { margin-bottom: 60px; background: white; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        img { width: 100%; display: block; margin-bottom: 15px; }
+        img { width: 100%; display: block; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
+        img:hover { opacity: 0.8; }
         .info-quadro { text-align: center; }
         .info-quadro p { margin: 5px 0; }
         .anno-misure { font-size: 18px; color: #333; }
-        .artista { font-size: 20px; color: #111; font-weight: bold; margin-top: 10px; }
-        .bio { margin-top: 80px; padding: 30px; background: white; border-left: 4px solid #222; }
-        .bio h3 { margin-top: 0; }
+        .artista { font-size: 20px; color: #111; font-weight: bold; margin-top: 10px; cursor: pointer; text-decoration: underline; }
+        .artista:hover { color: #0066cc; }
+        
+        /* Finestra popup */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .modal-content { background: white; margin: 10% auto; padding: 30px; width: 80%; max-width: 600px; border-radius: 8px; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close:hover { color: black; }
     </style>
 </head>
 <body>
@@ -23,42 +29,79 @@ HTML
     <p class="sottotitolo">QuilismaSpazioArte presenta</p>
 
     <div class="opera">
-        <img src="images/fortun1.jpg" alt="Opera 1 - 1975">
+        <img src="images/fortun1.jpg" alt="Opera 1 - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
             <p class="anno-misure">1975 - 60x80 cm</p>
-            <p class="artista">ANTONIO FORTUN</p>
+            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
 
     <div class="opera">
-        <img src="images/fortun2.jpg" alt="Opera 2 - 1975">
+        <img src="images/fortun2.jpg" alt="Opera 2 - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
             <p class="anno-misure">1975 - 60x50 cm</p>
-            <p class="artista">ANTONIO FORTUN</p>
+            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
 
     <div class="opera">
-        <img src="images/fortun3.jpg" alt="Opera 3 - 1975">
+        <img src="images/fortun3.jpg" alt="Opera 3 - 1975" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
             <p class="anno-misure">1975 - 50x60 cm</p>
-            <p class="artista">ANTONIO FORTUN</p>
+            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
 
     <div class="opera">
-        <img src="images/fortun4.jpg" alt="Opera 4 - 1977">
+        <img src="images/fortun4.jpg" alt="Opera 4 - 1977" onclick="mostraStoriaPadova()">
         <div class="info-quadro">
             <p class="anno-misure">1977 - 25x17,50 cm</p>
-            <p class="artista">ANTONIO FORTUN</p>
+            <p class="artista" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
         </div>
     </div>
 
-    <div class="bio">
-        <h3>L'Artista</h3>
-        <p><strong>ANTONIO FORTUN</strong></p>
-        <p>Qui puoi aggiungere 2-3 righe su di lui: dove ha studiato, che periodo è quello di Padova 1975, cosa dipingeva. Se non ce l'hai, lasciamo solo il nome per ora.</p>
+    <!-- Popup Bio Artista -->
+    <div id="bioModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="chiudiModal('bioModal')">&times;</span>
+            <h2>ANTONIO FORTUN</h2>
+            <p><strong>Qui metti la sua biografia.</strong></p>
+            <p>Esempio: Antonio Fortun nasce a... Studia a... Il periodo padovano 1975 rappresenta...</p>
+            <p>Scrivimi il testo che vuoi e lo inserisco io.</p>
+        </div>
     </div>
+
+    <!-- Popup Storia Padova -->
+    <div id="padovaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="chiudiModal('padovaModal')">&times;</span>
+            <h2>Il Periodo Padova 1975</h2>
+            <p><strong>Qui metti la storia del periodo.</strong></p>
+            <p>Esempio: Nel 1975 Antonio Fortun si trasferisce a Padova dove... Le opere di questo periodo sono caratterizzate da... I colori, le forme, l'influenza della città...</p>
+            <p>Scrivimi il testo che vuoi e lo inserisco io.</p>
+        </div>
+    </div>
+
+    <script>
+        function mostraBioArtista() {
+            document.getElementById('bioModal').style.display = 'block';
+        }
+        
+        function mostraStoriaPadova() {
+            document.getElementById('padovaModal').style.display = 'block';
+        }
+        
+        function chiudiModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        
+        // Chiudi cliccando fuori
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
