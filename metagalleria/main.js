@@ -183,7 +183,7 @@ scene.add(ceiling);
 scene.add(
   new THREE.HemisphereLight(
     0xffffff,
-    0x111111,
+    0x777777,
     0.85
   )
 );
