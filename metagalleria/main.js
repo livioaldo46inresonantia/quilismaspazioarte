@@ -504,3 +504,21 @@ panels.forEach(([a, b]) => {
   addLinearLight(a, b);
 });
 
+// Scorcio vetrato di prova
+const glassMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0xbfd7e6,
+  transparent: true,
+  opacity: 0.22,
+  roughness: 0.08,
+  transmission: 0.75,
+  thickness: 0.08
+});
+
+const glassTest = new THREE.Mesh(
+  new THREE.BoxGeometry(3.0, 2.6, 0.06),
+  glassMaterial
+);
+
+glassTest.position.set(0, 1.40, -9.75);
+
+scene.add(glassTest);
