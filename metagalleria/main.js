@@ -429,4 +429,77 @@ bottoneTop.addEventListener('click', (e) => {
 
 document.body.appendChild(bottoneTop);
 
+// PLAFONIERE LINEARI CON LUCE CALDA
+const LIGHT_HEIGHT = 2.80;
+const LIGHT_THICKNESS = 0.035;
+const LIGHT_DEPTH = 0.10;
 
+const lightMaterial = new THREE.MeshBasicMaterial({
+  color: 0xffe6b3
+});
+
+function addLinearLight(aName, bName) {
+  const a = P[aName];
+  const b = P[bName];
+
+  if (!a || !b) return;
+
+  const dir = b.clone().sub(a);
+  dir.y = 0;
+
+  const len = dir.length();
+  const trim = Math.min(PANEL_GAP / 2, len * 0.20);
+  const unit = dir.clone().normalize();
+
+  const start = a.clone().add(
+    unit.clone().multiplyScalar(trim)
+  );
+
+  const end = b.clone().add(
+    unit.clone().multiplyScalar(-trim)
+  );
+
+  const dx = end.x - start.x;
+  const dz = end.z - start.z;
+  const finalLen = Math.hypot(dx, dz);
+
+  // Corpo visibile della plafoniera
+  const fixture = new THREE.Mesh(
+    new THREE.BoxGeometry(
+      finalLen,
+      LIGHT_THICKNESS,
+      LIGHT_DEPTH
+    ),
+    lightMaterial
+  );
+
+  fixture.position.set(
+    (start.x + end.x) / 2,
+    LIGHT_HEIGHT,
+    (start.z + end.z) / 2
+  );
+
+  fixture.rotation.y = -Math.atan2(dz, dx);
+
+  scene.add(fixture);
+
+  // Luce calda reale
+  const warmLight = new THREE.PointLight(
+    0xffd6a3,
+    4,
+    3.5,
+    2
+  );
+
+  warmLight.position.set(
+    fixture.position.x,
+    2.65,
+    fixture.position.z
+  );
+
+  scene.add(warmLight);
+}
+
+panels.forEach(([a, b]) => {
+  addLinearLight(a, b);
+});
