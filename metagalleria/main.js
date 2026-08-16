@@ -503,6 +503,32 @@ scene.add(target);
 testLight.target = target;
 
 scene.add(testLight);
+  const testLight = new THREE.SpotLight(
+  0xffd6a3,   // luce calda
+  18,         // intensità
+  6,          // distanza
+  Math.PI / 5,// apertura
+  0.45,       // penombra
+  1.2         // decadimento
+);
+
+testLight.position.set(
+  fixture.position.x,
+  2.75,
+  fixture.position.z
+);
+
+const target = new THREE.Object3D();
+target.position.set(
+  fixture.position.x,
+  1.45,
+  fixture.position.z
+);
+
+scene.add(target);
+testLight.target = target;
+
+scene.add(testLight);
 }
 
 panels.forEach(([a, b]) => addLinearLight(a, b));
