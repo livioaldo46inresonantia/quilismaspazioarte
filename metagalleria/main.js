@@ -429,3 +429,54 @@ bottoneTop.addEventListener('click', (e) => {
 
 document.body.appendChild(bottoneTop);
 
+
+// Plafoniere lineari calde a quota 2,80 m
+const LIGHT_HEIGHT = 2.80;
+const LIGHT_THICKNESS = 0.035;
+const LIGHT_DEPTH = 0.06;
+
+const lightMaterial = new THREE.MeshBasicMaterial({
+  color: 0xffe6b3
+});
+
+function addLinearLight(aName, bName) {
+  const a = P[aName];
+  const b = P[bName];
+
+  if (!a || !b) return;
+
+  const dir = b.clone().sub(a);
+  dir.y = 0;
+
+  const len = dir.length();
+  const trim = PANEL_GAP / 2;
+  const unit = dir.clone().normalize();
+
+  const start = a.clone().add(unit.clone().multiplyScalar(trim));
+  const end = b.clone().add(unit.clone().multiplyScalar(-trim));
+
+  const dx = end.x - start.x;
+  const dz = end.z - start.z;
+  const finalLen = Math.hypot(dx, dz);
+
+  const fixture = new THREE.Mesh(
+    new THREE.BoxGeometry(
+      finalLen,
+      LIGHT_THICKNESS,
+      LIGHT_DEPTH
+    ),
+    lightMaterial
+  );
+
+  fixture.position.set(
+    (start.x + end.x) / 2,
+    LIGHT_HEIGHT,
+    (start.z + end.z) / 2
+  );
+
+  fixture.rotation.y = -Math.atan2(dz, dx);
+
+  scene.add(fixture);
+}
+
+panels.forEach(([a, b]) => addLinearLight(a, b));
