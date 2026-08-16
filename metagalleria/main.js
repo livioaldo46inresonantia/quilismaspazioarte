@@ -466,7 +466,7 @@ function addLinearLight(aName, bName) {
   // Corpo visibile della plafoniera
   const fixture = new THREE.Mesh(
     new THREE.BoxGeometry(
-      finalLen,
+      finalLen - 0.30,
       LIGHT_THICKNESS,
       LIGHT_DEPTH
     ),
