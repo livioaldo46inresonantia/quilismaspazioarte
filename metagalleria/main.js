@@ -479,6 +479,4 @@ function addLinearLight(aName, bName) {
   scene.add(fixture);
   );
  
-
 panels.forEach(([a, b]) => addLinearLight(a, b));
-
