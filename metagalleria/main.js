@@ -346,13 +346,13 @@ function toggleTopView() {
 
     controls.unlock();
     topView = true;
-celling.visible = false;
+ceiling.visible = false;
     camera.position.set(0, 26, 0);
     camera.up.set(0, 0, -1);
     camera.lookAt(0, 0, 0);
   } else {
     topView = false;
-celling.visible = true;
+ceiling.visible = true;
     camera.up.copy(savedCamera.up);
     camera.position.copy(savedCamera.position);
     camera.quaternion.copy(savedCamera.quaternion);
