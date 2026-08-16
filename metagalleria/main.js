@@ -421,7 +421,8 @@ bottoneTop.style.zIndex = '9999';
 bottoneTop.style.padding = '10px 16px';
 bottoneTop.style.cursor = 'pointer';
 
-bottoneTop.addEventListener('click', () => {
+bottoneTop.addEventListener('click', (e) => {
+  e.stopPropagation();
   toggleTopView();
 });
 
