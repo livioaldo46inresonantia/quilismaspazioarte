@@ -477,21 +477,6 @@ function addLinearLight(aName, bName) {
   fixture.rotation.y = -Math.atan2(dz, dx);
 
   scene.add(fixture);
-  if (aName === 'I1' && bName === 'I4') {
-  const provaLuce = new THREE.PointLight(
-    0xffd6a3, // luce calda
-    12,       // intensità
-    4,        // distanza
-    2         // decadimento
-  );
-
-  provaLuce.position.set(
-    fixture.position.x,
-    2.65,
-    fixture.position.z
-  );
-
-  scene.add(provaLuce);
 }
   
 panels.forEach(([a, b]) => addLinearLight(a, b));
