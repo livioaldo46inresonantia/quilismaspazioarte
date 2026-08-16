@@ -216,7 +216,7 @@ const panels = [
 
 const panelMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
-  roughness: 0.78,
+  roughness: 1.0,
   metalness: 0.0
 });
 
