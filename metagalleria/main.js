@@ -477,7 +477,7 @@ function addLinearLight(aName, bName) {
   fixture.rotation.y = -Math.atan2(dz, dx);
 
   scene.add(fixture);
-
+  );
  
 
 panels.forEach(([a, b]) => addLinearLight(a, b));
