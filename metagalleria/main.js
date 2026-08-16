@@ -480,3 +480,4 @@ function addLinearLight(aName, bName) {
 }
 
 panels.forEach(([a, b]) => addLinearLight(a, b));
+
