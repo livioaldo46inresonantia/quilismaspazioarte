@@ -412,3 +412,17 @@ console.table(
       ])
   )
 );
+const bottoneTop = document.createElement('button');
+bottoneTop.textContent = 'VISTA DALL’ALTO';
+bottoneTop.style.position = 'fixed';
+bottoneTop.style.top = '20px';
+bottoneTop.style.right = '20px';
+bottoneTop.style.zIndex = '9999';
+bottoneTop.style.padding = '10px 16px';
+bottoneTop.style.cursor = 'pointer';
+
+bottoneTop.addEventListener('click', () => {
+  toggleTopView();
+});
+
+document.body.appendChild(bottoneTop);
