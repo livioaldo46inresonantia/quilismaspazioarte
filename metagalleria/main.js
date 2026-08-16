@@ -433,7 +433,7 @@ document.body.appendChild(bottoneTop);
 // Plafoniere lineari calde a quota 2,80 m
 const LIGHT_HEIGHT = 2.80;
 const LIGHT_THICKNESS = 0.035;
-const LIGHT_DEPTH = 0.30;
+const LIGHT_DEPTH = 0.10;
 
 const lightMaterial = new THREE.MeshBasicMaterial({
   color: 0xffe6b3
