@@ -594,8 +594,8 @@ scene.add(thirdEyeSphere);
 const glassShape = new THREE.Shape();
 
 glassShape.moveTo(P[5].x, P[5].z);
-glassShape.lineTo(P[I13].x, P[I13].z);
-glassShape.lineTo(P[I18].x, P[I18].z);
+glassShape.lineTo(P.I13.x, P.I13.z);
+glassShape.lineTo(P.I18.x, P.I18.z);
 glassShape.closePath();
 
 const glassGeometry = new THREE.ShapeGeometry(glassShape);
