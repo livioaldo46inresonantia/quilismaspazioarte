@@ -575,7 +575,7 @@ addTree(2.4, -12.4, 1.0);
 // Terzo Occhio - sfera di prova
 const thirdEyeCenter = new THREE.Vector3(
   P[9].x,
-  2.15,
+  3.20,
   P[9].z
 );
 const thirdEyeSphere = new THREE.Mesh(
