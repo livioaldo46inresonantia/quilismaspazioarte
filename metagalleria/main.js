@@ -572,30 +572,4 @@ addTree(-2.2, -12.0, 1.2);
 addTree(0.0, -13.5, 1.6);
 addTree(2.4, -12.4, 1.0);
 
-// Sfera speculare della Coscienza / Terzo Occhio
-const thirdEyeCenter = new THREE.Vector3()
-  .add(P[9])
-  .add(P.I1)
-  .add(P.I2)
-  .add(P.I3)
-  .multiplyScalar(0.25);
-
-const consciousnessMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0xffffff,
-  metalness: 1,
-  roughness: 0.05
-});
-
-const consciousnessSphere = new THREE.Mesh(
-  new THREE.SphereGeometry(0.65, 64, 32),
-  consciousnessMaterial
-);
-
-consciousnessSphere.position.set(
-  thirdEyeCenter.x,
-  1.65,
-  thirdEyeCenter.z
-);
-
-scene.add(consciousnessSphere);
 
