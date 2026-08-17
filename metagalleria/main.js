@@ -572,4 +572,22 @@ addTree(-2.2, -12.0, 1.2);
 addTree(0.0, -13.5, 1.6);
 addTree(2.4, -12.4, 1.0);
 
+// Terzo Occhio - sfera di prova
+const thirdEyeCenter = new THREE.Vector3(
+  (P[9].x + P.I1.x + P.I2.x + P.I3.x) / 4,
+  1.65,
+  (P[9].z + P.I1.z + P.I2.z + P.I3.z) / 4
+);
+
+const thirdEyeSphere = new THREE.Mesh(
+  new THREE.SphereGeometry(0.65, 48, 32),
+  new THREE.MeshStandardMaterial({
+    color: 0xdddddd,
+    metalness: 1,
+    roughness: 0.08
+  })
+);
+
+thirdEyeSphere.position.copy(thirdEyeCenter);
+scene.add(thirdEyeSphere);
 
