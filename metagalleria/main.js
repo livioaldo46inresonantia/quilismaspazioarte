@@ -598,3 +598,4 @@ consciousnessSphere.position.set(
 );
 
 scene.add(consciousnessSphere);
+
