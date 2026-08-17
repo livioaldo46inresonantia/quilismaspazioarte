@@ -590,35 +590,3 @@ const thirdEyeSphere = new THREE.Mesh(
 
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
-
-// Espositore triangolare in vetro - primo lato
-const glassShape = new THREE.Shape();
-
-glassShape.moveTo(P[5].x, P[5].z);
-glassShape.lineTo(P.I13.x, P.I13.z);
-glassShape.lineTo(P.I18.x, P.I18.z);
-glassShape.closePath();
-
-const glassGeometry = new THREE.ShapeGeometry(glassShape);
-
-const glassMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0xffffff,
-  transparent: true,
-  opacity: 0.22,
-  transmission: 0.85,
-  roughness: 0.08,
-  metalness: 0,
-  side: THREE.DoubleSide
-});
-
-const glassTable1 = new THREE.Mesh(
-  glassGeometry,
-  glassMaterial
-);
-
-glassTable1.rotation.x = Math.PI / 2;
-glassTable1.position.y = 0.85;
-
-scene.add(glassTable1);
-
-
