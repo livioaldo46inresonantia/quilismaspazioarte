@@ -130,10 +130,10 @@ function addFloorSegment(a, b) {
   const mid = start.clone().add(end).multiplyScalar(0.5);
   const len = start.distanceTo(end);
 
-  const geo = new THREE.BoxGeometry(len, 0.018, 0.02);
+  const geo = new THREE.BoxGeometry(len, 0.018, 0.03);
   const mat = new THREE.MeshStandardMaterial({
-    color: 0x5f718a,
-    emissive: 0x5f718a,
+    color: 0x34383d,
+    emissive: 0x34383d,
     emissiveIntensity: 0.32,
     roughness: 0.70
   });
