@@ -589,3 +589,35 @@ const thirdEyeSphere = new THREE.Mesh(
 
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
+
+// Primo espositore triangolare in vetro: 5 - I13 - I18
+const pA = P[5];
+const pB = P.I13;
+const pC = P.I18;
+
+const triangleShape = new THREE.Shape();
+triangleShape.moveTo(pA.x, pA.z);
+triangleShape.lineTo(pB.x, pB.z);
+triangleShape.lineTo(pC.x, pC.z);
+triangleShape.lineTo(pA.x, pA.z);
+
+const triangleGeometry = new THREE.ShapeGeometry(triangleShape);
+
+const triangleMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0xddeeff,
+  transparent: true,
+  opacity: 0.28,
+  transmission: 0.75,
+  roughness: 0.08,
+  metalness: 0
+});
+
+const triangleTable = new THREE.Mesh(
+  triangleGeometry,
+  triangleMaterial
+);
+
+triangleTable.rotation.x = -Math.PI / 2;
+triangleTable.position.y = 0.85;
+
+scene.add(triangleTable);
