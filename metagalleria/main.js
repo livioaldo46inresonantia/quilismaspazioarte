@@ -590,36 +590,33 @@ const thirdEyeSphere = new THREE.Mesh(
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
 
-// Primo espositore triangolare in vetro: 5 - I13 - I18
-const pA = P[5];
-const pB = P.I13;
-const pC = P.I18;
+// Espositore triangolare in vetro - primo lato
+const glassShape = new THREE.Shape();
 
-const triangleShape = new THREE.Shape();
-triangleShape.moveTo(pA.x, pA.z);
-triangleShape.lineTo(pB.x, pB.z);
-triangleShape.lineTo(pC.x, pC.z);
-triangleShape.lineTo(pA.x, pA.z);
+glassShape.moveTo(P[5].x, P[5].z);
+glassShape.lineTo(P[13].x, P[13].z);
+glassShape.lineTo(P[18].x, P[18].z);
+glassShape.closePath();
 
-const triangleGeometry = new THREE.ShapeGeometry(triangleShape);
+const glassGeometry = new THREE.ShapeGeometry(glassShape);
 
-const triangleMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0xddeeff,
+const glassMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0xffffff,
   transparent: true,
-  opacity: 0.28,
-  transmission: 0.75,
+  opacity: 0.22,
+  transmission: 0.85,
   roughness: 0.08,
-  metalness: 0
+  metalness: 0,
+  side: THREE.DoubleSide
 });
 
-const triangleTable = new THREE.Mesh(
-  triangleGeometry,
-  triangleMaterial
+const glassTable1 = new THREE.Mesh(
+  glassGeometry,
+  glassMaterial
 );
 
-triangleTable.rotation.x = -Math.PI / 2;
-triangleTable.position.y = 0.85;
+glassTable1.rotation.x = Math.PI / 2;
+glassTable1.position.y = 0.85;
 
-scene.add(triangleTable);
-
+scene.add(glassTable1);
 
