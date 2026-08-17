@@ -621,3 +621,5 @@ triangleTable.rotation.x = -Math.PI / 2;
 triangleTable.position.y = 0.85;
 
 scene.add(triangleTable);
+
+
