@@ -522,3 +522,52 @@ const glassTest = new THREE.Mesh(
 glassTest.position.set(0, 1.40, -9.75);
 
 scene.add(glassTest);
+// Natura di prova oltre il bordo
+const trunkMaterial = new THREE.MeshStandardMaterial({
+  color: 0x4b3621,
+  roughness: 1
+});
+
+
+const foliageMaterial = new THREE.MeshStandardMaterial({
+  color: 0x27452d,
+  roughness: 1
+});
+
+
+function addTree(x, z, scale = 1) {
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(
+      0.12 * scale,
+      0.16 * scale,
+      1.6 * scale,
+      12
+    ),
+    trunkMaterial
+  );
+
+
+  trunk.position.set(x, 0.8 * scale, z);
+  scene.add(trunk);
+
+
+  const crown = new THREE.Mesh(
+    new THREE.SphereGeometry(0.75 * scale, 16, 12),
+    foliageMaterial
+  );
+
+
+  crown.position.set(
+    x,
+    1.9 * scale,
+    z
+  );
+
+
+  scene.add(crown);
+}
+
+
+addTree(-2.2, -12.0, 1.2);
+addTree(0.0, -13.5, 1.6);
+addTree(2.4, -12.4, 1.0);
