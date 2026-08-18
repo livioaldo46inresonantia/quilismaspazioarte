@@ -606,20 +606,32 @@ const EDGE_INSET = 0.05;
 
 
 // ------------------------------------------------------
-// MATERIALE VETRO
+// MATERIALI VETRO
 // ------------------------------------------------------
 
-const displayGlassMaterial = new THREE.MeshPhysicalMaterial({
+// Lastra superiore: vetro limpido trasparente
+const upperGlassMaterial = new THREE.MeshPhysicalMaterial({
   color: 0xffffff,
   transparent: true,
-  opacity: 0.22,
-  transmission: 0.90,
-  roughness: 0.06,
+  opacity: 0.16,
+  transmission: 0.95,
+  roughness: 0.03,
   metalness: 0,
   thickness: GLASS_THICKNESS,
   side: THREE.DoubleSide
 });
 
+// Lastra inferiore: vetro opalino opaco satinato
+const lowerGlassMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0xf4f4f0,
+  transparent: false,
+  opacity: 1.0,
+  transmission: 0.0,
+  roughness: 0.65,
+  metalness: 0,
+  thickness: GLASS_THICKNESS,
+  side: THREE.DoubleSide
+});
 
 // ======================================================
 // TECA SINISTRA
