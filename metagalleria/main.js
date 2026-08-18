@@ -632,6 +632,8 @@ const lowerGlassMaterial = new THREE.MeshPhysicalMaterial({
   thickness: GLASS_THICKNESS,
   side: THREE.DoubleSide
 });
+
+
 // ======================================================
 // TECA SINISTRA
 // 5 - I13 - I18
@@ -642,7 +644,6 @@ const leftInset5 =
 
 const leftInset18 =
   P.I18.clone().lerp(P.I13, EDGE_INSET);
-
 const leftShape = new THREE.Shape();
 
 leftShape.moveTo(
@@ -666,13 +667,13 @@ const leftGlassGeometry =
   new THREE.ExtrudeGeometry(leftShape, {
     depth: GLASS_THICKNESS,
     bevelEnabled: false
-      });
+  });
 
 
-// lastra inferiore sinistra
+// Lastra inferiore sinistra - OPALINA
 const leftGlassLower = new THREE.Mesh(
   leftGlassGeometry,
-  displayGlassMaterial
+  lowerGlassMaterial
 );
 
 leftGlassLower.rotation.x = -Math.PI / 2;
@@ -682,16 +683,15 @@ leftGlassLower.position.y = LOWER_HEIGHT;
 scene.add(leftGlassLower);
 
 
-// lastra superiore sinistra
+// Lastra superiore sinistra - TRASPARENTE
 const leftGlassUpper = new THREE.Mesh(
   leftGlassGeometry,
-  displayGlassMaterial
+  upperGlassMaterial
 );
 
 leftGlassUpper.rotation.x = -Math.PI / 2;
 leftGlassUpper.scale.y = -1;
 leftGlassUpper.position.y = UPPER_HEIGHT;
-
 scene.add(leftGlassUpper);
 
 
@@ -716,7 +716,7 @@ rightShape.moveTo(
 rightShape.lineTo(
   P.I14.x,
   P.I14.z
-  );
+);
 
 rightShape.lineTo(
   rightInset19.x,
@@ -732,10 +732,10 @@ const rightGlassGeometry =
   });
 
 
-// lastra inferiore destra
+// Lastra inferiore destra - OPALINA
 const rightGlassLower = new THREE.Mesh(
   rightGlassGeometry,
-  displayGlassMaterial
+  lowerGlassMaterial
 );
 
 rightGlassLower.rotation.x = -Math.PI / 2;
@@ -745,10 +745,10 @@ rightGlassLower.position.y = LOWER_HEIGHT;
 scene.add(rightGlassLower);
 
 
-// lastra superiore destra
+// Lastra superiore destra - TRASPARENTE
 const rightGlassUpper = new THREE.Mesh(
   rightGlassGeometry,
-  displayGlassMaterial
+  upperGlassMaterial
 );
 
 rightGlassUpper.rotation.x = -Math.PI / 2;
