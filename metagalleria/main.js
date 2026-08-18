@@ -590,72 +590,155 @@ const thirdEyeSphere = new THREE.Mesh(
 
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
-// Espositore triangolare in vetro - prova 5 / I13 / I18
-const triangleShape = new THREE.Shape();
+// 5 - I13 - I18   e   4 - I14 - I19
+// vetro spessore 5 mm
+// lastra inferiore h = 0.70 m
+// lastra superiore h = 0.75 m
+// ======================================================
 
-const rientro5 = P[5].clone().lerp(P.I13, 0.05);
-const rientro18 = P.I18.clone().lerp(P.I13, 0.05);
+const GLASS_THICKNESS = 0.005;
+const LOWER_HEIGHT = 0.70;
+const UPPER_HEIGHT = 0.75;
+const EDGE_INSET = 0.05;
 
-triangleShape.moveTo(rientro5.x, rientro5.z);
-triangleShape.lineTo(P.I13.x, P.I13.z);
-triangleShape.lineTo(rientro18.x, rientro18.z);
-triangleShape.closePath();
 
-const triangleGeometry = new THREE.ShapeGeometry(triangleShape);
+// ------------------------------------------------------
+// MATERIALE VETRO
+// ------------------------------------------------------
 
-const triangleMaterial = new THREE.MeshPhysicalMaterial({
+const displayGlassMaterial = new THREE.MeshPhysicalMaterial({
   color: 0xffffff,
   transparent: true,
-  opacity: 0.65,
-  transmission: 0.25,
-  roughness: 0.08,
+  opacity: 0.22,
+  transmission: 0.90,
+  roughness: 0.06,
   metalness: 0,
+  thickness: GLASS_THICKNESS,
   side: THREE.DoubleSide
 });
 
-const triangleTable = new THREE.Mesh(
-  triangleGeometry,
-  triangleMaterial
+
+// ======================================================
+// TECA SINISTRA
+// 5 - I13 - I18
+// ======================================================
+
+const leftInset5 =
+  P[5].clone().lerp(P.I13, EDGE_INSET);
+
+const leftInset18 =
+  P.I18.clone().lerp(P.I13, EDGE_INSET);
+
+const leftShape = new THREE.Shape();
+
+leftShape.moveTo(
+  leftInset5.x,
+  leftInset5.z
 );
 
-triangleTable.rotation.x = -Math.PI / 2;
-triangleTable.scale.y = -1;
-triangleTable.position.y = 0.85;
-triangleTable.rotation.x = -Math.PI / 2;
-triangleTable.scale.y = -1;
-triangleTable.position.y = 0.85;
-
-const triangleTableUpper = triangleTable.clone();
-triangleTableUpper.position.y += 0.05;
-
-scene.add(triangleTable);
-scene.add(triangleTableUpper);
-scene.add(triangleTable);
-
-// Espositore triangolare simmetrico - 4 / I14 / I19
-const triangleShape2 = new THREE.Shape();
-
-const rientro4 = P[4].clone().lerp(P.I14, 0.05);
-const rientro19 = P.I19.clone().lerp(P.I14, 0.05);
-
-triangleShape2.moveTo(rientro4.x, rientro4.z);
-triangleShape2.lineTo(P.I14.x, P.I14.z);
-triangleShape2.lineTo(rientro19.x, rientro19.z);
-triangleShape2.closePath();
-
-const triangleGeometry2 = new THREE.ShapeGeometry(triangleShape2);
-
-const triangleTable2 = new THREE.Mesh(
-  triangleGeometry2,
-  triangleMaterial
+leftShape.lineTo(
+  P.I13.x,
+  P.I13.z
 );
 
-triangleTable2.rotation.x = -Math.PI / 2;
-triangleTable2.scale.y = -1;
-triangleTable2.position.y = 0.85;
+leftShape.lineTo(
+  leftInset18.x,
+  leftInset18.z
+);
 
-const triangleTableUpper2 = triangleTable2.clone();
-triangleTableUpper2.position.y += 0.05;
+leftShape.closePath();
 
-scene.add(triangleTable2);
-scene.add(triangleTableUpper2);
+const leftGlassGeometry =
+  new THREE.ExtrudeGeometry(leftShape, {
+    depth: GLASS_THICKNESS,
+    bevelEnabled: false
+  });
+
+
+// lastra inferiore sinistra
+const leftGlassLower = new THREE.Mesh(
+  leftGlassGeometry,
+  displayGlassMaterial
+);
+
+leftGlassLower.rotation.x = -Math.PI / 2;
+leftGlassLower.scale.y = -1;
+leftGlassLower.position.y = LOWER_HEIGHT;
+
+scene.add(leftGlassLower);
+
+
+// lastra superiore sinistra
+const leftGlassUpper = new THREE.Mesh(
+  leftGlassGeometry,
+  displayGlassMaterial
+);
+
+leftGlassUpper.rotation.x = -Math.PI / 2;
+leftGlassUpper.scale.y = -1;
+leftGlassUpper.position.y = UPPER_HEIGHT;
+
+scene.add(leftGlassUpper);
+
+// ======================================================
+// TECA DESTRA
+// 4 - I14 - I19
+// ======================================================
+
+const rightInset4 =
+  P[4].clone().lerp(P.I14, EDGE_INSET);
+
+const rightInset19 =
+  P.I19.clone().lerp(P.I14, EDGE_INSET);
+
+const rightShape = new THREE.Shape();
+
+rightShape.moveTo(
+  rightInset4.x,
+  rightInset4.z
+);
+
+rightShape.lineTo(
+  P.I14.x,
+  P.I14.z
+);
+
+rightShape.lineTo(
+  rightInset19.x,
+  rightInset19.z
+);
+
+rightShape.closePath();
+
+const rightGlassGeometry =
+  new THREE.ExtrudeGeometry(rightShape, {
+    depth: GLASS_THICKNESS,
+    bevelEnabled: false
+  });
+
+
+
+// lastra inferiore destra
+const rightGlassLower = new THREE.Mesh(
+  rightGlassGeometry,
+  displayGlassMaterial
+);
+
+rightGlassLower.rotation.x = -Math.PI / 2;
+rightGlassLower.scale.y = -1;
+rightGlassLower.position.y = LOWER_HEIGHT;
+
+scene.add(rightGlassLower);
+
+
+// lastra superiore destra
+const rightGlassUpper = new THREE.Mesh(
+  rightGlassGeometry,
+  displayGlassMaterial
+);
+
+rightGlassUpper.rotation.x = -Math.PI / 2;
+rightGlassUpper.scale.y = -1;
+rightGlassUpper.position.y = UPPER_HEIGHT;
+
+scene.add(rightGlassUpper);
