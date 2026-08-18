@@ -632,7 +632,6 @@ const lowerGlassMaterial = new THREE.MeshPhysicalMaterial({
   thickness: GLASS_THICKNESS,
   side: THREE.DoubleSide
 });
-
 // ======================================================
 // TECA SINISTRA
 // 5 - I13 - I18
