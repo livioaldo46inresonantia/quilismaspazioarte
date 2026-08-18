@@ -621,5 +621,13 @@ const triangleTable = new THREE.Mesh(
 triangleTable.rotation.x = -Math.PI / 2;
 triangleTable.scale.y = -1;
 triangleTable.position.y = 0.85;
+triangleTable.rotation.x = -Math.PI / 2;
+triangleTable.scale.y = -1;
+triangleTable.position.y = 0.85;
 
+const triangleTableUpper = triangleTable.clone();
+triangleTableUpper.position.y += 0.05;
+
+scene.add(triangleTable);
+scene.add(triangleTableUpper);
 scene.add(triangleTable);
