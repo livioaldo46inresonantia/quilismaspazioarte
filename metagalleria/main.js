@@ -603,8 +603,8 @@ const triangleGeometry = new THREE.ShapeGeometry(triangleShape);
 const triangleMaterial = new THREE.MeshPhysicalMaterial({
   color: 0xffffff,
   transparent: true,
-  opacity: 0.22,
-  transmission: 0.85,
+  opacity: 0.65,
+  transmission: 0.25,
   roughness: 0.08,
   metalness: 0,
   side: THREE.DoubleSide
