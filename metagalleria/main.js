@@ -631,3 +631,31 @@ triangleTableUpper.position.y += 0.05;
 scene.add(triangleTable);
 scene.add(triangleTableUpper);
 scene.add(triangleTable);
+
+// Espositore triangolare simmetrico - 4 / I14 / I19
+const triangleShape2 = new THREE.Shape();
+
+const rientro4 = P[4].clone().lerp(P.I14, 0.05);
+const rientro19 = P.I19.clone().lerp(P.I14, 0.05);
+
+triangleShape2.moveTo(rientro4.x, rientro4.z);
+triangleShape2.lineTo(P.I14.x, P.I14.z);
+triangleShape2.lineTo(rientro19.x, rientro19.z);
+triangleShape2.closePath();
+
+const triangleGeometry2 = new THREE.ShapeGeometry(triangleShape2);
+
+const triangleTable2 = new THREE.Mesh(
+  triangleGeometry2,
+  triangleMaterial
+);
+
+triangleTable2.rotation.x = -Math.PI / 2;
+triangleTable2.scale.y = -1;
+triangleTable2.position.y = 0.85;
+
+const triangleTableUpper2 = triangleTable2.clone();
+triangleTableUpper2.position.y += 0.05;
+
+scene.add(triangleTable2);
+scene.add(triangleTableUpper2);
