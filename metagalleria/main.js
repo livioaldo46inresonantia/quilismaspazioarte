@@ -593,9 +593,12 @@ scene.add(thirdEyeSphere);
 // Espositore triangolare in vetro - prova 5 / I13 / I18
 const triangleShape = new THREE.Shape();
 
-triangleShape.moveTo(P[5].x, P[5].z);
+const rientro5 = P[5].clone().lerp(P.I13, 0.10);
+const rientro18 = P.I18.clone().lerp(P.I13, 0.10);
+
+triangleShape.moveTo(rientro5.x, rientro5.z);
 triangleShape.lineTo(P.I13.x, P.I13.z);
-triangleShape.lineTo(P.I18.x, P.I18.z);
+triangleShape.lineTo(rientro18.x, rientro18.z);
 triangleShape.closePath();
 
 const triangleGeometry = new THREE.ShapeGeometry(triangleShape);
