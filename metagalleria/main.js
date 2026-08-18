@@ -590,6 +590,9 @@ const thirdEyeSphere = new THREE.Mesh(
 
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
+
+// ======================================================
+// TECHE TRIANGOLARI IN VETRO
 // 5 - I13 - I18   e   4 - I14 - I19
 // vetro spessore 5 mm
 // lastra inferiore h = 0.70 m
@@ -652,7 +655,7 @@ const leftGlassGeometry =
   new THREE.ExtrudeGeometry(leftShape, {
     depth: GLASS_THICKNESS,
     bevelEnabled: false
-  });
+      });
 
 
 // lastra inferiore sinistra
@@ -680,6 +683,7 @@ leftGlassUpper.position.y = UPPER_HEIGHT;
 
 scene.add(leftGlassUpper);
 
+
 // ======================================================
 // TECA DESTRA
 // 4 - I14 - I19
@@ -701,7 +705,7 @@ rightShape.moveTo(
 rightShape.lineTo(
   P.I14.x,
   P.I14.z
-);
+  );
 
 rightShape.lineTo(
   rightInset19.x,
@@ -715,7 +719,6 @@ const rightGlassGeometry =
     depth: GLASS_THICKNESS,
     bevelEnabled: false
   });
-
 
 
 // lastra inferiore destra
