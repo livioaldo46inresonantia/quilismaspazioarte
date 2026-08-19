@@ -838,7 +838,7 @@ const raccordoNero = new THREE.Mesh(
   new THREE.CylinderGeometry(
     PANORAMA_RADIUS - 0.05,
     PANORAMA_RADIUS - 0.05,
-    0.45,
+    0.25,
     128,
     1,
     true
@@ -849,5 +849,5 @@ const raccordoNero = new THREE.Mesh(
   })
 );
 
-raccordoNero.position.y = 0.225;
+raccordoNero.position.y = 0.125;
 scene.add(raccordoNero);
