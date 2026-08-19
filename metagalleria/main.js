@@ -569,9 +569,9 @@ function addTree(x, z, scale = 1) {
 }
 
 
-addTree(-2.2, -12.0, 1.2);
-addTree(0.0, -13.5, 1.6);
-addTree(2.4, -12.4, 1.0);
+addTree(-2.8, 10.4, 1.0);
+addTree(1.2, 10.8, 1.3);
+addTree(3.4, 10.2, 0.85);
 
 // Terzo Occhio - sfera di prova
 const thirdEyeCenter = new THREE.Vector3(
