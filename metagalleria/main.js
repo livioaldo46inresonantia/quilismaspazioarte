@@ -851,3 +851,26 @@ const raccordoNero = new THREE.Mesh(
 
 raccordoNero.position.y = 0.125;
 scene.add(raccordoNero);
+// ------------------------------------------------------
+// RACCORDO SUPERIORE CON IL CIELO
+// ------------------------------------------------------
+
+const raccordoCielo = new THREE.Mesh(
+  new THREE.CylinderGeometry(
+    PANORAMA_RADIUS - 0.05,
+    PANORAMA_RADIUS - 0.05,
+    1.50,
+    128,
+    1,
+    true
+  ),
+  new THREE.MeshBasicMaterial({
+    color: 0x111318,
+    side: THREE.BackSide
+  })
+);
+
+raccordoCielo.position.y =
+  PANORAMA_BASE_Y + PANORAMA_HEIGHT + 0.75;
+
+scene.add(raccordoCielo);
