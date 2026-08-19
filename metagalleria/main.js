@@ -757,73 +757,88 @@ rightGlassUpper.position.y = UPPER_HEIGHT;
 
 scene.add(rightGlassUpper);
 // ======================================================
-// FONDALE PANORAMICO CIRCOLARE UNICO
-// Texture: sfondo_panorama_v definitivo.jpg
-// NON modifica la Metagalleria esistente
+// FONDALE PANORAMICO CIRCOLARE ESTERNO
+// MODULO AGGIUNTIVO - NON MODIFICA LA METAGALLERIA
+// Unica texture continua: sfondo_panorama_v8.jpg
 // ======================================================
-
-// distanza del fondale dal limite della galleria
-const PANORAMA_DISTANCE = 20.0;
-
-// raggio complessivo
-const PANORAMA_RADIUS = R + PANORAMA_DISTANCE;
-
-// altezza del fondale
-const PANORAMA_HEIGHT = 3.6;
-
-// quota inferiore
-const PANORAMA_BASE_Y = 0.0;
 
 
 // ------------------------------------------------------
-// CARICAMENTO DELLA TEXTURE PANORAMICA UNICA
+// PARAMETRI REGOLABILI
+// ------------------------------------------------------
+
+const PANORAMA_DISTANCE_FROM_GALLERY = 20.0;  // distanza dal limite galleria
+const PANORAMA_HEIGHT = 3.2;                  // altezza complessiva
+const PANORAMA_BASE_Y = 0.0;                  // parte dal livello del terreno
+const PANORAMA_OPACITY = 1.0;                 // visibilità
+const PANORAMA_ROTATION = 0.0;                // rotazione panoramica
+
+
+// ------------------------------------------------------
+// RAGGIO DEL FONDALE
+// ------------------------------------------------------
+
+const PANORAMA_RADIUS =
+  R + PANORAMA_DISTANCE_FROM_GALLERY;
+
+
+// ------------------------------------------------------
+// CARICAMENTO DELL'UNICA IMMAGINE PANORAMICA
 // ------------------------------------------------------
 
 const panoramaLoader = new THREE.TextureLoader();
 
-const panoramaTexture = panoramaLoader.load(
-  "../images/sfondo_panorama_v definitivo.jpg"
-);
+const panoramaTexture =
+  panoramaLoader.load("../images/sfondo_panorama_v8.jpg");
+panoramaTexture.wrapS = THREE.RepeatWrapping;
+panoramaTexture.wrapT = THREE.ClampToEdgeWrapping;
 
-panoramaTexture.colorSpace = THREE.SRGBColorSpace;
+panoramaTexture.repeat.set(1, 1);
 
 
 // ------------------------------------------------------
-// CILINDRO PANORAMICO
+// CILINDRO CONTINUO A 360°
 // ------------------------------------------------------
 
-const panoramaGeometry = new THREE.CylinderGeometry(
-  PANORAMA_RADIUS,
-  PANORAMA_RADIUS,
-  PANORAMA_HEIGHT,
-  128,
-  1,
-  true
-);
+const panoramaGeometry =
+  new THREE.CylinderGeometry(
+    PANORAMA_RADIUS,
+    PANORAMA_RADIUS,
+    PANORAMA_HEIGHT,
+    128,
+    1,
+    true
+  );
 
 
 // ------------------------------------------------------
 // MATERIALE
 // ------------------------------------------------------
 
-const panoramaMaterial = new THREE.MeshBasicMaterial({
-  map: panoramaTexture,
-  side: THREE.BackSide,
-  transparent: false,
-  depthWrite: false
-});
-
+const panoramaMaterial =
+  new THREE.MeshBasicMaterial({
+    map: panoramaTexture,
+    transparent: true,
+    opacity: PANORAMA_OPACITY,
+    side: THREE.BackSide,
+    depthWrite: false
+  });
 
 // ------------------------------------------------------
-// CREAZIONE DEL FONDALE
+// CREAZIONE FONDALE
 // ------------------------------------------------------
-const panoramaBackdrop = new THREE.Mesh(
-  panoramaGeometry,
-  panoramaMaterial
-);
+
+const panoramaBackdrop =
+  new THREE.Mesh(
+    panoramaGeometry,
+    panoramaMaterial
+  );
 
 panoramaBackdrop.position.y =
   PANORAMA_BASE_Y + PANORAMA_HEIGHT / 2;
+
+panoramaBackdrop.rotation.y =
+  PANORAMA_ROTATION;
 
 
 // ------------------------------------------------------
@@ -831,46 +846,3 @@ panoramaBackdrop.position.y =
 // ------------------------------------------------------
 
 scene.add(panoramaBackdrop);
-// CORREZIONE FINALE: pavimento originale + raccordo nero
-floor.visible = true;
-
-const raccordoNero = new THREE.Mesh(
-  new THREE.CylinderGeometry(
-    PANORAMA_RADIUS - 0.05,
-    PANORAMA_RADIUS - 0.05,
-    0.25,
-    128,
-    1,
-    true
-  ),
-  new THREE.MeshBasicMaterial({
-    color: 0x111318,
-    side: THREE.BackSide
-  })
-);
-
-raccordoNero.position.y = 0.125;
-scene.add(raccordoNero);
-// ------------------------------------------------------
-// RACCORDO SUPERIORE CON IL CIELO
-// ------------------------------------------------------
-
-const raccordoCielo = new THREE.Mesh(
-  new THREE.CylinderGeometry(
-    PANORAMA_RADIUS - 0.05,
-    PANORAMA_RADIUS - 0.05,
-    1.50,
-    128,
-    1,
-    true
-  ),
-  new THREE.MeshBasicMaterial({
-    color: 0x111318,
-    side: THREE.BackSide
-  })
-);
-
-raccordoCielo.position.y =
-  PANORAMA_BASE_Y + PANORAMA_HEIGHT + 0.75;
-
-scene.add(raccordoCielo);
