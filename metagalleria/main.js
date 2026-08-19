@@ -831,3 +831,23 @@ panoramaBackdrop.position.y =
 // ------------------------------------------------------
 
 scene.add(panoramaBackdrop);
+// CORREZIONE FINALE: pavimento originale + raccordo nero
+floor.visible = true;
+
+const raccordoNero = new THREE.Mesh(
+  new THREE.CylinderGeometry(
+    PANORAMA_RADIUS - 0.05,
+    PANORAMA_RADIUS - 0.05,
+    0.45,
+    128,
+    1,
+    true
+  ),
+  new THREE.MeshBasicMaterial({
+    color: 0x111318,
+    side: THREE.BackSide
+  })
+);
+
+raccordoNero.position.y = 0.225;
+scene.add(raccordoNero);
