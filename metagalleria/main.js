@@ -756,3 +756,107 @@ rightGlassUpper.scale.y = -1;
 rightGlassUpper.position.y = UPPER_HEIGHT;
 
 scene.add(rightGlassUpper);
+// ======================================================
+// FONDALE CIRCOLARE ESTERNO - MODULO AGGIUNTIVO
+// NON modifica la Metagalleria esistente
+// Usa sfondo1.jpg ... sfondo8.jpg dalla cartella /images
+// ======================================================
+
+// ------------------------------------------------------
+// PARAMETRI REGOLABILI
+// ------------------------------------------------------
+
+const BACKDROP_DISTANCE_FROM_GALLERY = 20.0; // metri oltre il limite galleria
+const BACKDROP_HEIGHT = 3.2;                 // altezza fascia
+const BACKDROP_BASE_Y = 0.0;                 // quota di partenza
+const BACKDROP_SEGMENTS = 8;                 // una fascia per immagine
+const BACKDROP_OPACITY = 1.0;                // opacità generale
+const BACKDROP_REPEAT = 1;                   // 1 = una sequenza completa delle 8 immagini
+
+// Il raggio della galleria esistente è R
+const BACKDROP_RADIUS = R + BACKDROP_DISTANCE_FROM_GALLERY;
+
+
+// ------------------------------------------------------
+// CARICAMENTO TEXTURE
+// ------------------------------------------------------
+
+const backdropLoader = new THREE.TextureLoader();
+
+const backdropTextures = [
+  backdropLoader.load("../images/sfondo1.jpg"),
+  backdropLoader.load("../images/sfondo2.jpg"),
+  backdropLoader.load("../images/sfondo3.jpg"),
+  backdropLoader.load("../images/sfondo4.jpg"),
+  backdropLoader.load("../images/sfondo5.jpg"),
+  backdropLoader.load("../images/sfondo6.jpg"),
+  backdropLoader.load("../images/sfondo7.jpg"),
+  backdropLoader.load("../images/sfondo8.jpg")
+];
+
+
+// ------------------------------------------------------
+// GRUPPO FONDALE
+// ------------------------------------------------------
+
+const backdropGroup = new THREE.Group();
+
+
+// ------------------------------------------------------
+// COSTRUZIONE DEGLI 8 SETTORI CIRCOLARI
+// ------------------------------------------------------
+
+const totalBackdropSegments =
+  BACKDROP_SEGMENTS * BACKDROP_REPEAT;
+
+const anglePerBackdropSegment =
+  (Math.PI * 2) / totalBackdropSegments;
+
+for (let i = 0; i < totalBackdropSegments; i++) {
+
+  const textureIndex = i % backdropTextures.length;
+
+  const thetaStart =
+    i * anglePerBackdropSegment;
+
+  const thetaLength =
+    anglePerBackdropSegment + 0.002;
+
+  const geometry =
+    new THREE.CylinderGeometry(
+      BACKDROP_RADIUS,
+      BACKDROP_RADIUS,
+      BACKDROP_HEIGHT,
+      32,
+      1,
+      true,
+      thetaStart,
+      thetaLength
+    );
+
+  const material =
+    new THREE.MeshBasicMaterial({
+      map: backdropTextures[textureIndex],
+      transparent: true,
+      opacity: BACKDROP_OPACITY,
+      side: THREE.BackSide,
+      depthWrite: false
+    });
+
+  const segment =
+    new THREE.Mesh(
+      geometry,
+      material
+    );
+
+  segment.position.y =
+    BACKDROP_BASE_Y + BACKDROP_HEIGHT / 2;
+
+  backdropGroup.add(segment);
+}
+
+
+// ------------------------------------------------------
+// AGGIUNTA DEL FONDALE ALLA SCENA
+// ------------------------------------------------------
+scene.add(backdropGroup);
