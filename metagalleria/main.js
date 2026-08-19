@@ -769,7 +769,7 @@ const PANORAMA_DISTANCE = 20.0;
 const PANORAMA_RADIUS = R + PANORAMA_DISTANCE;
 
 // altezza del fondale
-const PANORAMA_HEIGHT = 4.5;
+const PANORAMA_HEIGHT = 3.6;
 
 // quota inferiore
 const PANORAMA_BASE_Y = 0.0;
