@@ -757,106 +757,77 @@ rightGlassUpper.position.y = UPPER_HEIGHT;
 
 scene.add(rightGlassUpper);
 // ======================================================
-// FONDALE CIRCOLARE ESTERNO - MODULO AGGIUNTIVO
+// FONDALE PANORAMICO CIRCOLARE UNICO
+// Texture: sfondo_panorama_v definitivo.jpg
 // NON modifica la Metagalleria esistente
-// Usa sfondo1.jpg ... sfondo8.jpg dalla cartella /images
 // ======================================================
 
-// ------------------------------------------------------
-// PARAMETRI REGOLABILI
-// ------------------------------------------------------
+// distanza del fondale dal limite della galleria
+const PANORAMA_DISTANCE = 20.0;
 
-const BACKDROP_DISTANCE_FROM_GALLERY = 20.0; // metri oltre il limite galleria
-const BACKDROP_HEIGHT = 3.2;                 // altezza fascia
-const BACKDROP_BASE_Y = 0.0;                 // quota di partenza
-const BACKDROP_SEGMENTS = 8;                 // una fascia per immagine
-const BACKDROP_OPACITY = 1.0;                // opacità generale
-const BACKDROP_REPEAT = 1;                   // 1 = una sequenza completa delle 8 immagini
+// raggio complessivo
+const PANORAMA_RADIUS = R + PANORAMA_DISTANCE;
 
-// Il raggio della galleria esistente è R
-const BACKDROP_RADIUS = R + BACKDROP_DISTANCE_FROM_GALLERY;
+// altezza del fondale
+const PANORAMA_HEIGHT = 4.5;
+
+// quota inferiore
+const PANORAMA_BASE_Y = 0.0;
 
 
 // ------------------------------------------------------
-// CARICAMENTO TEXTURE
+// CARICAMENTO DELLA TEXTURE PANORAMICA UNICA
 // ------------------------------------------------------
 
-const backdropLoader = new THREE.TextureLoader();
+const panoramaLoader = new THREE.TextureLoader();
 
-const backdropTextures = [
-  backdropLoader.load("../images/sfondo1.jpg"),
-  backdropLoader.load("../images/sfondo2.jpg"),
-  backdropLoader.load("../images/sfondo3.jpg"),
-  backdropLoader.load("../images/sfondo4.jpg"),
-  backdropLoader.load("../images/sfondo5.jpg"),
-  backdropLoader.load("../images/sfondo6.jpg"),
-  backdropLoader.load("../images/sfondo7.jpg"),
-  backdropLoader.load("../images/sfondo8.jpg")
-];
+const panoramaTexture = panoramaLoader.load(
+  "../images/sfondo_panorama_v definitivo.jpg"
+);
+
+panoramaTexture.colorSpace = THREE.SRGBColorSpace;
 
 
 // ------------------------------------------------------
-// GRUPPO FONDALE
+// CILINDRO PANORAMICO
 // ------------------------------------------------------
 
-const backdropGroup = new THREE.Group();
-
-
-// ------------------------------------------------------
-// COSTRUZIONE DEGLI 8 SETTORI CIRCOLARI
-// ------------------------------------------------------
-
-const totalBackdropSegments =
-  BACKDROP_SEGMENTS * BACKDROP_REPEAT;
-
-const anglePerBackdropSegment =
-  (Math.PI * 2) / totalBackdropSegments;
-
-for (let i = 0; i < totalBackdropSegments; i++) {
-
-  const textureIndex = i % backdropTextures.length;
-
-  const thetaStart =
-    i * anglePerBackdropSegment;
-
-  const thetaLength =
-    anglePerBackdropSegment + 0.002;
-
-  const geometry =
-    new THREE.CylinderGeometry(
-      BACKDROP_RADIUS,
-      BACKDROP_RADIUS,
-      BACKDROP_HEIGHT,
-      32,
-      1,
-      true,
-      thetaStart,
-      thetaLength
-    );
-
-  const material =
-    new THREE.MeshBasicMaterial({
-      map: backdropTextures[textureIndex],
-      transparent: true,
-      opacity: BACKDROP_OPACITY,
-      side: THREE.BackSide,
-      depthWrite: false
-    });
-
-  const segment =
-    new THREE.Mesh(
-      geometry,
-      material
-    );
-
-  segment.position.y =
-    BACKDROP_BASE_Y + BACKDROP_HEIGHT / 2;
-
-  backdropGroup.add(segment);
-}
+const panoramaGeometry = new THREE.CylinderGeometry(
+  PANORAMA_RADIUS,
+  PANORAMA_RADIUS,
+  PANORAMA_HEIGHT,
+  128,
+  1,
+  true
+);
 
 
 // ------------------------------------------------------
-// AGGIUNTA DEL FONDALE ALLA SCENA
+// MATERIALE
 // ------------------------------------------------------
-scene.add(backdropGroup);
+
+const panoramaMaterial = new THREE.MeshBasicMaterial({
+  map: panoramaTexture,
+  side: THREE.BackSide,
+  transparent: false,
+  depthWrite: false
+});
+
+
+// ------------------------------------------------------
+// CREAZIONE DEL FONDALE
+// ------------------------------------------------------
+const panoramaBackdrop = new THREE.Mesh(
+  panoramaGeometry,
+  panoramaMaterial
+);
+
+panoramaBackdrop.position.y =
+  PANORAMA_BASE_Y + PANORAMA_HEIGHT / 2;
+
+
+// ------------------------------------------------------
+// AGGIUNTA ALLA SCENA
+// ------------------------------------------------------
+
+scene.add(panoramaBackdrop);
