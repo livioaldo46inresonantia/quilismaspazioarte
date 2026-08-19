@@ -157,7 +157,7 @@ masterPaths.forEach(path => {
 
 // Pavimento
 const floor = new THREE.Mesh(
-  new THREE.CylinderGeometry(R, R, 0.3, 128),
+  new THREE.CylinderGeometry(R, R, 0.12, 128),
   new THREE.MeshStandardMaterial({
     color: 0x666a6d,
     roughness: 0.95
