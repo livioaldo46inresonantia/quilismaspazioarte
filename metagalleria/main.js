@@ -592,7 +592,7 @@ const thirdEyeCenter = new THREE.Vector3(
 
 // Sfera del Terzo Occhio - specchi irregolari
 const thirdEyeGeometry =
-  new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS, 2);
+  new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS, 4);
 
 // Rendiamo leggermente irregolari le facce
 const positions =
