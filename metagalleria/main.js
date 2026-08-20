@@ -579,7 +579,7 @@ addTree( 0.48, 10.50, 0.35);
 
 const THIRD_EYE_RADIUS = 0.45;
 const THIRD_EYE_CENTER_Y = 3.15;
-const THIRD_EYE_INSET = 0.80;
+const THIRD_EYE_INSET = 1.30;
 
 // dal punto 9 verso l'interno della galleria
 const thirdEyeDirection = P[9].clone().normalize();
