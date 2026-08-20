@@ -797,8 +797,25 @@ panoramaTexture.repeat.set(1, 1);
 
 
 // ------------------------------------------------------
-// CILINDRO CONTINUO A 360°
+// FONDALE PANORAMICO APERTO FRA I PUNTI 4 E 5
 // ------------------------------------------------------
+
+// Three.js misura l'angolo del cilindro rispetto all'asse Z.
+// I punti 4 e 5 delimitano quindi esattamente l'apertura d'ingresso.
+
+let panoramaTheta4 = Math.atan2(P[4].x, P[4].z);
+let panoramaTheta5 = Math.atan2(P[5].x, P[5].z);
+
+if (panoramaTheta4 < 0) panoramaTheta4 += Math.PI * 2;
+if (panoramaTheta5 < 0) panoramaTheta5 += Math.PI * 2;
+
+// Il fondale parte dal punto 4 e percorre il lato lungo fino al punto 5,
+// lasciando vuoto il settore corto 4–5 dell'ingresso.
+let panoramaThetaLength = panoramaTheta5 - panoramaTheta4;
+
+if (panoramaThetaLength < 0) {
+  panoramaThetaLength += Math.PI * 2;
+}
 
 const panoramaGeometry =
   new THREE.CylinderGeometry(
@@ -807,9 +824,10 @@ const panoramaGeometry =
     PANORAMA_HEIGHT,
     128,
     1,
-    true
+    true,
+    panoramaTheta4,
+    panoramaThetaLength
   );
-
 
 // ------------------------------------------------------
 // MATERIALE
