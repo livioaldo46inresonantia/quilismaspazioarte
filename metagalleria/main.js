@@ -388,7 +388,9 @@ function animate() {
       camera.position.z *= q;
     }
   }
-
+curvedMirror.visible = false;
+mirrorCamera.update(renderer, scene);
+curvedMirror.visible = true;
   renderer.render(scene, camera);
 }
 
