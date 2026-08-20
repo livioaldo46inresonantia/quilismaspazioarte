@@ -505,24 +505,73 @@ panels.forEach(([a, b]) => {
   addLinearLight(a, b);
 });
 
-// Scorcio vetrato di prova
-const glassMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0xbfd7e6,
-  transparent: true,
-  opacity: 0.22,
-  roughness: 0.08,
-  transmission: 0.75,
-  thickness: 0.08
-});
+// ======================================================
+// SPECCHIO CURVO DEL PUNTO 9
+// sostituisce il vecchio "scorcio vetrato di prova"
+// segue la curvatura della circonferenza della galleria
+// ======================================================
 
-const glassTest = new THREE.Mesh(
-  new THREE.BoxGeometry(3.0, 2.6, 0.06),
-  glassMaterial
+const MIRROR_RADIUS = 9.72;
+const MIRROR_HEIGHT = 2.60;
+const MIRROR_WIDTH = 3.20;
+
+// larghezza trasformata in angolo di circonferenza
+const MIRROR_ANGLE =
+  MIRROR_WIDTH / MIRROR_RADIUS;
+
+// il punto 9 corrisponde alla direzione posteriore del cerchio
+const MIRROR_CENTER_ANGLE = Math.PI;
+
+const mirrorGeometry =
+  new THREE.CylinderGeometry(
+    MIRROR_RADIUS,
+    MIRROR_RADIUS,
+    MIRROR_HEIGHT,
+    48,
+    1,
+    true,
+    MIRROR_CENTER_ANGLE - MIRROR_ANGLE / 2,
+    MIRROR_ANGLE
+  );
+// Render target per il riflesso reale della galleria
+const mirrorRenderTarget =
+  new THREE.WebGLCubeRenderTarget(256);
+
+const mirrorCamera =
+  new THREE.CubeCamera(
+    0.1,
+    100,
+    mirrorRenderTarget
+  );
+
+// la camera riflettente è posta poco davanti allo specchio
+mirrorCamera.position.set(
+  0,
+  1.40,
+  -8.90
 );
 
-glassTest.position.set(0, 1.40, -9.75);
+scene.add(mirrorCamera);
 
-scene.add(glassTest);
+const curvedMirrorMaterial =
+  new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 1.0,
+    roughness: 0.06,
+    envMap: mirrorRenderTarget.texture,
+        envMapIntensity: 1.0,
+    side: THREE.BackSide
+  });
+
+const curvedMirror =
+  new THREE.Mesh(
+    mirrorGeometry,
+    curvedMirrorMaterial
+  );
+
+curvedMirror.position.y = 1.40;
+
+scene.add(curvedMirror);
 // Natura di prova oltre il bordo
 const trunkMaterial = new THREE.MeshStandardMaterial({
   color: 0x4b3621,
