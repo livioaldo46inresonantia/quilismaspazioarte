@@ -619,12 +619,12 @@ thirdEyeGeometry.computeVertexNormals();
 
 const thirdEyeMaterial =
   new THREE.MeshPhysicalMaterial({
-    color: 0xe8e8e8,
-    metalness: 1.0,
-    roughness: 0.12,
-    clearcoat: 1.0,
-    clearcoatRoughness: 0.04,
-    flatShading: true
+   color: 0xffffff,
+metalness: 0.75,
+roughness: 0.22,
+clearcoat: 1.0,
+clearcoatRoughness: 0.08,
+flatShading: true
   });
 
 const thirdEyeSphere =
