@@ -533,34 +533,17 @@ const mirrorGeometry =
     MIRROR_CENTER_ANGLE - MIRROR_ANGLE / 2,
     MIRROR_ANGLE
   );
-// Render target per il riflesso reale della galleria
-const mirrorRenderTarget =
-  new THREE.WebGLCubeRenderTarget(256);
-
-const mirrorCamera =
-  new THREE.CubeCamera(
-    0.1,
-    100,
-    mirrorRenderTarget
-  );
-
-// la camera riflettente è posta poco davanti allo specchio
-mirrorCamera.position.set(
-  0,
-  1.40,
-  -8.90
-);
-
-scene.add(mirrorCamera);
+// SPECCHIO CURVO - PROVA STATICA SICURA
+// Per ora verifichiamo soltanto forma, posizione e curvatura.
 
 const curvedMirrorMaterial =
   new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    metalness: 1.0,
-    roughness: 0.06,
-    envMap: mirrorRenderTarget.texture,
-        envMapIntensity: 1.0,
-    side: THREE.BackSide
+    color: 0xbfc3c7,
+    metalness: 0.75,
+    roughness: 0.18,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.08,
+    side: THREE.DoubleSide
   });
 
 const curvedMirror =
