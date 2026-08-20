@@ -573,17 +573,28 @@ addTree(-0.40, 10.45, 0.32);
 addTree( 0.05, 10.65, 0.48);
 addTree( 0.48, 10.50, 0.35);
 
-// Terzo Occhio - sfera di prova
+// Terzo Occhio - sfera a specchi
+// diametro 90 cm - quota inferiore 2.70 m
+// centro 3.15 m - sommità 3.60 m
+
+const THIRD_EYE_RADIUS = 0.45;
+const THIRD_EYE_CENTER_Y = 3.15;
+const THIRD_EYE_INSET = 0.80;
+
+// dal punto 9 verso l'interno della galleria
+const thirdEyeDirection = P[9].clone().normalize();
+
 const thirdEyeCenter = new THREE.Vector3(
-  P[9].x,
-  3.20,
-  P[9].z
+  P[9].x - thirdEyeDirection.x * THIRD_EYE_INSET,
+  THIRD_EYE_CENTER_Y,
+  P[9].z - thirdEyeDirection.z * THIRD_EYE_INSET
 );
+
 const thirdEyeSphere = new THREE.Mesh(
-  new THREE.SphereGeometry(0.65, 48, 32),
+  new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS, 3),
   new THREE.MeshStandardMaterial({
-    color: 0xdddddd,
-    metalness: 1,
+    color: 0xffffff,
+    metalness: 1.0,
     roughness: 0.08
   })
 );
