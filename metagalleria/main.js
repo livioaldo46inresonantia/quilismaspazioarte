@@ -590,14 +590,48 @@ const thirdEyeCenter = new THREE.Vector3(
   P[9].z - thirdEyeDirection.z * THIRD_EYE_INSET
 );
 
-const thirdEyeSphere = new THREE.Mesh(
-  new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS, 3),
-  new THREE.MeshStandardMaterial({
-    color: 0xffffff,
+// Sfera del Terzo Occhio - specchi irregolari
+const thirdEyeGeometry =
+  new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS, 2);
+
+// Rendiamo leggermente irregolari le facce
+const positions =
+  thirdEyeGeometry.attributes.position;
+
+for (let i = 0; i < positions.count; i++) {
+
+  const v = new THREE.Vector3(
+    positions.getX(i),
+    positions.getY(i),
+    positions.getZ(i)
+  );
+
+  const variation =
+    1 + (Math.random() - 0.5) * 0.055;
+
+  v.multiplyScalar(variation);
+
+  positions.setXYZ(i, v.x, v.y, v.z);
+}
+
+positions.needsUpdate = true;
+thirdEyeGeometry.computeVertexNormals();
+
+const thirdEyeMaterial =
+  new THREE.MeshPhysicalMaterial({
+    color: 0xe8e8e8,
     metalness: 1.0,
-    roughness: 0.08
-  })
-);
+    roughness: 0.12,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.04,
+    flatShading: true
+  });
+
+const thirdEyeSphere =
+  new THREE.Mesh(
+    thirdEyeGeometry,
+    thirdEyeMaterial
+  );
 
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
