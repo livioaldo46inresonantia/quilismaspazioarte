@@ -601,7 +601,6 @@ const thirdEyeSphere = new THREE.Mesh(
 
 thirdEyeSphere.position.copy(thirdEyeCenter);
 scene.add(thirdEyeSphere);
-
 // ======================================================
 // TECHE TRIANGOLARI IN VETRO
 // 5 - I13 - I18   e   4 - I14 - I19
