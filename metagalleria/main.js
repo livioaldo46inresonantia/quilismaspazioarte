@@ -789,7 +789,7 @@ const PANORAMA_RADIUS =
 const panoramaLoader = new THREE.TextureLoader();
 
 const panoramaTexture =
-  panoramaLoader.load("../images/sfondo_panorama_v9.jpg.jpg")
+  panoramaLoader.load"../images/sfondo_panorama_v9.jpg.jpg"
 panoramaTexture.wrapS = THREE.RepeatWrapping;
 panoramaTexture.wrapT = THREE.ClampToEdgeWrapping;
 
