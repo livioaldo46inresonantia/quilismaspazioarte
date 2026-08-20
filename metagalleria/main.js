@@ -940,3 +940,4 @@ panoramaBackdrop.rotation.y =
 // ------------------------------------------------------
 
 scene.add(panoramaBackdrop);
+
