@@ -607,7 +607,7 @@ for (let i = 0; i < positions.count; i++) {
   );
 
   const variation =
-    1 + (Math.random() - 0.5) * 0.055;
+    1 + (Math.random() - 0.5) * 0.018;
 
   v.multiplyScalar(variation);
 
