@@ -311,7 +311,7 @@ function addCenterArm(angleDeg) {
 [150, 30, -90].forEach(addCenterArm);
 
 // Navigazione
-const controls = new PointerLockControls(camera, document.body);
+const controls = new PointerLockControls(camera, renderer.domElement);
 
 let topView = false;
 
