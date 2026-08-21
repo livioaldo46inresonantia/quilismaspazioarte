@@ -968,3 +968,66 @@ const benvenutoTexture = fortunLoader.load(
 );
 
 benvenutoTexture.colorSpace = THREE.SRGBColorSpace;
+// ======================================================
+// FORTUN - OMAGGIO A BENVENUTO SU D6
+// pannello geometrico I2 - I5
+// formato reale 60 x 80 cm
+// ======================================================
+
+const d6A = P.I2;
+const d6B = P.I5;
+
+const d6Dir = d6B.clone().sub(d6A);
+d6Dir.y = 0;
+
+const d6Length = d6Dir.length();
+const d6Unit = d6Dir.clone().normalize();
+
+// centro del pannello
+const d6Center = d6A.clone().add(d6B).multiplyScalar(0.5);
+
+// normale della faccia D6
+const d6Normal = new THREE.Vector3(
+  -d6Unit.z,
+  0,
+  d6Unit.x
+);
+
+// orientamento corretto della faccia D6
+d6Normal.multiplyScalar(-1);
+
+// dimensioni reali dell'opera:
+// 80 cm larghezza x 60 cm altezza
+const benvenutoGeometry =
+  new THREE.PlaneGeometry(0.80, 0.60);
+
+const benvenutoMaterial =
+  new THREE.MeshBasicMaterial({
+    map: benvenutoTexture,
+    side: THREE.DoubleSide,
+    toneMapped: false
+  });
+
+const benvenutoD6 =
+  new THREE.Mesh(
+    benvenutoGeometry,
+    benvenutoMaterial
+  );
+
+// centro dell'opera a circa 1.55 m da terra
+benvenutoD6.position.copy(d6Center);
+benvenutoD6.position.y = 1.55;
+
+// 2 cm davanti alla parete per evitare sovrapposizioni
+benvenutoD6.position.add(
+  d6Normal.clone().multiplyScalar(0.06)
+);
+
+// allineamento alla parete
+benvenutoD6.rotation.y =
+  -Math.atan2(
+    d6B.z - d6A.z,
+    d6B.x - d6A.x
+  );
+
+scene.add(benvenutoD6);
