@@ -545,7 +545,7 @@ for (let i = 0; i < mirrorPos.count; i++) {
     const x = mirrorPos.getX(i);
     const z = mirrorPos.getZ(i);
 
-    const angle = Math.atan2(z, x);
+    const angle = Math.atan2(x, z);
 
     let delta = angle - MIRROR_CENTER_ANGLE;
 
