@@ -558,7 +558,7 @@ const t = Math.min(
 );
 
     // taglio leggerissimo e morbido verso le estremità
- const cut = 0.12 * (1 - t) * (1 - t);
+const cut = 0.04 * (1 - t) * (1 - t);
 
     mirrorPos.setY(i, y - cut);
   }
