@@ -167,7 +167,7 @@ const floor = new THREE.Mesh(
 floor.position.y = -0.06;
 floor.receiveShadow = true;
 scene.add(floor);
-floor.visible = false;
+floor.visible = true;
 // Soffitto
 const ceiling = new THREE.Mesh(
   new THREE.CylinderGeometry(R + 0.25, R + 0.25, 0.08, 128),
