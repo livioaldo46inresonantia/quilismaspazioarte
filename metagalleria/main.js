@@ -217,8 +217,7 @@ const panels = [
 
 const panelMaterial = new THREE.MeshBasicMaterial({
   color: 0xffffff,
-  roughness: 1.0,
-  metalness: 0.0
+  toneMapped: false
 });
 
 function addPanel(aName, bName) {
