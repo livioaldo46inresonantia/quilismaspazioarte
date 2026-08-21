@@ -13,7 +13,7 @@ renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-const R = 12.5;
+const R = 10.0;
 const LINE_Y = 0.012;
 
 const PANEL_HEIGHT = 3.00;
