@@ -17,7 +17,7 @@ const R = 12.5;
 const LINE_Y = 0.012;
 
 const PANEL_HEIGHT = 3.00;
-const PANEL_RAISE = 0.10;
+const PANEL_RAISE = 0.20;
 const PANEL_THICKNESS = 0.10;
 const PANEL_GAP = 0.10;
 
