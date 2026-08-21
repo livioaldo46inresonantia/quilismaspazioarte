@@ -999,7 +999,7 @@ d6Normal.multiplyScalar(-1);
 // dimensioni reali dell'opera:
 // 60 cm larghezza x 80 cm altezza
 const benvenutoGeometry =
-  new THREE.PlaneGeometry(0.60, 0.80);
+new THREE.PlaneGeometry(0.84, 1.12);
 
 const benvenutoMaterial =
   new THREE.MeshBasicMaterial({
