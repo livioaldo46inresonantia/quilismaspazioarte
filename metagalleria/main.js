@@ -482,7 +482,7 @@ function addLinearLight(aName, bName) {
   fixture.rotation.y = -Math.atan2(dz, dx);
 
   scene.add(fixture);
-fixture.visible = true
+fixture.visible = false
   // Luce calda reale
   const warmLight = new THREE.PointLight(
     0xffd6a3,
