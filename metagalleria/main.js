@@ -511,7 +511,7 @@ panels.forEach(([a, b]) => {
 // segue la curvatura della circonferenza della galleria
 // ======================================================
 
-const MIRROR_RADIUS = 9.72;
+const MIRROR_RADIUS = R;
 const MIRROR_HEIGHT = 2.60;
 const MIRROR_WIDTH = 3.20;
 
