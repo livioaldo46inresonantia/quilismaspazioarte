@@ -533,6 +533,37 @@ const mirrorGeometry =
     MIRROR_CENTER_ANGLE - MIRROR_ANGLE / 2,
     MIRROR_ANGLE
   );
+// Piccolo raccordo della parte superiore dello specchio
+const mirrorPos = mirrorGeometry.attributes.position;
+
+for (let i = 0; i < mirrorPos.count; i++) {
+
+  const y = mirrorPos.getY(i);
+
+  // agiamo soltanto sul bordo superiore
+  if (y > MIRROR_HEIGHT / 2 - 0.01) {
+
+    const x = mirrorPos.getX(i);
+    const z = mirrorPos.getZ(i);
+
+    const angle = Math.atan2(z, x);
+
+    let delta = angle - MIRROR_CENTER_ANGLE;
+
+    while (delta > Math.PI) delta -= Math.PI * 2;
+    while (delta < -Math.PI) delta += Math.PI * 2;
+
+    const t = Math.abs(delta) / (MIRROR_ANGLE / 2);
+
+    // taglio leggerissimo e morbido verso le estremità
+    const cut = 0.12 * t * t;
+
+    mirrorPos.setY(i, y - cut);
+  }
+}
+
+mirrorPos.needsUpdate = true;
+mirrorGeometry.computeVertexNormals();
 // SPECCHIO CURVO - PROVA STATICA SICURA
 // Per ora verifichiamo soltanto forma, posizione e curvatura.
 
