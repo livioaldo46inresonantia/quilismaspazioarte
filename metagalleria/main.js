@@ -552,7 +552,10 @@ for (let i = 0; i < mirrorPos.count; i++) {
     while (delta > Math.PI) delta -= Math.PI * 2;
     while (delta < -Math.PI) delta += Math.PI * 2;
 
-    const t = Math.abs(delta) / (MIRROR_ANGLE / 2);
+const t = Math.min(
+  1,
+  Math.abs(delta) / (MIRROR_ANGLE / 2)
+);
 
     // taglio leggerissimo e morbido verso le estremità
  const cut = 0.12 * (1 - t) * (1 - t);
