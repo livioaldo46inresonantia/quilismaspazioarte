@@ -632,9 +632,9 @@ function addTree(x, z, scale = 1) {
 }
 
 
-addTree(-0.40, 10.45, 0.32);
-addTree( 0.05, 10.65, 0.48);
-addTree( 0.48, 10.50, 0.35);
+addTree(-0.40, R + 0.45, 0.32);
+addTree( 0.05, R + 0.65, 0.48);
+addTree( 0.48, R + 0.50, 0.35);
 
 // Terzo Occhio - sfera a specchi
 // diametro 90 cm - quota inferiore 2.70 m
