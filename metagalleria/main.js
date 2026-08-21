@@ -955,3 +955,16 @@ panoramaBackdrop.rotation.y =
 
 scene.add(panoramaBackdrop);
 
+// ======================================================
+// FORTUN - OMAGGIO A BENVENUTO
+// prova allestimento su D6
+// opera originale: 60 x 80 cm
+// ======================================================
+
+const fortunLoader = new THREE.TextureLoader();
+
+const benvenutoTexture = fortunLoader.load(
+  "../images/1975 Padova        cm. 60x80   Omaggio a       Benvenuto.jpg"
+);
+
+benvenutoTexture.colorSpace = THREE.SRGBColorSpace;
