@@ -571,13 +571,12 @@ mirrorGeometry.computeVertexNormals();
 
 const curvedMirrorMaterial =
   new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    metalness: 1.0,
-    roughness: 0.04,
+    color: 0xbfc3c7,
+    metalness: 0.75,
+    roughness: 0.18,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.02,
-    side: THREE.DoubleSide,
-    toneMapped: false
+    clearcoatRoughness: 0.08,
+    side: THREE.DoubleSide
   });
 
 const curvedMirror =
