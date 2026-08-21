@@ -215,7 +215,7 @@ const panels = [
   ['I11', 'I15']
 ];
 
-const panelMaterial = new THREE.MeshBasicMaterial({
+const panelMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
   roughness: 1.0,
   metalness: 0.0
