@@ -382,8 +382,8 @@ function animate() {
       camera.position.z
     );
 
-    if (d > 9.75) {
-      const q = 9.75 / d;
+if (d > R - 0.25) {
+  const q = (R - 0.25) / d;
       camera.position.x *= q;
       camera.position.z *= q;
     }
