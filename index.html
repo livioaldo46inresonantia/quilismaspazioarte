@@ -233,63 +233,56 @@ HTML
 
     <div class="binario-luci"></div>
 
-    <!-- STANZA 1: FORTUN -->
-    <div class="stanza attiva" id="stanza-fortun"style="display:nome;">
-        <div class="header-stanza">
-            <h1>ANTONIO FORTÚN</h1>
-<p class="artista-nome">Padova · 1975</p>
-<p class="sottotitolo">
-Otto opere provenienti direttamente dal periodo padovano dell'artista.
-</p>
-            <p class="artista-nome">Antonio Fortun</p>
-            <p class="sottotitolo">QuilismaSpazioArte - Custode temporaneo</p>
-        </div>
-        
-<div style="position:absolute; left:56%; top:31%; width:170px; height:220px; background:white; z-index:50;"></div>
-        <div class="opera" style="left: 48%; top: 22%; width: 520px;"> 
-       
-            <div class="info-quadro">
-                <p class="titolo-opera">Omaggio a Benvenuto</p>
-                <p>
-Prima opera del ciclo padovano.
-Realizzata durante il soggiorno nello studio di architettura di Livio Picotti.
-</p>
-                <p class="tecnica">Acrilico su tela</p>
-                <p class="anno-misure">1975 - 60x80 cm</p>
-                <p class="artista-link" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
+<!-- STANZA 1: FORTUN - NUOVA 2D -->
+<div class="stanza attiva" id="stanza-fortun"
+     style="display:block; position:relative; width:100vw; height:100vh;
+            background:url('galleria-fortun.jpg') center center / cover no-repeat;">
+
+    <!-- OMAGGIO A BENVENUTO -->
+    <div style="
+        position:absolute;
+        left:31%;
+        top:27%;
+        height:58%;
+        display:flex;
+        align-items:center;
+        gap:32px;
+    ">
+
+        <img src="images/fortun-benvenuto.jpg"
+             alt="Antonio Fortún - Omaggio a Benvenuto"
+             style="
+                height:100%;
+                width:auto;
+                display:block;
+                object-fit:contain;
+                box-shadow:0 3px 12px rgba(0,0,0,.30);
+                cursor:pointer;
+             ">
+
+        <div style="
+            font-family:Arial, sans-serif;
+            color:#222;
+            line-height:1.45;
+            min-width:220px;
+        ">
+            <div style="font-size:24px; font-weight:600;">
+                ANTONIO FORTÚN
+            </div>
+
+            <div style="font-size:20px; margin-top:12px;">
+                <em>Omaggio a Benvenuto</em>
+            </div>
+
+            <div style="font-size:17px; margin-top:14px;">
+                Padova, 1975<br>
+                Acrilico su tela<br>
+                60 × 80 cm
             </div>
         </div>
 
-        <div class="opera">
-        
-            <div class="info-quadro">
-                <p class="tecnica">Acrilico su tela</p>
-                <p class="anno-misure">1975 - 60x50 cm</p>
-                <p class="artista-link" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
-            </div>
-        </div>
-
-    
-        <div class="opera">
-           
-            <div class="info-quadro">
-                <p class="tecnica">Acrilico su tela</p>
-                <p class="anno-misure">1975 - 50x60 cm</p>
-                <p class="artista-link" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
-            </div>
-        </div>
-
-        <div class="opera">
-            <img src="images/fortun4.jpg" alt="Opera 4 - 1977" onclick="mostraStoriaPadova()">
-            <div class="info-quadro">
-                <p class="tecnica">Acrilico su cartoncino</p>
-                <p class="anno-misure">1977 - 25x17,50 cm</p>
-                <p class="artista-link" onclick="mostraBioArtista()">ANTONIO FORTUN</p>
-            </div>
-        </div>
-
-        <div class="panca"></div>
     </div>
+
 
     <!-- STANZA 2: JASSMIN - PREDISPOSTA -->
     <div class="stanza" id="stanza-jassmin">
