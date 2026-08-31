@@ -8,9 +8,9 @@ camera.position.set(0, 1.65, 8.8);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = false;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = 1.6;
 document.body.appendChild(renderer.domElement);
 
 const R = 12.5; const LINE_Y = 0.012;
@@ -62,15 +62,15 @@ function addStars(){
 }
 addStars();
 
-scene.add(new THREE.HemisphereLight(0xdde6ff, 0x0a1428, 0.62));
-const softLight=new THREE.DirectionalLight(0xfff1dd, 0.38); softLight.position.set(3,8,4); scene.add(softLight);
+scene.add(new THREE.HemisphereLight(0xeef2ff, 0x101828, 1.4));
+const softLight=new THREE.DirectionalLight(0xfff6e8, 1.0); softLight.position.set(4,9,5); scene.add(softLight);
+const fillLight=new THREE.DirectionalLight(0xc8d8ff, 0.6); fillLight.position.set(-5,6,-4); scene.add(fillLight);
 
 const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
 ];
 
-// ANTRACITE ESATTO DALLA TUA FOTO BENVENUTO - #373a3f - non nero mortuario
-const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x373a3f, roughness: 0.92, metalness: 0.05 });
+const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x5e636c, roughness: 0.85, metalness: 0.08 });
 
 const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.25 });
 const LATERAL_WIDTH = 0.08;
@@ -80,16 +80,14 @@ function addPanel(aName,bName){
   const start=a.clone().add(unit.clone().multiplyScalar(trim)); const end=b.clone().add(unit.clone().multiplyScalar(-trim));
   const midX=(start.x+end.x)/2, midZ=(start.z+end.z)/2; const rotY=-Math.atan2(end.z-start.z,end.x-start.x);
   const wall=new THREE.Mesh(new THREE.BoxGeometry(Math.hypot(end.x-start.x,end.z-start.z),PANEL_HEIGHT,PANEL_THICKNESS), panelMaterial);
-  wall.position.set(midX, PANEL_RAISE+PANEL_HEIGHT/2, midZ); wall.rotation.y=rotY; wall.castShadow=true; wall.receiveShadow=true; scene.add(wall);
+  wall.position.set(midX, PANEL_RAISE+PANEL_HEIGHT/2, midZ); wall.rotation.y=rotY; scene.add(wall);
   const sideGeo=new THREE.BoxGeometry(LATERAL_WIDTH, PANEL_HEIGHT, 0.04);
   const leftLight=new THREE.Mesh(sideGeo, edgeLightMat); leftLight.position.set(start.x, PANEL_RAISE+PANEL_HEIGHT/2, start.z); leftLight.rotation.y=rotY; scene.add(leftLight);
   const rightLight=new THREE.Mesh(sideGeo, edgeLightMat); rightLight.position.set(end.x, PANEL_RAISE+PANEL_HEIGHT/2, end.z); rightLight.rotation.y=rotY; scene.add(rightLight);
-  const l1=new THREE.PointLight(0xffe8c0, 0.32, 3.0, 2); l1.position.set(leftLight.position.x, 1.4, leftLight.position.z); scene.add(l1);
-  const l2=new THREE.PointLight(0xffe8c0, 0.32, 3.0, 2); l2.position.set(rightLight.position.x, 1.4, rightLight.position.z); scene.add(l2);
 }
 panels.forEach(([a,b])=>addPanel(a,b));
 
-const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ color:0xe8e8e8, metalness:0.98, roughness:0.04, clearcoat:1.0, clearcoatRoughness:0.02, side:THREE.DoubleSide });
+const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ color:0xe8e8e8, metalness:0.98, roughness:0.04, clearcoat:1.0, side:THREE.DoubleSide });
 function addCenterArm(angleDeg){
   const a=THREE.MathUtils.degToRad(angleDeg);
   const end=new THREE.Vector3(CENTER_ARM_LENGTH*Math.cos(a),0,-CENTER_ARM_LENGTH*Math.sin(a));
@@ -99,8 +97,7 @@ function addCenterArm(angleDeg){
 }
 [150,30,-90].forEach(addCenterArm);
 
-const THIRD_EYE_RADIUS = 1.60;
-const THIRD_EYE_CENTER_Y = 12.0;
+const THIRD_EYE_RADIUS = 1.60; const THIRD_EYE_CENTER_Y = 12.0;
 const thirdEyeCenter=new THREE.Vector3(0,THIRD_EYE_CENTER_Y,0);
 const thirdEyeGeometry=new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS,4);
 const posAttr=thirdEyeGeometry.attributes.position;
@@ -108,7 +105,7 @@ for(let i=0;i<posAttr.count;i++){ const v=new THREE.Vector3(posAttr.getX(i),posA
 posAttr.needsUpdate=true; thirdEyeGeometry.computeVertexNormals();
 const thirdEyeMaterial=new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.92, roughness:0.08, clearcoat:1.0, flatShading:true, emissive:0xffffff, emissiveIntensity:0.05 });
 const thirdEyeSphere=new THREE.Mesh(thirdEyeGeometry,thirdEyeMaterial); thirdEyeSphere.position.copy(thirdEyeCenter); scene.add(thirdEyeSphere);
-const sphereLight=new THREE.PointLight(0xffffff, 1.2, 70, 1.6); sphereLight.position.copy(thirdEyeCenter); scene.add(sphereLight);
+const sphereLight=new THREE.PointLight(0xffffff, 1.0, 70, 1.6); sphereLight.position.copy(thirdEyeCenter); scene.add(sphereLight);
 function animateSphere(dt){ thirdEyeSphere.rotation.y+=dt*0.06; thirdEyeSphere.rotation.x+=dt*0.02; }
 
 const controls=new PointerLockControls(camera, renderer.domElement);
