@@ -10,13 +10,12 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+renderer.toneMappingExposure = 1.15;
 document.body.appendChild(renderer.domElement);
 
 const R = 12.5; const LINE_Y = 0.012;
 const PANEL_HEIGHT = 3.00; const PANEL_RAISE = 0.12; const PANEL_THICKNESS = 0.10; const PANEL_GAP = 0.10;
 const CENTER_HEIGHT = 2.10; const CENTER_ARM_LENGTH = 2.30; const CENTER_THICKNESS = 0.10;
-const CEILING_Y = 6.5;
 const angles = { 9: 90, 1: 50, 2: 10, 3: -30, 4: -70, 5: -110, 6: -150, 7: 170, 8: 130 };
 function pt(deg, r = R){ const a = THREE.MathUtils.degToRad(deg); return new THREE.Vector3(r*Math.cos(a), LINE_Y, -r*Math.sin(a)); }
 const P = {}; Object.entries(angles).forEach(([k,a])=>{ P[k]=pt(a); });
@@ -65,11 +64,11 @@ const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
 ];
 
-// COLORE ANTRACITE ESATTO come i 3 pannelli centrali originali - grigio scuro opaco 0x25292e, non nero mortuario
+// ANTRACITE CAMPIONATO DALLE TUE IMMAGINI - 55,58,63 = #373a3f - grigio scuro opaco, non nero mortuario
 const panelMaterial=new THREE.MeshStandardMaterial({ 
-  color: 0x25292e, 
+  color: 0x373a3f, 
   roughness: 0.95, 
-  metalness: 0.02 
+  metalness: 0.03 
 });
 
 const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.6 });
