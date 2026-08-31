@@ -58,17 +58,19 @@ function addStars(){
   const stars=new THREE.Points(starsGeo,starsMat); scene.add(stars);
 }
 addStars();
-scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 0.85));
-const softLight=new THREE.DirectionalLight(0xfff1dd, 0.55); softLight.position.set(3,8,4); scene.add(softLight);
+scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 1.25));
+const softLight=new THREE.DirectionalLight(0xfff1dd, 1.1); softLight.position.set(3,8,4); scene.add(softLight);
 const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
 ];
 
 // ANTRACITE CAMPIONATO DALLE TUE IMMAGINI - 55,58,63 = #373a3f - grigio scuro opaco, non nero mortuario
 const panelMaterial=new THREE.MeshStandardMaterial({ 
-  color: 0x373a3f, 
-  roughness: 0.95, 
-  metalness: 0.03 
+  color: 0x4a4d55, 
+  roughness: 0.88, 
+  metalness: 0.05,
+  emissive: 0x373a3f,
+  emissiveIntensity: 0.15 
 });
 
 const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.6 });
