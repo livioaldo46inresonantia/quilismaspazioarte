@@ -135,7 +135,7 @@ function toggleTopView(){
 const clock=new THREE.Clock();
 function animate(){ requestAnimationFrame(animate); const dt=Math.min(clock.getDelta(),0.05);
   if(controls.isLocked&&!topView){ const speed=3.2*dt; if(keys.KeyW) controls.moveForward(speed); if(keys.KeyS) controls.moveForward(-speed); if(keys.KeyA) controls.moveRight(-speed); if(keys.KeyD) controls.moveRight(speed); camera.position.y=1.65; const d=Math.hypot(camera.position.x,camera.position.z); if(d>R-0.25){ const q=(R-0.25)/d; camera.position.x*=q; camera.position.z*=q; } }
-  animateSphere(dt); renderer.render(scene,camera);
+  renderer.render(scene,camera);
 }
 animate();
 addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
