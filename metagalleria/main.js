@@ -69,7 +69,7 @@ const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
 ];
 
-// ANTRACITE ESATTO DALLA TUA FOTO BENVENUTO - #373a3f misurato al pixel - non nero mortuario
+// ANTRACITE ESATTO DALLA TUA FOTO BENVENUTO - #373a3f - non nero mortuario
 const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x373a3f, roughness: 0.92, metalness: 0.05 });
 
 const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.25 });
@@ -137,7 +137,7 @@ const panoramaGeometry=new THREE.CylinderGeometry(PANORAMA_RADIUS,PANORAMA_RADIU
 const panoramaMaterial=new THREE.MeshBasicMaterial({ map:panoramaTexture, transparent:true, opacity:1.0, side:THREE.BackSide, depthWrite:false });
 const panoramaBackdrop=new THREE.Mesh(panoramaGeometry,panoramaMaterial); panoramaBackdrop.position.y=PANORAMA_HEIGHT/2; scene.add(panoramaBackdrop);
 const fortunLoader=new THREE.TextureLoader();
-const benvenutoTexture=fortunLoader.load("../images/1975 Padova        cm. 60x80   Omaggio a       Benvenuto.jpg");
+const benvenutoTexture=fortunLoader.load("../images/1975 Padova cm. 60x80 Omaggio a Benvenuto.jpg");
 benvenutoTexture.colorSpace=THREE.SRGBColorSpace;
 const d6A=P.I2, d6B=P.I5, d6Dir=d6B.clone().sub(d6A); d6Dir.y=0; const d6Center=d6A.clone().add(d6B).multiplyScalar(0.5); const d6Unit=d6Dir.clone().normalize(); const d6Normal=new THREE.Vector3(-d6Unit.z,0,d6Unit.x).multiplyScalar(-1);
 const benvenutoGeometry=new THREE.PlaneGeometry(0.84,1.12);
