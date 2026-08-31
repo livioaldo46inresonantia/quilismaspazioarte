@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/+esm';
 import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/PointerLockControls.js/+esm';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0f1c33); // blu scuro notte profonda - non nero, non azzurro fiaba
+scene.background = new THREE.Color(0x0f1c33);
 const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
 camera.position.set(0, 1.65, 8.8);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -16,6 +16,7 @@ document.body.appendChild(renderer.domElement);
 const R = 12.5; const LINE_Y = 0.012;
 const PANEL_HEIGHT = 3.00; const PANEL_RAISE = 0.12; const PANEL_THICKNESS = 0.10; const PANEL_GAP = 0.10;
 const CENTER_HEIGHT = 2.10; const CENTER_ARM_LENGTH = 2.30; const CENTER_THICKNESS = 0.10;
+
 const angles = { 9: 90, 1: 50, 2: 10, 3: -30, 4: -70, 5: -110, 6: -150, 7: 170, 8: 130 };
 function pt(deg, r = R){ const a = THREE.MathUtils.degToRad(deg); return new THREE.Vector3(r*Math.cos(a), LINE_Y, -r*Math.sin(a)); }
 const P = {}; Object.entries(angles).forEach(([k,a])=>{ P[k]=pt(a); });
@@ -48,11 +49,10 @@ masterPaths.forEach(path=>{ for(let i=0;i<path.length-1;i++) addFloorSegment(P[p
 const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xd8d6d2,roughness:0.95}));
 floor.position.y=-0.06; floor.receiveShadow=true; scene.add(floor);
 
-// VOLTA CIELO BLU SCURO
 const ceilingGeo=new THREE.SphereGeometry(48, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
 const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x0f1c33, side: THREE.BackSide });
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat); ceiling.position.y = -8; scene.add(ceiling);
-// STELLE piccoli puntini meno forti
+
 function addStars(){
   const starCount=450; const starsGeo=new THREE.BufferGeometry(); const pos=[];
   for(let i=0;i<starCount;i++){ const ang=Math.random()*Math.PI*2; const rad= R + 8 + Math.random()*35; const y = 8 + Math.random()*30; pos.push(Math.cos(ang)*rad,y,-Math.sin(ang)*rad); }
@@ -61,6 +61,7 @@ function addStars(){
   scene.add(new THREE.Points(starsGeo,starsMat));
 }
 addStars();
+
 scene.add(new THREE.HemisphereLight(0xdde6ff, 0x0a1428, 0.62));
 const softLight=new THREE.DirectionalLight(0xfff1dd, 0.38); softLight.position.set(3,8,4); scene.add(softLight);
 
@@ -68,10 +69,9 @@ const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
 ];
 
-// COLORE ANTRACITE che vuoi tu - non nero - 0x2b333b
-const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x2b333b, roughness: 0.92, metalness: 0.04 });
+// ANTRACITE ESATTO DALLA TUA FOTO BENVENUTO - #373a3f misurato al pixel - non nero mortuario
+const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x373a3f, roughness: 0.92, metalness: 0.05 });
 
-// FASCE LATERALI larghe come testate, niente sopra
 const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.25 });
 const LATERAL_WIDTH = 0.08;
 function addPanel(aName,bName){
@@ -89,60 +89,26 @@ function addPanel(aName,bName){
 }
 panels.forEach(([a,b])=>addPanel(a,b));
 
-// TRE BRACCI CENTRALI DI SPECCHI - verticali 2.10m - riflettono
-const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ 
-  color:0xe8e8e8, 
-  metalness:0.98, 
-  roughness:0.04, 
-  clearcoat:1.0, 
-  clearcoatRoughness:0.02, 
-  side:THREE.DoubleSide 
-});
+const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ color:0xe8e8e8, metalness:0.98, roughness:0.04, clearcoat:1.0, clearcoatRoughness:0.02, side:THREE.DoubleSide });
 function addCenterArm(angleDeg){
   const a=THREE.MathUtils.degToRad(angleDeg);
   const end=new THREE.Vector3(CENTER_ARM_LENGTH*Math.cos(a),0,-CENTER_ARM_LENGTH*Math.sin(a));
   const len=Math.hypot(end.x,end.z);
   const arm=new THREE.Mesh(new THREE.BoxGeometry(len,CENTER_HEIGHT,CENTER_THICKNESS), centerMirrorMaterial);
-  arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); 
-  arm.castShadow=false; arm.receiveShadow=false;
-  scene.add(arm);
+  arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); scene.add(arm);
 }
 [150,30,-90].forEach(addCenterArm);
 
-// PALLA QUASI DA DISCOTECA - non nera, specchiante a facce - sorgente di luce
 const THIRD_EYE_RADIUS = 1.60;
-const THIRD_EYE_CENTER_Y = 12.0; // per prova visibile, poi la alziamo a 26m come vuoi tu
+const THIRD_EYE_CENTER_Y = 12.0;
 const thirdEyeCenter=new THREE.Vector3(0,THIRD_EYE_CENTER_Y,0);
-const thirdEyeGeometry=new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS,4); // più facce per effetto disco
+const thirdEyeGeometry=new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS,4);
 const posAttr=thirdEyeGeometry.attributes.position;
-for(let i=0;i<posAttr.count;i++){ 
-  const v=new THREE.Vector3(posAttr.getX(i),posAttr.getY(i),posAttr.getZ(i)); 
-  v.multiplyScalar(1+(Math.random()-0.5)*0.10); // più irregolare - quasi discoteca
-  posAttr.setXYZ(i,v.x,v.y,v.z); 
-}
+for(let i=0;i<posAttr.count;i++){ const v=new THREE.Vector3(posAttr.getX(i),posAttr.getY(i),posAttr.getZ(i)); v.multiplyScalar(1+(Math.random()-0.5)*0.10); posAttr.setXYZ(i,v.x,v.y,v.z); }
 posAttr.needsUpdate=true; thirdEyeGeometry.computeVertexNormals();
-
-// MATERIALE QUASI DA DISCOTECA - specchi irregolari, non nero
-const thirdEyeMaterial=new THREE.MeshPhysicalMaterial({ 
-  color:0xffffff, 
-  metalness:0.92, 
-  roughness:0.08, 
-  clearcoat:1.0, 
-  clearcoatRoughness:0.03, 
-  flatShading:true, // facce specchiate irregolari
-  emissive:0xffffff, 
-  emissiveIntensity:0.05,
-  envMapIntensity:1.5
-});
-const thirdEyeSphere=new THREE.Mesh(thirdEyeGeometry,thirdEyeMaterial); 
-thirdEyeSphere.position.copy(thirdEyeCenter); 
-scene.add(thirdEyeSphere);
-
-// luce che parte dalla palla specchiante
-const sphereLight=new THREE.PointLight(0xffffff, 1.2, 70, 1.6); 
-sphereLight.position.copy(thirdEyeCenter); 
-scene.add(sphereLight);
-
+const thirdEyeMaterial=new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.92, roughness:0.08, clearcoat:1.0, flatShading:true, emissive:0xffffff, emissiveIntensity:0.05 });
+const thirdEyeSphere=new THREE.Mesh(thirdEyeGeometry,thirdEyeMaterial); thirdEyeSphere.position.copy(thirdEyeCenter); scene.add(thirdEyeSphere);
+const sphereLight=new THREE.PointLight(0xffffff, 1.2, 70, 1.6); sphereLight.position.copy(thirdEyeCenter); scene.add(sphereLight);
 function animateSphere(dt){ thirdEyeSphere.rotation.y+=dt*0.06; thirdEyeSphere.rotation.x+=dt*0.02; }
 
 const controls=new PointerLockControls(camera, renderer.domElement);
