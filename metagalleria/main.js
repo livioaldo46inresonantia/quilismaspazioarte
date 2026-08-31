@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/+esm';
 import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/PointerLockControls.js/+esm';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x131748);
+scene.background = new THREE.Color(0x0a0e46);
 const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
 camera.position.set(0, 1.65, 8.8);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -10,7 +10,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.45;
+renderer.toneMappingExposure = 1.25;
 document.body.appendChild(renderer.domElement);
 
 const R = 12.5; const LINE_Y = 0.012;
@@ -48,7 +48,7 @@ masterPaths.forEach(path=>{ for(let i=0;i<path.length-1;i++) addFloorSegment(P[p
 const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xbebebe,roughness:0.85}));
 floor.position.y=-0.06; floor.receiveShadow=true; scene.add(floor);
 const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
-const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x131748, side: THREE.BackSide });
+const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x0a0e46, side: THREE.BackSide });
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat); ceiling.position.y = -8; scene.add(ceiling);
 function addStars(){
   const starCount=380; const starsGeo=new THREE.BufferGeometry(); const pos=[]; const cols=[];
