@@ -2,19 +2,21 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/+esm';
 import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/PointerLockControls.js/+esm';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0f1c33);
+scene.background = new THREE.Color(0x223a5a);
 const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
 camera.position.set(0, 1.65, 8.8);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.25;
+renderer.toneMappingExposure = 1.1;
 document.body.appendChild(renderer.domElement);
 
 const R = 12.5; const LINE_Y = 0.012;
 const PANEL_HEIGHT = 3.00; const PANEL_RAISE = 0.12; const PANEL_THICKNESS = 0.10; const PANEL_GAP = 0.10;
 const CENTER_HEIGHT = 2.10; const CENTER_ARM_LENGTH = 2.30; const CENTER_THICKNESS = 0.10;
+const CEILING_Y = 6.5;
 const angles = { 9: 90, 1: 50, 2: 10, 3: -30, 4: -70, 5: -110, 6: -150, 7: 170, 8: 130 };
 function pt(deg, r = R){ const a = THREE.MathUtils.degToRad(deg); return new THREE.Vector3(r*Math.cos(a), LINE_Y, -r*Math.sin(a)); }
 const P = {}; Object.entries(angles).forEach(([k,a])=>{ P[k]=pt(a); });
@@ -40,30 +42,37 @@ function addFloorSegment(a,b){
   const mat=new THREE.MeshStandardMaterial({color:0x050508,roughness:0.9});
   const mesh=new THREE.Mesh(geo,mat); mesh.position.copy(mid); mesh.rotation.y=-Math.atan2(end.z-start.z,end.x-start.x); scene.add(mesh);
   const ledGeo=new THREE.BoxGeometry(len,0.010,0.004);
-  const ledMat=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:2.0});
+  const ledMat=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:2.5});
   const led=new THREE.Mesh(ledGeo,ledMat); led.position.copy(mid); led.position.y+=0.006; led.rotation.y=mesh.rotation.y; scene.add(led);
 }
 masterPaths.forEach(path=>{ for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]); });
 const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xd8d6d2,roughness:0.95}));
-floor.position.y=-0.06; scene.add(floor);
-const ceilingGeo=new THREE.SphereGeometry(48, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
-const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x0f1c33, side: THREE.BackSide });
+floor.position.y=-0.06; floor.receiveShadow=true; scene.add(floor);
+const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
+const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x223a5a, side: THREE.BackSide });
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat); ceiling.position.y = -8; scene.add(ceiling);
 function addStars(){
-  const starCount=450; const starsGeo=new THREE.BufferGeometry(); const pos=[];
-  for(let i=0;i<starCount;i++){ const ang=Math.random()*Math.PI*2; const rad= R + 8 + Math.random()*35; const y = 8 + Math.random()*30; pos.push(Math.cos(ang)*rad,y,-Math.sin(ang)*rad); }
+  const starCount=800; const starsGeo=new THREE.BufferGeometry(); const pos=[];
+  for(let i=0;i<starCount;i++){ const ang=Math.random()*Math.PI*2; const rad= R + 5 + Math.random()*30; const y = 6 + Math.random()*28; const x=Math.cos(ang)*rad, z= -Math.sin(ang)*rad; pos.push(x,y,z); }
   starsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
-  const starsMat=new THREE.PointsMaterial({color:0xffffff, size:0.07, sizeAttenuation:true, transparent:true, opacity:0.38});
-  scene.add(new THREE.Points(starsGeo,starsMat));
+  const starsMat=new THREE.PointsMaterial({color:0xc8e0ff, size:0.18, sizeAttenuation:true, transparent:true, opacity:0.95});
+  const stars=new THREE.Points(starsGeo,starsMat); scene.add(stars);
 }
 addStars();
-scene.add(new THREE.HemisphereLight(0xeef2ff, 0x101828, 0.95));
-const softLight=new THREE.DirectionalLight(0xfff6e8, 0.75); softLight.position.set(4,9,5); scene.add(softLight);
-const panels=[['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']];
+scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 0.85));
+const softLight=new THREE.DirectionalLight(0xfff1dd, 0.55); softLight.position.set(3,8,4); scene.add(softLight);
+const panels=[
+  ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
+];
 
-// ANTRACITE GIUSTO - non nero, non topo - #2e3237
-const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x2e3237, roughness: 0.90, metalness: 0.06 });
-const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.2 });
+// COLORE ANTRACITE ESATTO come i 3 pannelli centrali originali - grigio scuro opaco 0x25292e, non nero mortuario
+const panelMaterial=new THREE.MeshStandardMaterial({ 
+  color: 0x25292e, 
+  roughness: 0.95, 
+  metalness: 0.02 
+});
+
+const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.6 });
 const LATERAL_WIDTH = 0.08;
 function addPanel(aName,bName){
   const a=P[aName],b=P[bName]; if(!a||!b) return;
@@ -71,13 +80,16 @@ function addPanel(aName,bName){
   const start=a.clone().add(unit.clone().multiplyScalar(trim)); const end=b.clone().add(unit.clone().multiplyScalar(-trim));
   const midX=(start.x+end.x)/2, midZ=(start.z+end.z)/2; const rotY=-Math.atan2(end.z-start.z,end.x-start.x);
   const wall=new THREE.Mesh(new THREE.BoxGeometry(Math.hypot(end.x-start.x,end.z-start.z),PANEL_HEIGHT,PANEL_THICKNESS), panelMaterial);
-  wall.position.set(midX, PANEL_RAISE+PANEL_HEIGHT/2, midZ); wall.rotation.y=rotY; scene.add(wall);
+  wall.position.set(midX, PANEL_RAISE+PANEL_HEIGHT/2, midZ); wall.rotation.y=rotY; wall.castShadow=true; wall.receiveShadow=true; scene.add(wall);
   const sideGeo=new THREE.BoxGeometry(LATERAL_WIDTH, PANEL_HEIGHT, 0.04);
   const leftLight=new THREE.Mesh(sideGeo, edgeLightMat); leftLight.position.set(start.x, PANEL_RAISE+PANEL_HEIGHT/2, start.z); leftLight.rotation.y=rotY; scene.add(leftLight);
   const rightLight=new THREE.Mesh(sideGeo, edgeLightMat); rightLight.position.set(end.x, PANEL_RAISE+PANEL_HEIGHT/2, end.z); rightLight.rotation.y=rotY; scene.add(rightLight);
+  const l1=new THREE.PointLight(0xffe8c0, 0.5, 3.5, 2); l1.position.set(leftLight.position.x, 1.5, leftLight.position.z); scene.add(l1);
+  const l2=new THREE.PointLight(0xffe8c0, 0.5, 3.5, 2); l2.position.set(rightLight.position.x, 1.5, rightLight.position.z); scene.add(l2);
 }
 panels.forEach(([a,b])=>addPanel(a,b));
-const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ color:0xe8e8e8, metalness:0.98, roughness:0.04, clearcoat:1.0, side:THREE.DoubleSide });
+
+const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.96, roughness:0.07, clearcoat:1.0, side:THREE.DoubleSide });
 function addCenterArm(angleDeg){
   const a=THREE.MathUtils.degToRad(angleDeg);
   const end=new THREE.Vector3(CENTER_ARM_LENGTH*Math.cos(a),0,-CENTER_ARM_LENGTH*Math.sin(a));
@@ -86,16 +98,18 @@ function addCenterArm(angleDeg){
   arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); scene.add(arm);
 }
 [150,30,-90].forEach(addCenterArm);
+
 const THIRD_EYE_RADIUS = 1.60; const THIRD_EYE_CENTER_Y = 12.0;
 const thirdEyeCenter=new THREE.Vector3(0,THIRD_EYE_CENTER_Y,0);
-const thirdEyeGeometry=new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS,4);
+const thirdEyeGeometry=new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS,3);
 const posAttr=thirdEyeGeometry.attributes.position;
-for(let i=0;i<posAttr.count;i++){ const v=new THREE.Vector3(posAttr.getX(i),posAttr.getY(i),posAttr.getZ(i)); v.multiplyScalar(1+(Math.random()-0.5)*0.10); posAttr.setXYZ(i,v.x,v.y,v.z); }
+for(let i=0;i<posAttr.count;i++){ const v=new THREE.Vector3(posAttr.getX(i),posAttr.getY(i),posAttr.getZ(i)); v.multiplyScalar(1+(Math.random()-0.5)*0.06); posAttr.setXYZ(i,v.x,v.y,v.z); }
 posAttr.needsUpdate=true; thirdEyeGeometry.computeVertexNormals();
-const thirdEyeMaterial=new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.92, roughness:0.08, clearcoat:1.0, flatShading:true, emissive:0xffffff, emissiveIntensity:0.05 });
+const thirdEyeMaterial=new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.88, roughness:0.15, clearcoat:1.0, flatShading:true, emissive:0xffffff, emissiveIntensity:0.08 });
 const thirdEyeSphere=new THREE.Mesh(thirdEyeGeometry,thirdEyeMaterial); thirdEyeSphere.position.copy(thirdEyeCenter); scene.add(thirdEyeSphere);
-const sphereLight=new THREE.PointLight(0xffffff, 1.0, 70, 1.6); sphereLight.position.copy(thirdEyeCenter); scene.add(sphereLight);
-function animateSphere(dt){ thirdEyeSphere.rotation.y+=dt*0.06; thirdEyeSphere.rotation.x+=dt*0.02; }
+const sphereLight=new THREE.PointLight(0xffffff, 1.0, 60, 1.8); sphereLight.position.copy(thirdEyeCenter); scene.add(sphereLight);
+function animateSphere(dt){ thirdEyeSphere.rotation.y+=dt*0.04; }
+
 const controls=new PointerLockControls(camera, renderer.domElement);
 let topView=false;
 document.body.addEventListener('click', ()=>{ if(!topView) controls.lock(); });
@@ -122,7 +136,7 @@ const panoramaGeometry=new THREE.CylinderGeometry(PANORAMA_RADIUS,PANORAMA_RADIU
 const panoramaMaterial=new THREE.MeshBasicMaterial({ map:panoramaTexture, transparent:true, opacity:1.0, side:THREE.BackSide, depthWrite:false });
 const panoramaBackdrop=new THREE.Mesh(panoramaGeometry,panoramaMaterial); panoramaBackdrop.position.y=PANORAMA_HEIGHT/2; scene.add(panoramaBackdrop);
 const fortunLoader=new THREE.TextureLoader();
-const benvenutoTexture=fortunLoader.load("../images/1975 Padova cm. 60x80 Omaggio a Benvenuto.jpg");
+const benvenutoTexture=fortunLoader.load("../images/1975 Padova        cm. 60x80   Omaggio a       Benvenuto.jpg");
 benvenutoTexture.colorSpace=THREE.SRGBColorSpace;
 const d6A=P.I2, d6B=P.I5, d6Dir=d6B.clone().sub(d6A); d6Dir.y=0; const d6Center=d6A.clone().add(d6B).multiplyScalar(0.5); const d6Unit=d6Dir.clone().normalize(); const d6Normal=new THREE.Vector3(-d6Unit.z,0,d6Unit.x).multiplyScalar(-1);
 const benvenutoGeometry=new THREE.PlaneGeometry(0.84,1.12);
