@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/+esm';
 import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/PointerLockControls.js/+esm';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x12214a);
+scene.background = new THREE.Color(0x1b2065);
 const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
 camera.position.set(0, 1.65, 8.8);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -48,28 +48,23 @@ masterPaths.forEach(path=>{ for(let i=0;i<path.length-1;i++) addFloorSegment(P[p
 const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xd8d6d2,roughness:0.95}));
 floor.position.y=-0.06; floor.receiveShadow=true; scene.add(floor);
 const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
-const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x12214a, side: THREE.BackSide });
+const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x1b2065, side: THREE.BackSide });
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat); ceiling.position.y = -8; scene.add(ceiling);
 function addStars(){
-  const starCount=1100; const starsGeo=new THREE.BufferGeometry(); const pos=[]; const cols=[];
+  const starCount=380; const starsGeo=new THREE.BufferGeometry(); const pos=[]; const cols=[];
   for(let i=0;i<starCount;i++){ 
     const ang=Math.random()*Math.PI*2; 
-    const rad= R + 10 + Math.random()*60; 
-    const y = 9 + Math.random()*35; 
-    const x=Math.cos(ang)*rad + (Math.random()-0.5)*4, z= -Math.sin(ang)*rad + (Math.random()-0.5)*4; 
+    const rad= R + 12 + Math.random()*50; 
+    const y = 10 + Math.random()*28; 
+    const x=Math.cos(ang)*rad, z= -Math.sin(ang)*rad; 
     pos.push(x,y,z);
     const r=Math.random(); 
-    if(r<0.6) cols.push(0.78,0.88,1.0); else if(r<0.85) cols.push(1.0,0.95,0.78); else cols.push(1,1,1);
+    if(r<0.65) cols.push(0.82,0.88,1.0); else if(r<0.85) cols.push(1.0,0.96,0.82); else cols.push(1,1,1);
   }
   starsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
   starsGeo.setAttribute('color', new THREE.Float32BufferAttribute(cols,3));
-  const starsMat=new THREE.PointsMaterial({size:0.20, vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.95, blending: THREE.AdditiveBlending});
+  const starsMat=new THREE.PointsMaterial({size:0.18, vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.88});
   const stars=new THREE.Points(starsGeo,starsMat); scene.add(stars);
-  // lontanissime
-  const g2=new THREE.BufferGeometry(); const p2=[];
-  for(let i=0;i<500;i++){ const ang=Math.random()*Math.PI*2; const rad= 60+Math.random()*45; const y= 20+Math.random()*25; p2.push(Math.cos(ang)*rad, y, -Math.sin(ang)*rad); }
-  g2.setAttribute('position', new THREE.Float32BufferAttribute(p2,3));
-  scene.add(new THREE.Points(g2, new THREE.PointsMaterial({color:0xffffff, size:0.10, transparent:true, opacity:0.65})));
 }
 addStars();
 scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 1.35));
@@ -104,29 +99,29 @@ function addPanel(aName,bName){
 }
 panels.forEach(([a,b])=>addPanel(a,b));
 
-const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ color:0xe8e8ea, metalness:1.0, roughness:0.08, clearcoat:1.0, clearcoatRoughness:0.1, envMapIntensity:1.5, side:THREE.DoubleSide });
+const centerMirrorMaterial=new THREE.MeshStandardMaterial({ 
+  color: 0xd8d8dc, 
+  metalness: 1.0, 
+  roughness: 0.08, 
+  emissive: 0x222233,
+  emissiveIntensity: 0.18,
+  side: THREE.DoubleSide 
+});
 function addCenterArm(angleDeg){
   const a=THREE.MathUtils.degToRad(angleDeg);
   const end=new THREE.Vector3(CENTER_ARM_LENGTH*Math.cos(a),0,-CENTER_ARM_LENGTH*Math.sin(a));
   const len=Math.hypot(end.x,end.z);
   const arm=new THREE.Mesh(new THREE.BoxGeometry(len,CENTER_HEIGHT,CENTER_THICKNESS), centerMirrorMaterial);
-  arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); scene.add(arm);
+  arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); 
+  arm.castShadow=false; arm.receiveShadow=false;
+  scene.add(arm);
+  // luce che fa brillare lo specchio
+  const spot=new THREE.PointLight(0xffffff, 0.8, 6, 2);
+  spot.position.set(end.x*0.5, CENTER_HEIGHT*0.7, end.z*0.5);
+  scene.add(spot);
 }
 [150,30,-90].forEach(addCenterArm);
 
-const THIRD_EYE_RADIUS = 1.60; const THIRD_EYE_CENTER_Y = 12.0;
-const thirdEyeCenter=new THREE.Vector3(0,THIRD_EYE_CENTER_Y,0);
-const thirdEyeGeometry=new THREE.IcosahedronGeometry(THIRD_EYE_RADIUS,3);
-const posAttr=thirdEyeGeometry.attributes.position;
-for(let i=0;i<posAttr.count;i++){ const v=new THREE.Vector3(posAttr.getX(i),posAttr.getY(i),posAttr.getZ(i)); v.multiplyScalar(1+(Math.random()-0.5)*0.06); posAttr.setXYZ(i,v.x,v.y,v.z); }
-posAttr.needsUpdate=true; thirdEyeGeometry.computeVertexNormals();
-const thirdEyeMaterial=new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.15, roughness:0.08, clearcoat:1.0, flatShading:true, emissive:0xffffff, emissiveIntensity:0.70 });
-const thirdEyeSphere=new THREE.Mesh(thirdEyeGeometry,thirdEyeMaterial); thirdEyeSphere.position.copy(thirdEyeCenter); scene.add(thirdEyeSphere);
-const sphereLight=new THREE.PointLight(0xffffff, 3.8, 90, 1.3); sphereLight.position.copy(thirdEyeCenter); scene.add(sphereLight);
-const glowGeo=new THREE.SphereGeometry(THIRD_EYE_RADIUS*1.4, 32, 32);
-const glowMat=new THREE.MeshBasicMaterial({ color:0xaaccff, transparent:true, opacity:0.22, blending: THREE.AdditiveBlending, side: THREE.BackSide });
-const glowMesh=new THREE.Mesh(glowGeo, glowMat); glowMesh.position.copy(thirdEyeCenter); scene.add(glowMesh);
-function animateSphere(dt){ thirdEyeSphere.rotation.y+=dt*0.04; glowMesh.rotation.y-=dt*0.015; }
 
 const controls=new PointerLockControls(camera, renderer.domElement);
 let topView=false;
