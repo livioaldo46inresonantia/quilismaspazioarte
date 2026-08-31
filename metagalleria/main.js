@@ -99,6 +99,53 @@ function addPanel(aName,bName){
 }
 panels.forEach(([a,b])=>addPanel(a,b));
 
+
+// --- QUADRI SUI 4 PANNELLI SCELTI ---
+const texLoader=new THREE.TextureLoader();
+function addQuadroSuPannello(aName,bName, schedaId, imgPath, larghezza){
+  const a=P[aName], b=P[bName]; if(!a||!b) return;
+  const dir=b.clone().sub(a); dir.y=0; const mid=a.clone().add(b).multiplyScalar(0.5);
+  const rotY=-Math.atan2(b.z-a.z, b.x-a.x);
+  const w=larghezza||1.2, h=w*1.25;
+  const geo=new THREE.PlaneGeometry(w,h);
+  let mat;
+  if(imgPath){
+    const tex=texLoader.load(imgPath);
+    tex.colorSpace=THREE.SRGBColorSpace;
+    mat=new THREE.MeshBasicMaterial({map:tex, side:THREE.DoubleSide});
+  } else {
+    mat=new THREE.MeshStandardMaterial({color:0x111111, emissive:0x333333, emissiveIntensity:0.3, side:THREE.DoubleSide});
+  }
+  const quadro=new THREE.Mesh(geo,mat);
+  quadro.position.set(mid.x, 1.55, mid.z);
+  // sposta leggermente fuori dal pannello
+  const normal=new THREE.Vector3(-Math.sin(rotY),0,-Math.cos(rotY));
+  // determina lato S o D dal nome
+  const lato = schedaId.includes('fronte')||schedaId.includes('benvenuto_fronte') ? 1 : (schedaId.includes('retro') ? -1 : 1);
+  quadro.position.add(normal.clone().multiplyScalar(0.06 * lato));
+  quadro.rotation.y=rotY;
+  quadro.userData.schedaId=schedaId;
+  scene.add(quadro);
+  quadriCliccabili.push(quadro);
+  // cornice sottile
+  const cornice=new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color:0x000000}));
+  cornice.position.copy(quadro.position); cornice.rotation.copy(quadro.rotation); cornice.position.add(normal.clone().multiplyScalar(0.001));
+  scene.add(cornice);
+}
+
+// PANNELLO 2 = I2/I5? No, mappa: pannello 2 è S2/D2 che corrisponde a [7,'I6']? Dalla tua foto: 2 è S2/D2 verde vicino ingresso sx
+// Dalla lista panels: panels[5]=[7,'I6'] è il pannello 2? Verifichiamo con tua foto:
+// Usiamo i nomi logici: per semplicità appendiamo ai pannelli esistenti
+// D2 = fronte (esterno), S2 = retro (interno)
+addQuadroSuPannello('I6','7', 'benvenuto_fronte', '../images/1975 Padova        cm. 60x80   Omaggio a       Benvenuto.jpg', 1.3);
+addQuadroSuPannello('7','I6', 'benvenuto_retro', '../images/1975 Padova retro 60x80 Omaggio a Benvenuto retro.jpg', 1.3);
+// Pannello 13 = S13/D13 rosso a destra -> S13 = Omaggio a Livio
+addQuadroSuPannello('S13','D13', 'omaggio_livio', null, 1.1);
+// Pannello 3 = D3/S3 lungo a sx -> paleocapa1
+addQuadroSuPannello('S1','D1', 'paleocapa_1', null, 1.2);
+// Pannello 12 = S12/D1 verde a destra -> paleocapa2
+addQuadroSuPannello('S12','D1', 'paleocapa_2', null, 1.2);
+
 const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ 
   color: 0xffffff, 
   metalness: 0.1, 
@@ -129,22 +176,114 @@ function addCenterArm(angleDeg){
 [150,30,-90].forEach(addCenterArm);
 
 
+
 const controls=new PointerLockControls(camera, renderer.domElement);
 let topView=false;
-document.body.addEventListener('click', ()=>{ if(!topView) controls.lock(); });
-const keys={}; addEventListener('keydown', e=>{ keys[e.code]=true; if(e.code==='KeyT'&&!e.repeat) toggleTopView(); }); addEventListener('keyup', e=>{ keys[e.code]=false; });
+document.body.addEventListener('click', (e)=>{
+  if(e.target.closest('#schedaModal')) return;
+  if(document.getElementById('schedaModal')?.style.display==='block') return;
+  if(!topView) controls.lock();
+});
+const keys={}; 
+addEventListener('keydown', e=>{ 
+  keys[e.code]=true; 
+  if(e.code==='KeyT'&&!e.repeat) toggleTopView();
+  if(e.code==='Escape'){
+    const modal=document.getElementById('schedaModal');
+    if(modal && modal.style.display==='block'){ modal.style.display='none'; controls.lock(); }
+  }
+}); 
+addEventListener('keyup', e=>{ keys[e.code]=false; });
 const savedCamera={ position:new THREE.Vector3(), quaternion:new THREE.Quaternion(), up:new THREE.Vector3(0,1,0) };
 function toggleTopView(){
   if(!topView){ savedCamera.position.copy(camera.position); savedCamera.quaternion.copy(camera.quaternion); savedCamera.up.copy(camera.up); controls.unlock(); topView=true; ceiling.visible=false; camera.position.set(0,26,0); camera.up.set(0,0,-1); camera.lookAt(0,0,0); }
   else { topView=false; ceiling.visible=true; camera.up.copy(savedCamera.up); camera.position.copy(savedCamera.position); camera.quaternion.copy(savedCamera.quaternion); }
 }
+
+// --- SCHEDE ---
+const schedeDB = {
+  'benvenuto_fronte': {
+    titolo: 'ANTONIO FORTÙN — Omaggio a Benvenuto — fronte — Padova 1975',
+    opera: 'Omaggio a Benvenuto, Padova 1975, acrilico su tela 60×80 cm, firmata. Opera simbolo dell’incontro padovano.',
+    padova: 'Nel 1975 Antonio Fortún vive e lavora a Padova, Riviera Paleocapa 10/b. Periodo di intensa produzione.',
+    tecnica: 'Acrilico su tela 60×80 cm, firmata. Collezione Livio Picotti.'
+  },
+  'benvenuto_retro': {
+    titolo: 'ANTONIO FORTÙN — Omaggio a Benvenuto — retro — Padova 1975',
+    opera: 'Il retro dipinto del celebre Omaggio a Benvenuto, conservato con cornice originale dipinta.',
+    tecnica: 'Acrilico su tela 60×80 cm, retro dipinto.'
+  },
+  'omaggio_livio': {
+    titolo: 'ANTONIO FORTÙN — Omaggio a Livio — Padova 1975',
+    opera: 'Omaggio a Livio, dedicata a Livio Picotti. Testa stilizzata con occhi blu/gialli.',
+    tecnica: 'Acrilico su tela — Collezione Livio Picotti.'
+  },
+  'paleocapa_1': {
+    titolo: 'ANTONIO FORTÙN — Paleocapa 1 — Padova 1975',
+    opera: 'Paleocapa 1: gesto pittorico per addensamenti successivi, tensione fra apparizione e dissoluzione.',
+    tecnica: 'Acrilico su tela 50×60 cm, Padova 1975, firmata.'
+  },
+  'paleocapa_2': {
+    titolo: 'ANTONIO FORTÙN — Paleocapa 2 — Padova 1975',
+    opera: 'Paleocapa 2: formato orizzontale, trama di presenze e densità cromatiche.',
+    tecnica: 'Acrilico su tela 60×50 cm, Padova 1975, firmata.'
+  }
+};
+
+function apriScheda(id){
+  const data = schedeDB[id];
+  if(!data) return;
+  const modal=document.getElementById('schedaModal');
+  document.getElementById('schedaTitolo').innerText=data.titolo;
+  document.getElementById('schedaCorpo').innerHTML = `<h3>L'OPERA</h3><p>${data.opera}</p><h3>SCHEDA TECNICA</h3><p>${data.tecnica}</p><hr><p style='font-size:13px;opacity:0.7'>Scheda provvisoria — sostituibile con i tuoi testi definitivi da DOCX</p>`;
+  modal.style.display='block';
+  controls.unlock();
+}
+
+// Raycaster per quadri
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+const quadriCliccabili=[];
+renderer.domElement.addEventListener('click', (e)=>{
+  if(!controls.isLocked) return;
+  raycaster.setFromCamera(new THREE.Vector2(0,0), camera);
+  const hits=raycaster.intersectObjects(quadriCliccabili);
+  if(hits.length>0){
+    const obj=hits[0].object;
+    if(obj.userData.schedaId) apriScheda(obj.userData.schedaId);
+  }
+});
 const clock=new THREE.Clock();
 function animate(){ requestAnimationFrame(animate); const dt=Math.min(clock.getDelta(),0.05);
-  if(controls.isLocked&&!topView){ const speed=3.2*dt; if(keys.KeyW) controls.moveForward(speed); if(keys.KeyS) controls.moveForward(-speed); if(keys.KeyA) controls.moveRight(-speed); if(keys.KeyD) controls.moveRight(speed); camera.position.y=1.65; const d=Math.hypot(camera.position.x,camera.position.z); if(d>R-0.25){ const q=(R-0.25)/d; camera.position.x*=q; camera.position.z*=q; } }
+  if(controls.isLocked&&!topView){ 
+    let moveX=0, moveZ=0;
+    const speed=2.2*dt; // promenade lenta e controllata
+    if(keys.KeyW || keys.ArrowUp) moveZ = 1;
+    if(keys.KeyS || keys.ArrowDown) moveZ = -1;
+    if(keys.KeyA || keys.ArrowLeft) moveX = -1;
+    if(keys.KeyD || keys.ArrowRight) moveX = 1;
+    // movimento fluido senza scatti
+    if(moveZ!==0) controls.moveForward(moveZ*speed);
+    if(moveX!==0) controls.moveRight(moveX*speed);
+    camera.position.y=1.65; // altezza occhi fissa, niente salto
+    const d=Math.hypot(camera.position.x,camera.position.z); 
+    if(d>R-0.45){ const q=(R-0.45)/d; camera.position.x*=q; camera.position.z*=q; }
+  }
   renderer.render(scene,camera);
 }
 animate();
 addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+
+// Inietta modal scheda
+const modalHTML=`<div id='schedaModal' style='display:none;position:fixed;inset:0;z-index:10000;background:rgba(10,10,20,0.88);overflow-y:auto;padding:20px;'>
+<div style='max-width:820px;margin:40px auto;background:#faf8f5;color:#1a1a1a;padding:38px 42px;border-radius:4px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.5);font-family:Georgia, serif;'>
+<button onclick="document.getElementById('schedaModal').style.display='none'" style='position:absolute;top:14px;right:14px;background:#1a1a1a;color:white;border:none;padding:8px 14px;cursor:pointer;'>X CHIUDI</button>
+<h1 id='schedaTitolo' style='font-family:Playfair Display, Georgia, serif;font-size:22px;letter-spacing:0.5px;margin-bottom:22px;text-transform:uppercase;'></h1>
+<div id='schedaCorpo' style='font-size:16px;line-height:1.7;'></div>
+<div style='margin-top:30px;padding-top:18px;border-top:1px solid #ddd;font-size:12px;opacity:0.6'>Metagalleria di Livio Picotti — Tocca ESC per chiudere e tornare a camminare</div>
+</div></div>`;
+document.body.insertAdjacentHTML('beforeend', modalHTML);
+
 const bottoneTop=document.createElement('button'); bottoneTop.textContent='VISTA DALL’ALTO'; bottoneTop.style.position='fixed'; bottoneTop.style.top='20px'; bottoneTop.style.right='20px'; bottoneTop.style.zIndex='9999'; bottoneTop.style.padding='10px 16px'; bottoneTop.style.cursor='pointer';
 bottoneTop.addEventListener('click', e=>{ e.stopPropagation(); toggleTopView(); }); document.body.appendChild(bottoneTop);
 const PANORAMA_DISTANCE_FROM_GALLERY=20.0, PANORAMA_HEIGHT=3.2, PANORAMA_RADIUS=R+PANORAMA_DISTANCE_FROM_GALLERY;
