@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/+esm';
 import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/PointerLockControls.js/+esm';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x1b2065);
+scene.background = new THREE.Color(0x131748);
 const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
 camera.position.set(0, 1.65, 8.8);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -45,10 +45,10 @@ function addFloorSegment(a,b){
   const led=new THREE.Mesh(ledGeo,ledMat); led.position.copy(mid); led.position.y+=0.006; led.rotation.y=mesh.rotation.y; scene.add(led);
 }
 masterPaths.forEach(path=>{ for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]); });
-const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xd8d6d2,roughness:0.95}));
+const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xbebebe,roughness:0.85}));
 floor.position.y=-0.06; floor.receiveShadow=true; scene.add(floor);
 const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
-const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x1b2065, side: THREE.BackSide });
+const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x131748, side: THREE.BackSide });
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat); ceiling.position.y = -8; scene.add(ceiling);
 function addStars(){
   const starCount=380; const starsGeo=new THREE.BufferGeometry(); const pos=[]; const cols=[];
@@ -99,12 +99,15 @@ function addPanel(aName,bName){
 }
 panels.forEach(([a,b])=>addPanel(a,b));
 
-const centerMirrorMaterial=new THREE.MeshStandardMaterial({ 
-  color: 0xd8d8dc, 
-  metalness: 1.0, 
-  roughness: 0.08, 
-  emissive: 0x222233,
-  emissiveIntensity: 0.18,
+const centerMirrorMaterial=new THREE.MeshPhysicalMaterial({ 
+  color: 0xffffff, 
+  metalness: 0.1, 
+  roughness: 0.02, 
+  clearcoat: 1.0,
+  clearcoatRoughness: 0.02,
+  reflectivity: 1.0,
+  emissive: 0xffffff,
+  emissiveIntensity: 0.12,
   side: THREE.DoubleSide 
 });
 function addCenterArm(angleDeg){
@@ -115,10 +118,13 @@ function addCenterArm(angleDeg){
   arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); 
   arm.castShadow=false; arm.receiveShadow=false;
   scene.add(arm);
-  // luce che fa brillare lo specchio
-  const spot=new THREE.PointLight(0xffffff, 0.8, 6, 2);
-  spot.position.set(end.x*0.5, CENTER_HEIGHT*0.7, end.z*0.5);
+  // luce forte che fa brillare lo specchio
+  const spot=new THREE.PointLight(0xffffff, 1.8, 8, 1.5);
+  spot.position.set(end.x*0.5, CENTER_HEIGHT*0.8, end.z*0.5);
   scene.add(spot);
+  const spot2=new THREE.PointLight(0xffffff, 0.6, 4, 2);
+  spot2.position.set(end.x*0.3, 0.4, end.z*0.3);
+  scene.add(spot2);
 }
 [150,30,-90].forEach(addCenterArm);
 
