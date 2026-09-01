@@ -2,374 +2,135 @@ HTML
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuilismaSpazioArte - Antonio Fortun</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Georgia', serif;
-            background: 
-            url('galleria-fortun.jpg') center top / cover no-repeat fixed;
-            overflow-x: hidden;
-        }
-
-        /* NAVIGAZIONE FRECCE */
-       .nav-freccia {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 60px;
-            color: #ccc;
-            cursor: pointer;
-            z-index: 100;
-            transition: 0.3s;
-            user-select: none;
-            padding: 20px;
-        }
-
-       .nav-freccia:hover {
-            color: #333;
-        }
-
-       .freccia-sinistra { left: 20px; }
-       .freccia-destra { right: 20px; }
-
-        /* STANZA GALLERIA */
-       .stanza {
-            min-height: 100vh;
-            padding: 60px 100px;
-            background: transparent;
-            display: none;
-        }
-
-       .stanza.attiva {
-            display: block;
-        }
-
-       .header-stanza {
-            text-align: center;
-            margin-bottom: 80px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-       .header-stanza h1 {
-            font-size: 38px;
-            color: #222;
-            font-weight: 300;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
-
-       .header-stanza.artista-nome {
-            font-size: 20px;
-            color: #666;
-            font-style: italic;
-        }
-
-       .header-stanza.sottotitolo {
-            font-size: 14px;
-            color: #999;
-            margin-top: 15px;
-            letter-spacing: 1px;
-        }
-
-        /* AMBIENTAZIONE SPOT A BINARIO */
-       .binario-luci {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: #2a2a2a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-       .spot {
-            position: absolute;
-            top: 60px;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, rgba(255,255,220,0.3) 0%, transparent 70%);
-        }
-
-        /* OPERE */
-       .opera {
-            max-width: 700px;
-            margin: 0;
-            text-align: center;
-            position: absolute;
-           position: absolute;
-        }
-
-       .opera img {
-            width: 100%;
-            cursor: pointer;
-            transition: 0.4s;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            border: 12px solid #111;
-        }
-
-       .opera img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
-        }
-
-       .info-quadro {
-            margin-top: 25px;
-        }
-
-       .info-quadro p {
-            margin: 6px 0;
-        }
-
-       .titolo-opera {
-            font-size: 22px;
-            color: #222;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
-       .tecnica {
-            font-size: 15px;
-            color: #666;
-        }
-
-       .anno-misure {
-            font-size: 17px;
-            color: #444;
-        }
-
-       .artista-link {
-            font-size: 16px;
-            color: #333;
-            margin-top: 12px;
-            cursor: pointer;
-            display: inline-block;
-            letter-spacing: 1px;
-        }
-
-       .artista-link:hover {
-            color: #0066cc;
-        }
-
-        /* PANCA */
-       .panca {
-            width: 200px;
-            height: 8px;
-            background: #d4a574;
-            margin: 80px auto 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        /* POPUP */
-       .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.98);
-            overflow-y: auto;
-        }
-
-       .modal-content {
-            background: white;
-            margin: 5% auto;
-            padding: 50px;
-            width: 85%;
-            max-width: 700px;
-            border: 1px solid #ddd;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
-        }
-
-       .close {
-            color: #999;
-            float: right;
-            font-size: 36px;
-            cursor: pointer;
-            line-height: 20px;
-        }
-
-       .close:hover { color: #000; }
-
-       .modal-content h2 {
-            margin-top: 0;
-            color: #222;
-            font-size: 26px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-       .modal-content p {
-            line-height: 1.8;
-            color: #444;
-            font-size: 17px;
-            margin-bottom: 18px;
-        }
-
-       .modal-content strong { color: #111; }
-       .nota {
-            font-style: italic;
-            color: #777;
-            margin-top: 30px;
-            font-size: 14px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metagalleria - Pulita</title>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000046;height:100%} canvas{display:block}</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
-    <!-- FRECCE NAVIGAZIONE -->
-    <div class="nav-freccia freccia-sinistra" onclick="cambiaStanza(-1)" style="display:none;">‹</div>
-    <div class="nav-freccia freccia-destra" onclick="cambiaStanza(1)" style="display:none;">›</div>
+<script type="module">
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
-    <div class="binario-luci"></div>
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000046);
+const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
+camera.position.set(0, 1.65, 8.8);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.35;
+document.body.appendChild(renderer.domElement);
 
-<!-- STANZA 1: FORTUN - NUOVA 2D -->
-<div class="stanza attiva" id="stanza-fortun"
-     style="display:block; position:relative; width:100vw; height:100vh;
-            background:url('galleria-fortun.jpg') center center / cover no-repeat;">
+const R = 12.5; const LINE_Y = 0.012;
+const PANEL_HEIGHT = 3.00; const PANEL_RAISE = 0.12; const PANEL_THICKNESS = 0.10; const PANEL_GAP = 0.10;
+const CENTER_HEIGHT = 2.10; const CENTER_ARM_LENGTH = 2.30; const CENTER_THICKNESS = 0.10;
+const angles = { 9: 90, 1: 50, 2: 10, 3: -30, 4: -70, 5: -110, 6: -150, 7: 170, 8: 130 };
+function pt(deg, r = R){ const a = THREE.MathUtils.degToRad(deg); return new THREE.Vector3(r*Math.cos(a), LINE_Y, -r*Math.sin(a)); }
+const P = {}; Object.entries(angles).forEach(([k,a])=>{ P[k]=pt(a); });
+function lineIntersection(a,b,c,d){
+  const x1=a.x,z1=a.z,x2=b.x,z2=b.z,x3=c.x,z3=c.z,x4=d.x,z4=d.z;
+  const den=(x1-x2)*(z3-z4)-(z1-z2)*(x3-x4); if(Math.abs(den)<1e-10) throw new Error('Rette parallele');
+  const A=x1*z2-z1*x2,B=x3*z4-z3*x4; return new THREE.Vector3((A*(x3-x4)-(x1-x2)*B)/den, LINE_Y, (A*(z3-z4)-(z1-z2)*B)/den);
+}
+function parallelThroughIntersection(p,v,a,b){ const q=new THREE.Vector3(p.x+v.x,LINE_Y,p.z+v.z); return lineIntersection(p,q,a,b); }
+P.I1=lineIntersection(P[6],P[9],P[2],P[8]); P.I2=lineIntersection(P[9],P[3],P[7],P[1]); P.I3=lineIntersection(P[2],P[8],P[7],P[1]);
+P.I4=lineIntersection(P[6],P[9],P[7],P[1]); P.I5=lineIntersection(P[9],P[3],P[2],P[8]); P.I6=lineIntersection(P[8],P[5],P[7],P[1]);
+P.I7=lineIntersection(P[2],P[8],P[1],P[4]); P.I8=lineIntersection(P[6],P[9],P[8],P[5]); P.I9=lineIntersection(P[9],P[3],P[1],P[4]);
+P.I10=lineIntersection(P[6],P[9],P[5],P[7]); P.I11=lineIntersection(P[9],P[3],P[4],P[2]); P.I12=lineIntersection(P[3],P[6],P[5],P[7]);
+P.I13=lineIntersection(P[3],P[6],P[8],P[5]); P.I14=lineIntersection(P[3],P[6],P[1],P[4]); P.I15=lineIntersection(P[3],P[6],P[4],P[2]);
+const sideLeft=P[6].clone().sub(P[9]); const sideRight=P[3].clone().sub(P[9]);
+P.I16=parallelThroughIntersection(P.I3,sideLeft,P.I10,P.I11); P.I17=parallelThroughIntersection(P.I3,sideRight,P.I10,P.I11);
+P.I18=lineIntersection(P.I5,P[5],P.I13,P.I14); P.I19=lineIntersection(P.I4,P[4],P.I13,P.I14);
+const masterPaths=[[9,3,6,9],[4,2,8,5,4],[5,7,1,4]];
+function addFloorSegment(a,b){
+  const start=a.clone(),end=b.clone(); start.y=LINE_Y; end.y=LINE_Y;
+  const mid=start.clone().add(end).multiplyScalar(0.5); const len=start.distanceTo(end);
+  const geo=new THREE.BoxGeometry(len,0.008,0.04);
+  const mat=new THREE.MeshStandardMaterial({color:0x050508,roughness:0.9});
+  const mesh=new THREE.Mesh(geo,mat); mesh.position.copy(mid); mesh.rotation.y=-Math.atan2(end.z-start.z,end.x-start.x); scene.add(mesh);
+  const ledGeo=new THREE.BoxGeometry(len,0.010,0.004);
+  const ledMat=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:2.5});
+  const led=new THREE.Mesh(ledGeo,ledMat); led.position.copy(mid); led.position.y+=0.006; led.rotation.y=mesh.rotation.y; scene.add(led);
+}
+masterPaths.forEach(path=>{ for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]); });
+const floor=new THREE.Mesh(new THREE.CylinderGeometry(R,R,0.12,128), new THREE.MeshStandardMaterial({color:0xbebebe,roughness:0.85}));
+floor.position.y=-0.06; floor.receiveShadow=true; scene.add(floor);
+const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
+const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x000046, side: THREE.BackSide });
+const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat); ceiling.position.y = -8; scene.add(ceiling);
+function addStars(){
+  const starCount=320; const starsGeo=new THREE.BufferGeometry(); const pos=[];
+  for(let i=0;i<starCount;i++){ const ang=Math.random()*Math.PI*2; const rad= R + 14 + Math.random()*42; const y = 11 + Math.random()*26; const x=Math.cos(ang)*rad, z= -Math.sin(ang)*rad; pos.push(x,y,z); }
+  starsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+  const starsMat=new THREE.PointsMaterial({color:0xffffff, size:0.16, sizeAttenuation:true, transparent:true, opacity:0.72});
+  const stars=new THREE.Points(starsGeo,starsMat); scene.add(stars);
+}
+addStars();
+scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 1.2));
+const softLight=new THREE.DirectionalLight(0xfff1dd, 0.9); softLight.position.set(3,8,4); scene.add(softLight);
+const panels=[
+  ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],[8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],['I8','I16'],[5,'I13'],['I13','I18'],['I14','I19'],[4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],[2,'I11'],['I11','I15']
+];
+const panelMaterial=new THREE.MeshStandardMaterial({ color: 0x373a3f, roughness: 0.85, metalness: 0.04, emissive: 0x373a3f, emissiveIntensity: 0.20 });
+const edgeLightMat=new THREE.MeshStandardMaterial({ color:0xfff0d0, emissive:0xffe6b3, emissiveIntensity:1.4 });
+const LATERAL_WIDTH = 0.08;
+function addPanel(aName,bName){
+  const a=P[aName],b=P[bName]; if(!a||!b) return;
+  const dir=b.clone().sub(a); dir.y=0; const len=dir.length(); const trim=Math.min(PANEL_GAP/2,len*0.20); const unit=dir.clone().normalize();
+  const start=a.clone().add(unit.clone().multiplyScalar(trim)); const end=b.clone().add(unit.clone().multiplyScalar(-trim));
+  const midX=(start.x+end.x)/2, midZ=(start.z+end.z)/2; const rotY=-Math.atan2(end.z-start.z,end.x-start.x);
+  const wall=new THREE.Mesh(new THREE.BoxGeometry(Math.hypot(end.x-start.x,end.z-start.z),PANEL_HEIGHT,PANEL_THICKNESS), panelMaterial);
+  wall.position.set(midX, PANEL_RAISE+PANEL_HEIGHT/2, midZ); wall.rotation.y=rotY; wall.castShadow=true; wall.receiveShadow=true; scene.add(wall);
+  const sideGeo=new THREE.BoxGeometry(LATERAL_WIDTH, PANEL_HEIGHT, 0.04);
+  const leftLight=new THREE.Mesh(sideGeo, edgeLightMat); leftLight.position.set(start.x, PANEL_RAISE+PANEL_HEIGHT/2, start.z); leftLight.rotation.y=rotY; scene.add(leftLight);
+  const rightLight=new THREE.Mesh(sideGeo, edgeLightMat); rightLight.position.set(end.x, PANEL_RAISE+PANEL_HEIGHT/2, end.z); rightLight.rotation.y=rotY; scene.add(rightLight);
+}
+panels.forEach(([a,b])=>addPanel(a,b));
 
-    <!-- OMAGGIO A BENVENUTO -->
-    <div style="
-        position:absolute;
-        left:29%;
-        top:32%;
-        height:34%;
-        z-index:9999;
-        display:flex;
-        align-items:center;
-        gap:32px;
-    ">
+const centerMaterial=new THREE.MeshPhysicalMaterial({ color:0xf5f5f0, metalness:0.05, roughness:0.18, transmission:0.15, emissive:0xfffff0, emissiveIntensity:0.18, side:THREE.DoubleSide });
+function addCenterArm(angleDeg){
+  const a=THREE.MathUtils.degToRad(angleDeg);
+  const end=new THREE.Vector3(CENTER_ARM_LENGTH*Math.cos(a),0,-CENTER_ARM_LENGTH*Math.sin(a));
+  const len=Math.hypot(end.x,end.z);
+  const arm=new THREE.Mesh(new THREE.BoxGeometry(len,CENTER_HEIGHT,CENTER_THICKNESS), centerMaterial);
+  arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2); arm.rotation.y=-Math.atan2(end.z,end.x); scene.add(arm);
+  const spot=new THREE.PointLight(0xfff8e0, 1.2, 7, 1.8); spot.position.set(end.x*0.5, CENTER_HEIGHT*0.8, end.z*0.5); scene.add(spot);
+}
+[150,30,-90].forEach(addCenterArm);
 
-        <img src="images/fortun-benvenuto.jpg"
-             alt="Antonio Fortún - Omaggio a Benvenuto"
-             style="
-            transform: rotate(-0deg) scale(1.4);
-transform-origin: center center;
-                height:100%;
-                width:auto;
-                display:block;
-                object-fit:contain;
-                box-shadow:0 3px 12px rgba(0,0,0,.30);
-                cursor:pointer;
-             ">
-
-        <div style="
-            font-family:Arial, sans-serif;
-            color:#222;
-            line-height:1.45;
-            min-width:220px;
-        ">
-            <div style="font-size:24px; font-weight:600;">
-                ANTONIO FORTÚN
-            </div>
-
-            <div style="font-size:20px; margin-top:12px;">
-                <em>Omaggio a Benvenuto</em>
-            </div>
-
-            <div style="font-size:17px; margin-top:14px;">
-                Padova, 1975<br>
-                Acrilico su tela<br>
-                60 × 80 cm
-            </div>
-        </div>
-
-    </div>
-
-
-    <!-- STANZA 2: JASSMIN - PREDISPOSTA -->
-    <div class="stanza" id="stanza-jassmin">
-        <div class="header-stanza">
-            <h1>OPERE DI JASSMIN AHMETOVIC</h1>
-            <p class="artista-nome">Jassmin Ahmetovic</p>
-            <p class="sottotitolo">QuilismaSpazioArte - Prossima mostra</p>
-        </div>
-        <p style="text-align:center; color:#999; margin-top:100px; font-size:18px;">
-            Stanza in preparazione...<br>
-            Dimmi i dati delle opere e la allestiamo.
-        </p>
-        <div class="panca"></div>
-    </div>
-
-    <!-- POPUP BIO -->
-    <div id="bioModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="chiudiModal('bioModal')">&times;</span>
-            <h2>ANTONIO FORTUN PAESA</h2>
-            <p><strong>1945 Samper del Salz, Zaragoza - 1999 Saragozza</strong></p>
-            <p>Antonio Fortún è considerato un riferimento della pittura aragonese contemporanea. Ha esposto in vari paesi e alcune sue opere sono presenti in collezioni e musei anche fuori dalla Spagna.</p>
-            <p>Nel suo paese natale, Samper del Salz, è stato inaugurato nel 2000 l'<em>Espacio Antonio Fortún</em>, spazio espositivo nato per mostrare le opere che l'artista cedette al suo paese. La sua opera è promossa anche da una fondazione/archivio a lui dedicato.</p>
-            <p class="nota">Opere da collezioni private. Custode temporaneo: QuilismaSpazioArte</p>
-        </div>
-    </div>
-
-    <!-- POPUP STORIA PADOVA -->
-    <div id="padovaModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="chiudiModal('padovaModal')">&times;</span>
-            <h2>IL PERIODO PADOVA 1975</h2>
-            <p>Nel 1975 Antonio Fortún fu ospite a Padova in un contesto di amicizia e scambio umano e artistico, assieme agli artisti Benvenuto e Livio.</p>
-            <p>In Riviera Paleocapa 10/b e nello studio di architettura in via Vescovado 79 - sede anche del Centro Musica Antica di Padova - Fortún dipinse le opere qui esposte.</p>
-            <p><strong>Nel 1975 Fortún non dipingeva solo forme. Dipingeva legami.</strong> Fu un periodo di intensa ispirazione legato a relazioni personali significative. Le opere di questo ciclo, realizzate nello stesso anno e nello stesso luogo, costituiscono un episodio biografico preciso nella vita dell'artista: quasi un micro-ciclo narrativo.</p>
-            <p class="nota">Opere realizzate a Padova nel 1975. Provenienza diretta documentabile.</p>
-        </div>
-    </div>
-
-    <script>
-        let stanzaCorrente = 0;
-        const stanze = document.querySelectorAll('.stanza');
-        const frecciaSx = document.querySelector('.freccia-sinistra');
-        const frecciaDx = document.querySelector('.freccia-destra');
-
-        function aggiornaFrecce() {
-            frecciaSx.style.display = stanzaCorrente > 0? 'block' : 'none';
-            frecciaDx.style.display = stanzaCorrente < stanze.length - 1? 'block' : 'none';
-        }
-
-        function cambiaStanza(direzione) {
-            stanze[stanzaCorrente].classList.remove('attiva');
-            stanzaCorrente += direzione;
-            stanze[stanzaCorrente].classList.add('attiva');
-            aggiornaFrecce();
-            window.scrollTo(0, 0);
-        }
-
-        aggiornaFrecce();
-
-        function mostraBioArtista() {
-            document.getElementById('bioModal').style.display = 'block';
-        }
-
-        function mostraStoriaPadova() {
-            document.getElementById('padovaModal').style.display = 'block';
-        }
-
-        function chiudiModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = 'none';
-            }
-        }
-
-        // Navigazione con tastiera
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' && stanzaCorrente < stanze.length - 1) cambiaStanza(1);
-            if (e.key === 'ArrowLeft' && stanzaCorrente > 0) cambiaStanza(-1);
-        });
-    </script>
-
+const controls=new PointerLockControls(camera, renderer.domElement);
+let topView=false;
+document.body.addEventListener('click', ()=>{ if(!topView) controls.lock(); });
+const keys={}; addEventListener('keydown', e=>{ keys[e.code]=true; if(e.code==='KeyT'&&!e.repeat) toggleTopView(); }); addEventListener('keyup', e=>{ keys[e.code]=false; });
+const savedCamera={ position:new THREE.Vector3(), quaternion:new THREE.Quaternion(), up:new THREE.Vector3(0,1,0) };
+function toggleTopView(){
+  if(!topView){ savedCamera.position.copy(camera.position); savedCamera.quaternion.copy(camera.quaternion); savedCamera.up.copy(camera.up); controls.unlock(); topView=true; ceiling.visible=false; camera.position.set(0,26,0); camera.up.set(0,0,-1); camera.lookAt(0,0,0); }
+  else { topView=false; ceiling.visible=true; camera.up.copy(savedCamera.up); camera.position.copy(savedCamera.position); camera.quaternion.copy(savedCamera.quaternion); }
+}
+const clock=new THREE.Clock();
+function animate(){ requestAnimationFrame(animate); const dt=Math.min(clock.getDelta(),0.05);
+  if(controls.isLocked&&!topView){
+    let f=0,r=0; if(keys.KeyW||keys.ArrowUp) f=1; if(keys.KeyS||keys.ArrowDown) f=-1; if(keys.KeyA||keys.ArrowLeft) r=-1; if(keys.KeyD||keys.ArrowRight) r=1;
+    const speed=2.0*dt; if(f) controls.moveForward(f*speed); if(r) controls.moveRight(r*speed);
+    camera.position.y=1.65; const d=Math.hypot(camera.position.x,camera.position.z); if(d>R-0.45){ const q=(R-0.45)/d; camera.position.x*=q; camera.position.z*=q; }
+  }
+  renderer.render(scene,camera);
+}
+animate();
+addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+const bottoneTop=document.createElement('button'); bottoneTop.textContent='VISTA DALL\'ALTO'; bottoneTop.style.position='fixed'; bottoneTop.style.top='20px'; bottoneTop.style.right='20px'; bottoneTop.style.zIndex='9999'; bottoneTop.style.padding='10px 16px'; bottoneTop.style.cursor='pointer';
+bottoneTop.addEventListener('click', e=>{ e.stopPropagation(); toggleTopView(); }); document.body.appendChild(bottoneTop);
+</script>
 </body>
 </html>
