@@ -123,6 +123,7 @@ panels.forEach(([a,b])=>addPanel(a,b));
     midZ + normal.z * 0.056 * side
   );
 
+  
   quadroD15.rotation.y = rotY + (side < 0 ? Math.PI : 0);
 
   scene.add(quadroD15);
