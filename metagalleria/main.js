@@ -308,7 +308,12 @@ addPanelFaceImage(
   '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL (1).jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
-
+// 17D — ANTONIO FORTÚN, FOTO E PAROLE
+addPanelFaceImage(
+  5,'I13',
+  '../images/17D_FORTUN_SCRITTURA_GRANDE_CENTRATA_PIL.jpg',
+  {panelWidth:5.50,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
