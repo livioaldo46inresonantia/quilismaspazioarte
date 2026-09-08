@@ -79,21 +79,35 @@ function addPanel(aName,bName){
   const rightLight=new THREE.Mesh(sideGeo, edgeLightMat); rightLight.position.set(end.x, PANEL_RAISE+PANEL_HEIGHT/2, end.z); rightLight.rotation.y=rotY; scene.add(rightLight);
 }
 panels.forEach(([a,b])=>addPanel(a,b));
-// TEST D15 — OMAGGIO A BENVENUTO
+// ==========================================================
+// POSTAZIONE 15 — OMAGGIO A BENVENUTO
+// 15D = FRONTE
+// 15S = RETRO DIPINTO
+// ==========================================================
+
 {
-  const a = P.I11;
-  const b = P.I15;
+  const a = P.I10;
+  const b = P.I12;
 
   const dir = b.clone().sub(a);
   dir.y = 0;
   const unit = dir.clone().normalize();
 
-  const start = a.clone().add(unit.clone().multiplyScalar(PANEL_GAP/2));
-  const end   = b.clone().add(unit.clone().multiplyScalar(-PANEL_GAP/2));
+  const start = a.clone().add(
+    unit.clone().multiplyScalar(PANEL_GAP / 2)
+  );
+
+  const end = b.clone().add(
+    unit.clone().multiplyScalar(-PANEL_GAP / 2)
+  );
 
   const midX = (start.x + end.x) / 2;
   const midZ = (start.z + end.z) / 2;
-  const rotY = -Math.atan2(end.z-start.z, end.x-start.x);
+
+  const rotY = -Math.atan2(
+    end.z - start.z,
+    end.x - start.x
+  );
 
   const normal = new THREE.Vector3(
     Math.sin(rotY),
@@ -101,32 +115,62 @@ panels.forEach(([a,b])=>addPanel(a,b));
     Math.cos(rotY)
   );
 
-  const toCenter = new THREE.Vector3(-midX, 0, -midZ);
-  const side = normal.dot(toCenter) >= 0 ? 1 : -1;
+  // --------------------------------------------------------
+  // 15D — FRONTE
+  // --------------------------------------------------------
 
-  const texture = new THREE.TextureLoader().load(
+  const textureD15 = new THREE.TextureLoader().load(
     '../images/D15_OMAGGIO_A_BENVENUTO.jpg'
   );
-  texture.colorSpace = THREE.SRGBColorSpace;
+
+  textureD15.colorSpace = THREE.SRGBColorSpace;
 
   const quadroD15 = new THREE.Mesh(
     new THREE.PlaneGeometry(3.30, 3.00),
     new THREE.MeshBasicMaterial({
-      map: texture,
+      map: textureD15,
       side: THREE.FrontSide
     })
   );
 
   quadroD15.position.set(
-    midX + normal.x * 0.056 * side,
+    midX + normal.x * 0.056,
     PANEL_RAISE + 1.50,
-    midZ + normal.z * 0.056 * side
+    midZ + normal.z * 0.056
   );
 
-  
-  quadroD15.rotation.y = rotY + (side < 0 ? Math.PI : 0);
+  quadroD15.rotation.y = rotY;
 
   scene.add(quadroD15);
+
+
+  // --------------------------------------------------------
+  // 15S — RETRO DIPINTO
+  // --------------------------------------------------------
+
+  const textureS15 = new THREE.TextureLoader().load(
+    '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL.jpg'
+  );
+
+  textureS15.colorSpace = THREE.SRGBColorSpace;
+
+  const quadroS15 = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.30, 3.00),
+    new THREE.MeshBasicMaterial({
+      map: textureS15,
+      side: THREE.FrontSide
+    })
+  );
+
+  quadroS15.position.set(
+    midX - normal.x * 0.056,
+    PANEL_RAISE + 1.50,
+    midZ - normal.z * 0.056
+  );
+
+  quadroS15.rotation.y = rotY + Math.PI;
+
+  scene.add(quadroS15);
 }
 // CENTRO Y BIANCO LUCIDO TRASLUCIDO (quello che ti piace)
 const centerMaterial=new THREE.MeshPhysicalMaterial({ color:0xf5f5f0, metalness:0.05, roughness:0.18, transmission:0.15, emissive:0xfffff0, emissiveIntensity:0.18, side:THREE.DoubleSide });
