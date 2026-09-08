@@ -305,7 +305,7 @@ addPanelFaceImage(
 // 15S — RETRO
 addPanelFaceImage(
   'I10','I12',
-  '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL.jpg',
+  '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL (1).jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 
