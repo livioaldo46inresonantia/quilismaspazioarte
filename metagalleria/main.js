@@ -311,7 +311,7 @@ addPanelFaceImage(
 // 17D — ANTONIO FORTÚN, FOTO E PAROLE
 addPanelFaceImage(
   5,'I13',
-  '../images/17D_FORTUN_SCRITTURA_GRANDE_CENTRATA_PIL.jpg',
+  '../images/17D_FORTUN_FOTO_ALTRI_20CM_DESTRA_SOLO_PIL.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
 const centerMaterial=new THREE.MeshPhysicalMaterial({
