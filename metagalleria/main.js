@@ -297,14 +297,14 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
 
 // 15D — FRONTE
 addPanelFaceImage(
-  'I10','I12',
+  'I14','I19',
   '../images/D15_OMAGGIO_A_BENVENUTO.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'center'}
 );
 
 // 15S — RETRO
 addPanelFaceImage(
-  'I10','I12',
+  'I14','I19',
   '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL (1).jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
