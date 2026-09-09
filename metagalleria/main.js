@@ -299,14 +299,14 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
 addPanelFaceImage(
   'I14','I19',
   '../images/D15_OMAGGIO_A_BENVENUTO.jpg',
-  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+  {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 
 // 15S — RETRO
 addPanelFaceImage(
   'I14','I19',
   '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL (1).jpg',
-  {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
+  {panelWidth:3.30,panelHeight:3.00,face:'center'}
 );
 // 17D — ANTONIO FORTÚN, FOTO E PAROLE
 addPanelFaceImage(
