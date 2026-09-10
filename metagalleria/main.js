@@ -314,6 +314,12 @@ addPanelFaceImage(
   '../images/17D_FORTUN_FOTO_ALTRI_20CM_DESTRA_SOLO_PIL.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
+// D1 — OMAGGIO A LIVIO — segmento I10-I12
+addPanelFaceImage(
+  'I10','I12',
+  './PANNELLO_373A3F_CORNICE_NERA_GROSSA_OMAGGIO_LIVIO.jpg',
+  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
