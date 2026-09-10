@@ -330,7 +330,7 @@ addPanelFaceImage(
 addPanelFaceImage(
   'I17','I9',
   './PANNELLO S 13 -.jpg',
-  {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
+ {panelWidth:4.40,panelHeight:3.00,face:'center'}
 );
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
