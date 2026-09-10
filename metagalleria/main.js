@@ -320,6 +320,12 @@ addPanelFaceImage(
   './PANNELLO_373A3F_CORNICE_NERA_GROSSA_OMAGGIO_LIVIO.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'center'}
 );
+// D2 — PALEOCAPA — segmento I8-I16
+addPanelFaceImage(
+  'I8','I16',
+  './PANNELLO D 2 - _.jpg',
+  {panelWidth:4.40,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
