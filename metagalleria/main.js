@@ -408,7 +408,7 @@ addPanelFaceImage(
 // S10 — SALUTO RIVOLTO VERSO IL MARE — segmento 1-I7
 addPanelFaceImage(
   1,'I7',
-  './PANNELLO_S10_SALUTO_MARE (1).jpg',
+ './PROVA_S10_ROSSO_SANGUE_PIU_SCURO.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
 
