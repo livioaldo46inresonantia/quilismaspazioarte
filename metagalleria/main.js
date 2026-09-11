@@ -117,7 +117,7 @@ floor.receiveShadow=true;
 scene.add(floor);
 
 const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
-const ceilingMat=new THREE.MeshBasicMaterial({ color: 0x000046, side: THREE.BackSide });
+const ceilingMat=new THREE.MeshBasicMaterial({color:0x02052f,side:THREE.BackSide,toneMapped:false});
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat);
 ceiling.position.y = -8;
 scene.add(ceiling);
