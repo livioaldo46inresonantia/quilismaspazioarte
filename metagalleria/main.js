@@ -469,7 +469,8 @@ modal.appendChild(card);
 document.body.appendChild(modal);
 
 const controls=new PointerLockControls(camera,renderer.domElement);
-
+controls.minPolarAngle=Math.PI/2;
+controls.maxPolarAngle=Math.PI/2;
 function openArtworkModal(data){
   modalTitle.textContent=data.title||'';
   modalArtist.textContent=data.artist||'';
