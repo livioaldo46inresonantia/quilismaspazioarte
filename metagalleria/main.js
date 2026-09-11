@@ -338,6 +338,12 @@ addPanelFaceImage(
   './PANNELLO D4  7 - I6.jpg',
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
+// S11 — PALEOCAPA — segmento 2-I7
+addPanelFaceImage(
+  2,'I7',
+  './PANNELLO_S11  2 - I7.jpg',
+  {panelWidth:4.80,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
