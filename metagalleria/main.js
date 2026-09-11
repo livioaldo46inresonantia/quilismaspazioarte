@@ -583,7 +583,7 @@ function animate(){
     if(f) controls.moveForward(f*speed);
     if(r) controls.moveRight(r*speed);
 
-    camera.position.y=1.65;
+    camera.position.y=1.70;
 
     const d=Math.hypot(camera.position.x,camera.position.z);
     if(d>R-0.45){
