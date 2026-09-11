@@ -247,7 +247,7 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
 
   const face=new THREE.Mesh(
     new THREE.PlaneGeometry(panelWidth,panelHeight),
-    new THREE.MeshBasicMaterial({map:texture,side:THREE.FrontSide})
+  new THREE.MeshBasicMaterial({map:texture,side:THREE.FrontSide,toneMapped:false})
   );
 
   face.rotation.y=info.rotY+(faceSign<0 ? Math.PI : 0);
