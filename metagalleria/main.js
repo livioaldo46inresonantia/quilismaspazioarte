@@ -344,6 +344,12 @@ addPanelFaceImage(
   './PANNELLO_S11  2 - I7.jpg',
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
+// D18 — segmento I13-I18
+addPanelFaceImage(
+  'I13','I18',
+  './D18  I13 - I18.jpg',
+  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
