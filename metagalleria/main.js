@@ -136,7 +136,7 @@ function addStars(){
   starsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
   const starsMat=new THREE.PointsMaterial({
     color:0xffffff,
-    size:0.16,
+   size:0.055,
     sizeAttenuation:true,
     transparent:true,
     opacity:0.72
