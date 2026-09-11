@@ -318,7 +318,7 @@ addPanelFaceImage(
 addPanelFaceImage(
   'I10','I12',
   './PANNELLO_373A3F_CORNICE_NERA_GROSSA_OMAGGIO_LIVIO.jpg',
-  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+  {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 // D2 — PALEOCAPA — segmento I8-I16
 addPanelFaceImage(
