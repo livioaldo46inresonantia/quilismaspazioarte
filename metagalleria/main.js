@@ -144,7 +144,57 @@ function addStars(){
   scene.add(new THREE.Points(starsGeo,starsMat));
 }
 addStars();
+// FONDALE PANORAMICO CIRCOLARE ESTERNO
+const PANORAMA_DISTANCE_FROM_GALLERY = 20.0;
+const PANORAMA_HEIGHT = 3.2;
+const PANORAMA_BASE_Y = 0.0;
+const PANORAMA_OPACITY = 1.0;
+const PANORAMA_ROTATION = 0.0;
 
+const PANORAMA_RADIUS =
+  R + PANORAMA_DISTANCE_FROM_GALLERY;
+
+const panoramaLoader = new THREE.TextureLoader();
+
+const panoramaTexture =
+  panoramaLoader.load("../images/sfondo_panorama_v definitivo.jpg");
+
+panoramaTexture.wrapS = THREE.RepeatWrapping;
+panoramaTexture.wrapT = THREE.ClampToEdgeWrapping;
+panoramaTexture.repeat.set(1, 1);
+
+const panoramaGeometry =
+  new THREE.CylinderGeometry(
+    PANORAMA_RADIUS,
+    PANORAMA_RADIUS,
+    PANORAMA_HEIGHT,
+    128,
+    1,
+    true
+  );
+
+const panoramaMaterial =
+  new THREE.MeshBasicMaterial({
+    map: panoramaTexture,
+    transparent: true,
+    opacity: PANORAMA_OPACITY,
+    side: THREE.BackSide,
+    depthWrite: false
+  });
+
+const panoramaBackdrop =
+  new THREE.Mesh(
+    panoramaGeometry,
+    panoramaMaterial
+  );
+
+panoramaBackdrop.position.y =
+  PANORAMA_BASE_Y + PANORAMA_HEIGHT / 2;
+
+panoramaBackdrop.rotation.y =
+  PANORAMA_ROTATION;
+
+scene.add(panoramaBackdrop);
 scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 1.2));
 
 const softLight=new THREE.DirectionalLight(0xfff1dd, 0.9);
