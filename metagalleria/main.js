@@ -350,6 +350,12 @@ addPanelFaceImage(
   './D18  I13 - I18.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
+// S14 — PALEOCAPA 6 — segmento I11-I15
+addPanelFaceImage(
+  'I11','I15',
+  './PANNELLO S14    SEG. 11 - 15.jpg',
+  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
