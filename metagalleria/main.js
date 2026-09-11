@@ -348,7 +348,7 @@ addPanelFaceImage(
 addPanelFaceImage(
   'I13','I18',
   './D18  I13 - I18.jpg',
-  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+  {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
