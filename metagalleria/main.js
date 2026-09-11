@@ -405,6 +405,19 @@ addPanelFaceImage(
   './PANNELLO S14    SEG. 11 - 15.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'center'}
 );
+// S10 — SALUTO RIVOLTO VERSO IL MARE — segmento 1-I7
+addPanelFaceImage(
+  1,'I7',
+  './PANNELLO_S10_SALUTO_MARE (1).jpg',
+  {panelWidth:5.50,panelHeight:3.00,face:'center'}
+);
+
+// D5 — ARRIVO DALL’ORIZZONTE — segmento 8-I6
+addPanelFaceImage(
+  8,'I6',
+  './PANNELLO_D5_ARRIVO_ORIZZONTE (1).jpg',
+  {panelWidth:5.50,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
