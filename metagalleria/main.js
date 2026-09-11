@@ -123,7 +123,7 @@ ceiling.position.y = -8;
 scene.add(ceiling);
 
 function addStars(){
-  const starCount=320;
+  const starCount=240;
   const starsGeo=new THREE.BufferGeometry();
   const pos=[];
   for(let i=0;i<starCount;i++){
