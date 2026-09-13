@@ -418,6 +418,12 @@ addPanelFaceImage(
   './PANNELLO_D5_ARRIVO_ORIZZONTE (1).jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
+// D3 — PALEOCAPA 11, 16 E 17 — segmento 7-I10
+addPanelFaceImage(
+  7,'I10',
+  './PANNELLO 3  -  SEG. 7 - I10.jpg',
+  {panelWidth:5.50,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
