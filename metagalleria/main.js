@@ -204,69 +204,6 @@ function addAurora(){
   aurora.rotation.y = 0.35;
   scene.add(aurora);
 }
-
-addAurora();// AURORA BOREALE LEGGERA NEL CIELO
-function addAurora(){
-  const canvas = document.createElement('canvas');
-  canvas.width = 1600;
-  canvas.height = 500;
-
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.globalCompositeOperation = 'lighter';
-  ctx.lineCap = 'round';
-
-  const colors = [
-    'rgba(70,255,190,0.18)',
-    'rgba(60,210,255,0.14)',
-    'rgba(150,90,255,0.10)'
-  ];
-
-  colors.forEach((color, layer) => {
-    ctx.beginPath();
-
-    for(let x = 0; x <= canvas.width; x += 8){
-      const y =
-        245 +
-        Math.sin(x * 0.009 + layer * 1.8) * 55 +
-        Math.sin(x * 0.021) * 20 +
-        layer * 26;
-
-      if(x === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 65 - layer * 12;
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 45;
-    ctx.stroke();
-  });
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.repeat.x = 1;
-
-  const geometry = new THREE.CylinderGeometry(
-    37, 37, 18, 128, 1, true
-  );
-
-  const material = new THREE.MeshBasicMaterial({
-    map: texture,
-    transparent: true,
-    opacity: 0.65,
-    side: THREE.BackSide,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    toneMapped: false
-  });
-
-  const aurora = new THREE.Mesh(geometry, material);
-  aurora.position.y = 13.5;
-  aurora.rotation.y = 0.35;
-  scene.add(aurora);
-}
-
 addAurora();
 // FONDALE PANORAMICO CIRCOLARE ESTERNO
 const PANORAMA_DISTANCE_FROM_GALLERY = 20.0;
