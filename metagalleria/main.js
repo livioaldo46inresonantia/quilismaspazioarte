@@ -205,6 +205,7 @@ function addAurora(){
   scene.add(aurora);
 }
 addAurora();
+
 // FONDALE PANORAMICO CIRCOLARE ESTERNO
 const PANORAMA_DISTANCE_FROM_GALLERY = 20.0;
 const PANORAMA_HEIGHT = 3.2;
