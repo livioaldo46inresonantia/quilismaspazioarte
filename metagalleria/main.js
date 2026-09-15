@@ -407,17 +407,17 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
   clickableArtworks.push(hit);
 }
 
-// 15D — FRONTE
+// D15 — MAPPA DELLA METAGALLERIA
 addPanelFaceImage(
   'I14','I19',
-  '../images/D15_OMAGGIO_A_BENVENUTO.jpg',
+  './PANNELLO D15 MAPPA.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 
-// 15S — RETRO
+// S15 — OMAGGIO A BENVENUTO
 addPanelFaceImage(
   'I14','I19',
-  '../images/S15_OMAGGIO_A_BENVENUTO_RETRO_ANTHRACITE_PIL (1).jpg',
+  '../images/D15_OMAGGIO_A_BENVENUTO.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'center'}
 );
 // 17D — ANTONIO FORTÚN, FOTO E PAROLE
