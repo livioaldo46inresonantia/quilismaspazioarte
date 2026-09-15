@@ -497,7 +497,7 @@ addPanelFaceImage(
 // segmento 4-I14
 addPanelFaceImage(
   4,'I14',
-  './PANNELLO_S16.jpg..jpg',
+ './PANNELLO_S16_LOGO_CENTRATO.jpg',
   {panelWidth:5.40,panelHeight:3.00,face:'center'}
 );
 const centerMaterial=new THREE.MeshPhysicalMaterial({
