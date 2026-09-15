@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x02052f);
+scene.background = new THREE.Color(0x01031a);
 
 const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.05, 500);
 camera.position.set(0, 1.70, 8.8);
@@ -116,7 +116,7 @@ floor.receiveShadow=true;
 scene.add(floor);
 
 const ceilingGeo=new THREE.SphereGeometry(45, 64, 32, 0, Math.PI*2, 0, Math.PI*0.52);
-const ceilingMat=new THREE.MeshBasicMaterial({color:0x02052f,side:THREE.BackSide,toneMapped:false});
+const ceilingMat=new THREE.MeshBasicMaterial({color:0x01031a,side:THREE.BackSide,toneMapped:false});
 const ceiling=new THREE.Mesh(ceilingGeo, ceilingMat);
 ceiling.position.y = -8;
 scene.add(ceiling);
