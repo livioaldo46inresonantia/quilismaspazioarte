@@ -503,8 +503,36 @@ const centerMaterial=new THREE.MeshPhysicalMaterial({
   side:THREE.DoubleSide
 });
 
-function addCenterArm(angleDeg){
+function addCenterFace(arm,imageUrl,sideSign){
+  const texture=textureLoader.load(imageUrl);
+  texture.colorSpace=THREE.SRGBColorSpace;
+  texture.anisotropy=renderer.capabilities.getMaxAnisotropy();
+
+  const face=new THREE.Mesh(
+    new THREE.PlaneGeometry(2.20,2.10),
+    new THREE.MeshBasicMaterial({
+      map:texture,
+      side:THREE.FrontSide,
+      toneMapped:false
+    })
+  );
+
+  face.position.set(
+    0,
+    0,
+    sideSign*(CENTER_THICKNESS/2+0.006)
+  );
+
+  if(sideSign<0){
+    face.rotation.y=Math.PI;
+  }
+
+  arm.add(face);
+}
+
+function addCenterArm(angleDeg,frontImage,backImage){
   const a=THREE.MathUtils.degToRad(angleDeg);
+
   const end=new THREE.Vector3(
     CENTER_ARM_LENGTH*Math.cos(a),0,
     -CENTER_ARM_LENGTH*Math.sin(a)
@@ -513,16 +541,47 @@ function addCenterArm(angleDeg){
   const len=Math.hypot(end.x,end.z);
 
   const arm=new THREE.Mesh(
-    new THREE.BoxGeometry(len,CENTER_HEIGHT,CENTER_THICKNESS),
+    new THREE.BoxGeometry(
+      len,
+      CENTER_HEIGHT,
+      CENTER_THICKNESS
+    ),
     centerMaterial
   );
 
-  arm.position.set(end.x/2,CENTER_HEIGHT/2,end.z/2);
+  arm.position.set(
+    end.x/2,
+    CENTER_HEIGHT/2,
+    end.z/2
+  );
+
   arm.rotation.y=-Math.atan2(end.z,end.x);
   scene.add(arm);
+
+  addCenterFace(arm,frontImage,1);
+  addCenterFace(arm,backImage,-1);
 }
 
-[150,30,-90].forEach(addCenterArm);
+// BRACCIO SINISTRO: C4 e C3
+addCenterArm(
+  150,
+  './PANNELLO_C5.jpg',
+  './PANNELLO_C2.jpg'
+);
+
+// BRACCIO DESTRO: C2 e C1
+addCenterArm(
+  30,
+  './PANNELLO_C4.jpg',
+  './PANNELLO_C6.jpg'
+);
+
+// BRACCIO VERSO L’INGRESSO: C6 e C5
+addCenterArm(
+  -90,
+  './PANNELLO_C1.jpg',
+  './PANNELLO_C3.jpg'
+);
 
 // SCHEDA INFORMATIVA
 const modal=document.createElement('div');
