@@ -353,7 +353,7 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
   const centerSign=normal.dot(toCenter)>=0 ? 1 : -1;
   const faceSign=options.face==='opposite' ? -centerSign : centerSign;
 
-  const texture=textureLoader.load(imageUrl);
+ const texture=new THREE.TextureLoader().load(imageUrl);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.anisotropy=renderer.capabilities.getMaxAnisotropy();
 
