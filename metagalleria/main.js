@@ -493,6 +493,13 @@ addPanelFaceImage(
   './PANNELLO 3  -  SEG. 7 - I10.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
+// S16 — LOGO E PLANIMETRIA DELLA METAGALLERIA
+// segmento 4-I14
+addPanelFaceImage(
+  4,'I14',
+  './PANNELLO_S16.jpg',
+  {panelWidth:5.40,panelHeight:3.00,face:'center'}
+);
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
