@@ -144,7 +144,7 @@ function addStars(){
 }
 addStars();
 // AURORA BOREALE LEGGERA NEL CIELO
-function // addAurora();
+function addAurora(){
   const canvas = document.createElement('canvas');
   canvas.width = 1600;
   canvas.height = 500;
