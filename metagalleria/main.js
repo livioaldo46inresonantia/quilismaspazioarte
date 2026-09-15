@@ -565,22 +565,22 @@ function addCenterArm(angleDeg,frontImage,backImage){
 // BRACCIO SINISTRO: C4 e C3
 addCenterArm(
   150,
-  './PANNELLO_C5.jpg',
-  './PANNELLO_C2.jpg'
+  './PANNELLO_C5.jpg.jpg',
+  './PANNELLO_C2.jpg.jpg'
 );
 
 // BRACCIO DESTRO: C2 e C1
 addCenterArm(
   30,
-  './PANNELLO_C4.jpg',
-  './PANNELLO_C6.jpg'
+  './PANNELLO_C4.jpg.jpg',
+  './PANNELLO_C6.jpg.jpg'
 );
 
 // BRACCIO VERSO L’INGRESSO: C6 e C5
 addCenterArm(
   -90,
-  './PANNELLO_C1.jpg',
-  './PANNELLO_C3.jpg'
+  './PANNELLO_C1.jpg.jpg',
+  './PANNELLO_C3.jpg.jpg'
 );
 
 // SCHEDA INFORMATIVA
