@@ -175,8 +175,6 @@ function addFloorSegment(a,b){
   scene.add(warmLight);
 }
 
-Lascia subito dopo, invariato:
-
 masterPaths.forEach(path=>{
   for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]);
 });
