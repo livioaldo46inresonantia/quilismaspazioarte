@@ -80,30 +80,106 @@ P.I19=lineIntersection(P.I4,P[4],P.I13,P.I14);
 
 const masterPaths=[[9,3,6,9],[4,2,8,5,4],[5,7,1,4]];
 
+// LED CALDI PUNTIFORMI E CONTINUI
+const LED_COLOR = 0xffb24a;
+const LED_SPACING = 0.065;
+const LED_RADIUS = 0.027;
+
+const ledDotGeometry =
+  new THREE.SphereGeometry(LED_RADIUS, 10, 8);
+
+const ledDotMaterial =
+  new THREE.MeshBasicMaterial({
+    color: LED_COLOR,
+    toneMapped: false
+  });
+
 function addFloorSegment(a,b){
-  const start=a.clone(),end=b.clone();
+  const start=a.clone();
+  const end=b.clone();
+
   start.y=LINE_Y;
   end.y=LINE_Y;
 
-  const mid=start.clone().add(end).multiplyScalar(0.5);
+  const mid=start.clone()
+    .add(end)
+    .multiplyScalar(0.5);
+
   const len=start.distanceTo(end);
 
-  const geo=new THREE.BoxGeometry(len,0.008,0.04);
-  const mat=new THREE.MeshStandardMaterial({color:0x050508,roughness:0.9});
-  const mesh=new THREE.Mesh(geo,mat);
-  mesh.position.copy(mid);
-  mesh.rotation.y=-Math.atan2(end.z-start.z,end.x-start.x);
-  scene.add(mesh);
+  // Sottile sede scura dei LED
+  const baseGeometry =
+    new THREE.BoxGeometry(len,0.008,0.055);
 
-  const ledGeo=new THREE.BoxGeometry(len,0.010,0.004);
-  const ledMat=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:2.5});
-  const led=new THREE.Mesh(ledGeo,ledMat);
-  led.position.copy(mid);
-  led.position.y+=0.006;
-  led.rotation.y=mesh.rotation.y;
-  scene.add(led);
+  const baseMaterial =
+    new THREE.MeshStandardMaterial({
+      color:0x17120d,
+      roughness:0.82
+    });
+
+  const base=new THREE.Mesh(
+    baseGeometry,
+    baseMaterial
+  );
+
+  base.position.copy(mid);
+  base.rotation.y=
+    -Math.atan2(
+      end.z-start.z,
+      end.x-start.x
+    );
+
+  scene.add(base);
+
+  // Punti luminosi, tutti uguali e molto ravvicinati
+  const numberOfDots=
+    Math.max(
+      2,
+      Math.ceil(len/LED_SPACING)
+    );
+
+  const dots=new THREE.InstancedMesh(
+    ledDotGeometry,
+    ledDotMaterial,
+    numberOfDots+1
+  );
+
+  const dummy=new THREE.Object3D();
+
+  for(let i=0;i<=numberOfDots;i++){
+    const t=i/numberOfDots;
+
+    dummy.position
+      .copy(start)
+      .lerp(end,t);
+
+    dummy.position.y=LINE_Y+0.025;
+    dummy.updateMatrix();
+
+    dots.setMatrixAt(i,dummy.matrix);
+  }
+
+  dots.instanceMatrix.needsUpdate=true;
+  scene.add(dots);
+
+  // Luce calda uniforme lungo ogni segmento
+  const warmLight=new THREE.PointLight(
+    LED_COLOR,
+    2.2,
+    4.5,
+    2
+  );
+
+  warmLight.position.copy(mid);
+  warmLight.position.y=0.16;
+  scene.add(warmLight);
 }
 
+Lascia subito dopo, invariato:
+
+masterPaths.forEach(path=>{
+  for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]);
+});
 masterPaths.forEach(path=>{
   for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]);
 });
