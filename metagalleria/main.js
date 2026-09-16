@@ -178,9 +178,6 @@ function addFloorSegment(a,b){
 masterPaths.forEach(path=>{
   for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]);
 });
-masterPaths.forEach(path=>{
-  for(let i=0;i<path.length-1;i++) addFloorSegment(P[path[i]],P[path[i+1]]);
-});
 
 const floor=new THREE.Mesh(
   new THREE.CylinderGeometry(R,R,0.12,128),
