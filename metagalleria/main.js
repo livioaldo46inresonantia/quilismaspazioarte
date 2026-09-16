@@ -79,19 +79,29 @@ P.I18=lineIntersection(P.I5,P[5],P.I13,P.I14);
 P.I19=lineIntersection(P.I4,P[4],P.I13,P.I14);
 
 const masterPaths=[[9,3,6,9],[4,2,8,5,4],[5,7,1,4]];
-
-// LED CALDI PUNTIFORMI E CONTINUI
-const LED_COLOR = 0xffb24a;
+// LED CALDI PUNTIFORMI CON ALONE LUMINOSO
+const LED_CORE_COLOR = 0xfff0bd;
+const LED_GLOW_COLOR = 0xff9b32;
 const LED_SPACING = 0.065;
-const LED_RADIUS = 0.027;
+const LED_RADIUS = 0.028;
 
 const ledDotGeometry =
-  new THREE.SphereGeometry(LED_RADIUS, 10, 8);
+  new THREE.SphereGeometry(LED_RADIUS,10,8);
 
 const ledDotMaterial =
   new THREE.MeshBasicMaterial({
-    color: LED_COLOR,
-    toneMapped: false
+    color:LED_CORE_COLOR,
+    toneMapped:false
+  });
+
+const ledGlowMaterial =
+  new THREE.MeshBasicMaterial({
+    color:LED_GLOW_COLOR,
+    transparent:true,
+    opacity:0.30,
+    depthWrite:false,
+    blending:THREE.AdditiveBlending,
+    toneMapped:false
   });
 
 function addFloorSegment(a,b){
@@ -107,31 +117,37 @@ function addFloorSegment(a,b){
 
   const len=start.distanceTo(end);
 
-  // Sottile sede scura dei LED
-  const baseGeometry =
-    new THREE.BoxGeometry(len,0.008,0.055);
-
-  const baseMaterial =
-    new THREE.MeshStandardMaterial({
-      color:0x17120d,
-      roughness:0.82
-    });
-
-  const base=new THREE.Mesh(
-    baseGeometry,
-    baseMaterial
-  );
-
-  base.position.copy(mid);
-  base.rotation.y=
+  const rotation=
     -Math.atan2(
       end.z-start.z,
       end.x-start.x
     );
 
+  // Sede scura sottile
+  const base=new THREE.Mesh(
+    new THREE.BoxGeometry(len,0.008,0.055),
+    new THREE.MeshStandardMaterial({
+      color:0x17120d,
+      roughness:0.82
+    })
+  );
+
+  base.position.copy(mid);
+  base.rotation.y=rotation;
   scene.add(base);
 
-  // Punti luminosi, tutti uguali e molto ravvicinati
+  // Alone ampio e trasparente sul pavimento
+  const glow=new THREE.Mesh(
+    new THREE.BoxGeometry(len,0.006,0.26),
+    ledGlowMaterial
+  );
+
+  glow.position.copy(mid);
+  glow.position.y=LINE_Y+0.009;
+  glow.rotation.y=rotation;
+  scene.add(glow);
+
+  // Nuclei luminosi puntiformi
   const numberOfDots=
     Math.max(
       2,
@@ -153,7 +169,7 @@ function addFloorSegment(a,b){
       .copy(start)
       .lerp(end,t);
 
-    dummy.position.y=LINE_Y+0.025;
+    dummy.position.y=LINE_Y+0.027;
     dummy.updateMatrix();
 
     dots.setMatrixAt(i,dummy.matrix);
@@ -162,16 +178,16 @@ function addFloorSegment(a,b){
   dots.instanceMatrix.needsUpdate=true;
   scene.add(dots);
 
-  // Luce calda uniforme lungo ogni segmento
+  // Luce reale, calda e uniforme
   const warmLight=new THREE.PointLight(
-    LED_COLOR,
-    2.2,
-    4.5,
+    LED_GLOW_COLOR,
+    3.2,
+    5.2,
     2
   );
 
   warmLight.position.copy(mid);
-  warmLight.position.y=0.16;
+  warmLight.position.y=0.20;
   scene.add(warmLight);
 }
 
