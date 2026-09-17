@@ -398,9 +398,23 @@ function addTree(x, z, scale = 1){
   scene.add(crown);
 }
 
-addTree(-0.40, R + 0.45, 0.32);
-addTree( 0.05, R + 0.65, 0.48);
-addTree( 0.48, R + 0.50, 0.35);
+// PICCOLO PARCO STILIZZATO OLTRE L’INGRESSO
+
+// Prima fila
+addTree(-2.20, R + 1.60, 0.88);
+addTree( 0.10, R + 1.80, 1.18);
+addTree( 2.35, R + 1.55, 0.92);
+
+// Seconda fila
+addTree(-4.10, R + 3.10, 1.05);
+addTree(-1.25, R + 3.45, 0.82);
+addTree( 1.55, R + 3.30, 1.08);
+addTree( 4.25, R + 3.00, 0.86);
+
+// Terza fila
+addTree(-3.00, R + 5.00, 0.78);
+addTree( 0.35, R + 5.25, 1.28);
+addTree( 3.40, R + 4.85, 0.96);
 const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],
   [8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],
