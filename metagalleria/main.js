@@ -924,7 +924,7 @@ function animate(){
   requestAnimationFrame(animate);
   const dt=Math.min(clock.getDelta(),0.05);
 
-  if(controls.isLocked&&!topView){
+if((controls.isLocked||isTouchDevice)&&!topView){
     let f=0,r=0;
 
     if(keys.KeyW||keys.ArrowUp) f=1;
