@@ -752,7 +752,16 @@ addPanelFaceImage(
  './PROVA_S10_ROSSO_SANGUE_PIU_SCURO.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
-
+// D5 — DUE OPERE — segmento 8-I6
+addPanelFaceImage(
+  8,'I6',
+  './PANNELLO_D5_DUE_OPERE.jpg',
+  {
+    panelWidth:5.50,
+    panelHeight:3.00,
+    face:'center'
+  }
+);
 // D3 — PALEOCAPA 11, 16 E 17 — segmento 7-I10
 addPanelFaceImage(
   7,'I10',
