@@ -806,6 +806,118 @@ bottoneTop.addEventListener('click',e=>{
   toggleTopView();
 });
 
+// COMANDI TATTILI PER CELLULARE
+const isTouchDevice =
+  ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+
+if(isTouchDevice){
+
+  // Impedisce lo scorrimento della pagina durante la visita
+  renderer.domElement.style.touchAction='none';
+
+  // Movimento dello sguardo trascinando un dito
+  let touchX=0;
+  let touchY=0;
+  let touchLooking=false;
+
+  const touchEuler=new THREE.Euler(0,0,0,'YXZ');
+
+  renderer.domElement.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1 || topView) return;
+
+    touchLooking=true;
+    touchX=e.touches[0].clientX;
+    touchY=e.touches[0].clientY;
+  },{passive:false});
+
+  renderer.domElement.addEventListener('touchmove',e=>{
+    if(!touchLooking || e.touches.length!==1 || topView) return;
+
+    e.preventDefault();
+
+    const x=e.touches[0].clientX;
+    const y=e.touches[0].clientY;
+    const dx=x-touchX;
+    const dy=y-touchY;
+
+    touchX=x;
+    touchY=y;
+
+    touchEuler.setFromQuaternion(camera.quaternion);
+    touchEuler.y-=dx*0.004;
+    touchEuler.x-=dy*0.004;
+    touchEuler.x=Math.max(
+      -Math.PI/2.15,
+      Math.min(Math.PI/2.15,touchEuler.x)
+    );
+
+    camera.quaternion.setFromEuler(touchEuler);
+  },{passive:false});
+
+  renderer.domElement.addEventListener('touchend',()=>{
+    touchLooking=false;
+  });
+
+  // Pulsanti per camminare
+  const mobileControls=document.createElement('div');
+
+  mobileControls.style.cssText=`
+    position:fixed;
+    left:18px;
+    bottom:25px;
+    width:150px;
+    height:150px;
+    z-index:9998;
+    touch-action:none;
+    user-select:none;
+  `;
+
+  document.body.appendChild(mobileControls);
+
+  function addMoveButton(symbol,code,left,top){
+    const button=document.createElement('button');
+
+    button.textContent=symbol;
+    button.style.cssText=`
+      position:absolute;
+      left:${left}px;
+      top:${top}px;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      border:2px solid rgba(255,255,255,.85);
+      background:rgba(20,24,38,.68);
+      color:white;
+      font-size:25px;
+      font-weight:bold;
+      touch-action:none;
+    `;
+
+    const start=e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      keys[code]=true;
+    };
+
+    const stop=e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      keys[code]=false;
+    };
+
+    button.addEventListener('pointerdown',start);
+    button.addEventListener('pointerup',stop);
+    button.addEventListener('pointercancel',stop);
+    button.addEventListener('pointerleave',stop);
+
+    mobileControls.appendChild(button);
+  }
+
+  addMoveButton('▲','KeyW',49,0);
+  addMoveButton('◀','KeyA',0,49);
+  addMoveButton('▶','KeyD',98,49);
+  addMoveButton('▼','KeyS',49,98);
+}
 const clock=new THREE.Clock();
 
 function animate(){
