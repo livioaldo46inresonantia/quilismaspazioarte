@@ -753,12 +753,6 @@ addPanelFaceImage(
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
 
-// D5 — ARRIVO DALL’ORIZZONTE — segmento 8-I6
-addPanelFaceImage(
-  8,'I6',
-  './PANNELLO_D5_ARRIVO_ORIZZONTE (1).jpg',
-  {panelWidth:5.50,panelHeight:3.00,face:'center'}
-);
 // D3 — PALEOCAPA 11, 16 E 17 — segmento 7-I10
 addPanelFaceImage(
   7,'I10',
