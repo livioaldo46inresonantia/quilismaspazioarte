@@ -755,7 +755,7 @@ addPanelFaceImage(
 // D5 — DUE OPERE — segmento 8-I6
 addPanelFaceImage(
   8,'I6',
-  './PANNELLO_D5_DUE_OPERE.jpg',
+  './PANNELLO_D5.jpg',
   {
     panelWidth:5.50,
     panelHeight:3.00,
