@@ -425,24 +425,24 @@ const panels=[
 // BOSCO AUTUNNALE STILIZZATO DIETRO IL VERTICE 9
 
 const autumnMaterials = [
+const autumnMaterials = [
   new THREE.MeshStandardMaterial({
-    color:0xd88a18,
-    roughness:0.88
+    color:0x914527,
+    roughness:0.92
   }),
   new THREE.MeshStandardMaterial({
-    color:0xb84a22,
-    roughness:0.88
+    color:0x692b32,
+    roughness:0.92
   }),
   new THREE.MeshStandardMaterial({
-    color:0xe0ad28,
-    roughness:0.88
+    color:0x76532e,
+    roughness:0.92
   }),
   new THREE.MeshStandardMaterial({
-    color:0x8f3424,
-    roughness:0.88
+    color:0x57342c,
+    roughness:0.92
   })
 ];
-
 function addAutumnTree(x,z,scale=1,colorIndex=0){
   const group=new THREE.Group();
   group.position.set(x,0,z);
