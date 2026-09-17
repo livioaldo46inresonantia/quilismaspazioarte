@@ -760,7 +760,7 @@ document.body.addEventListener('click',e=>{
     return;
   }
 
-  if(modal.style.display!=='flex') controls.lock();
+if(modal.style.display!=='flex' && !isTouchDevice) controls.lock();
 });
 
 const keys={};
