@@ -845,12 +845,8 @@ if(isTouchDevice){
 
     touchEuler.setFromQuaternion(camera.quaternion);
     touchEuler.y-=dx*0.004;
-    touchEuler.x-=dy*0.004;
-    touchEuler.x=Math.max(
-      -Math.PI/2.15,
-      Math.min(Math.PI/2.15,touchEuler.x)
-    );
-
+  touchEuler.x=0;
+  
     camera.quaternion.setFromEuler(touchEuler);
   },{passive:false});
 
