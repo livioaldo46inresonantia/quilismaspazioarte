@@ -422,7 +422,128 @@ const panels=[
   [4,'I14'],['I17','I9'],[1,'I7'],[2,'I7'],
   [2,'I11'],['I11','I15']
 ];
+// BOSCO AUTUNNALE STILIZZATO DIETRO IL VERTICE 9
 
+const autumnMaterials = [
+  new THREE.MeshStandardMaterial({
+    color:0xd88a18,
+    roughness:0.88
+  }),
+  new THREE.MeshStandardMaterial({
+    color:0xb84a22,
+    roughness:0.88
+  }),
+  new THREE.MeshStandardMaterial({
+    color:0xe0ad28,
+    roughness:0.88
+  }),
+  new THREE.MeshStandardMaterial({
+    color:0x8f3424,
+    roughness:0.88
+  })
+];
+
+function addAutumnTree(x,z,scale=1,colorIndex=0){
+  const group=new THREE.Group();
+  group.position.set(x,0,z);
+
+  // Tronco più alto e sottile
+  const trunk=new THREE.Mesh(
+    new THREE.CylinderGeometry(
+      0.10,
+      0.18,
+      1.90,
+      10
+    ),
+    trunkMaterial
+  );
+
+  trunk.scale.setScalar(scale);
+  trunk.position.y=0.95*scale;
+  group.add(trunk);
+
+  const material=
+    autumnMaterials[
+      colorIndex % autumnMaterials.length
+    ];
+
+  // Chioma centrale sfaccettata
+  const crownCenter=new THREE.Mesh(
+    new THREE.DodecahedronGeometry(0.72,1),
+    material
+  );
+
+  crownCenter.scale.set(
+    1.05*scale,
+    1.30*scale,
+    0.92*scale
+  );
+
+  crownCenter.position.set(
+    0,
+    2.20*scale,
+    0
+  );
+
+  group.add(crownCenter);
+
+  // Due masse laterali rendono la chioma irregolare
+  const crownLeft=new THREE.Mesh(
+    new THREE.DodecahedronGeometry(0.48,1),
+    material
+  );
+
+  crownLeft.scale.set(
+    scale,
+    1.05*scale,
+    0.90*scale
+  );
+
+  crownLeft.position.set(
+    -0.48*scale,
+    1.95*scale,
+    0
+  );
+
+  group.add(crownLeft);
+
+  const crownRight=new THREE.Mesh(
+    new THREE.DodecahedronGeometry(0.52,1),
+    material
+  );
+
+  crownRight.scale.set(
+    scale,
+    1.10*scale,
+    0.90*scale
+  );
+
+  crownRight.position.set(
+    0.50*scale,
+    2.02*scale,
+    0
+  );
+
+  group.add(crownRight);
+
+  scene.add(group);
+}
+
+// Prima fila dietro il vertice 9
+addAutumnTree(-2.30,-(R+1.70),0.90,0);
+addAutumnTree( 0.00,-(R+1.95),1.18,1);
+addAutumnTree( 2.40,-(R+1.65),0.94,2);
+
+// Seconda fila
+addAutumnTree(-4.20,-(R+3.25),1.08,3);
+addAutumnTree(-1.35,-(R+3.55),0.84,2);
+addAutumnTree( 1.55,-(R+3.45),1.04,0);
+addAutumnTree( 4.25,-(R+3.15),0.88,1);
+
+// Terza fila
+addAutumnTree(-3.10,-(R+5.10),0.82,1);
+addAutumnTree( 0.25,-(R+5.35),1.24,2);
+addAutumnTree( 3.35,-(R+5.00),0.96,3);
 const panelMaterial=new THREE.MeshStandardMaterial({
   color:0x373a3f,
   roughness:0.85,
