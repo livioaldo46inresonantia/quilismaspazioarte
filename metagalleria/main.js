@@ -350,7 +350,57 @@ scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 1.2));
 const softLight=new THREE.DirectionalLight(0xfff1dd, 0.9);
 softLight.position.set(3,8,4);
 scene.add(softLight);
+// TRE ALBERELLI STILIZZATI DIETRO L’INGRESSO 4–5
+const trunkMaterial = new THREE.MeshStandardMaterial({
+  color: 0x4b3621,
+  roughness: 1
+});
 
+const foliageMaterial = new THREE.MeshStandardMaterial({
+  color: 0x27452d,
+  roughness: 1
+});
+
+function addTree(x, z, scale = 1){
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(
+      0.12 * scale,
+      0.16 * scale,
+      1.6 * scale,
+      12
+    ),
+    trunkMaterial
+  );
+
+  trunk.position.set(
+    x,
+    0.8 * scale,
+    z
+  );
+
+  scene.add(trunk);
+
+  const crown = new THREE.Mesh(
+    new THREE.SphereGeometry(
+      0.75 * scale,
+      16,
+      12
+    ),
+    foliageMaterial
+  );
+
+  crown.position.set(
+    x,
+    1.9 * scale,
+    z
+  );
+
+  scene.add(crown);
+}
+
+addTree(-0.40, R + 0.45, 0.32);
+addTree( 0.05, R + 0.65, 0.48);
+addTree( 0.48, R + 0.50, 0.35);
 const panels=[
   ['I1','I4'],['I1','I3'],['I2','I3'],['I2','I5'],
   [8,'I6'],[7,'I6'],[7,'I10'],['I10','I12'],
