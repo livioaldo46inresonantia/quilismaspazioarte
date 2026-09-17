@@ -425,7 +425,6 @@ const panels=[
 // BOSCO AUTUNNALE STILIZZATO DIETRO IL VERTICE 9
 
 const autumnMaterials = [
-const autumnMaterials = [
   new THREE.MeshStandardMaterial({
     color:0x914527,
     roughness:0.92
