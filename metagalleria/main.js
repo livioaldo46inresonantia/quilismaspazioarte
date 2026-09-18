@@ -775,11 +775,11 @@ addPanelFaceImage(
  './PANNELLO_S16_LOGO_CENTRATO.jpg',
   {panelWidth:5.40,panelHeight:3.00,face:'center'}
 );
-// IMMAGINE DI FORTÚN DIETRO IL VERTICE 9
-// Dimensioni reali: 3,60 × 1,80 metri
+// OPERA DI FORTÚN DIETRO IL VERTICE 9
+// Pannello: larghezza 6 m × altezza 3 m
 
 const vertex9FortunTexture = textureLoader.load(
-  '../images/PANNELLO_VERTICE_9_FORTUN_360x180.jpg'
+  '../images/PANNELLO_VERTICE_9_FORTUN_600x300.jpg'
 );
 
 vertex9FortunTexture.colorSpace = THREE.SRGBColorSpace;
@@ -795,12 +795,10 @@ const vertex9FortunMaterial =
 
 const vertex9FortunPanel =
   new THREE.Mesh(
-  new THREE.PlaneGeometry(6.00, 3.00),
+    new THREE.PlaneGeometry(6.00, 3.00),
     vertex9FortunMaterial
   );
 
-// Dietro il vertice 9, leggermente verso l’esterno.
-// Il margine inferiore rimane sollevato di 15 cm.
 vertex9FortunPanel.position.set(
   0,
   1.65,
