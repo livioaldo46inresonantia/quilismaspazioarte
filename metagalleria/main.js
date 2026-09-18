@@ -795,7 +795,7 @@ const vertex9FortunMaterial =
 
 const vertex9FortunPanel =
   new THREE.Mesh(
-    new THREE.PlaneGeometry(3.60, 1.80),
+  new THREE.PlaneGeometry(6.00, 3.00),
     vertex9FortunMaterial
   );
 
@@ -803,7 +803,7 @@ const vertex9FortunPanel =
 // Il margine inferiore rimane sollevato di 15 cm.
 vertex9FortunPanel.position.set(
   0,
-  1.05,
+  1.65,
   -(R + 0.70)
 );
 
