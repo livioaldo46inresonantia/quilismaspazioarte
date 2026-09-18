@@ -345,6 +345,47 @@ panoramaBackdrop.rotation.y =
   PANORAMA_ROTATION;
 
 scene.add(panoramaBackdrop);
+// FASCIA NEUMATICA — O QUAM PRETIOSA
+const neumiTexture = new THREE.TextureLoader().load(
+  './FASCIA_O_QUAM_PRETIOSA_1-9.jpg'
+);
+
+neumiTexture.colorSpace = THREE.SRGBColorSpace;
+neumiTexture.wrapS = THREE.RepeatWrapping;
+neumiTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+// Ripete l'intero brano cinque volte lungo il cerchio
+neumiTexture.repeat.set(5, 1);
+
+const neumiGeometry = new THREE.CylinderGeometry(
+  PANORAMA_RADIUS - 0.08,
+  PANORAMA_RADIUS - 0.08,
+  0.90,       // altezza della fascia
+  256,
+  1,
+  true
+);
+
+const neumiMaterial = new THREE.MeshBasicMaterial({
+  map: neumiTexture,
+  color: 0xe2ddd3,
+  transparent: true,
+  opacity: 0.88,
+  side: THREE.BackSide,
+  depthWrite: false,
+  toneMapped: false
+});
+
+const neumiBand = new THREE.Mesh(
+  neumiGeometry,
+  neumiMaterial
+);
+
+// Centro della fascia all’altezza dell’orizzonte
+neumiBand.position.y = 1.72;
+neumiBand.rotation.y = 0;
+
+scene.add(neumiBand);
 scene.add(new THREE.HemisphereLight(0xdde6ff, 0x1a2a44, 1.2));
 
 const softLight=new THREE.DirectionalLight(0xfff1dd, 0.9);
