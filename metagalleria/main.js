@@ -360,7 +360,7 @@ neumiTexture.repeat.set(5, 1);
 const neumiGeometry = new THREE.CylinderGeometry(
   PANORAMA_RADIUS - 0.08,
   PANORAMA_RADIUS - 0.08,
-  2.90,
+  1.20,
   256,
   1,
   true
@@ -370,7 +370,7 @@ const neumiMaterial = new THREE.MeshBasicMaterial({
   map: neumiTexture,
   color: 0xe2ddd3,
   transparent: true,
-  opacity: 0.88,
+  opacity: 0.58,
   side: THREE.BackSide,
   depthWrite: false,
   toneMapped: false
@@ -382,7 +382,7 @@ const neumiBand = new THREE.Mesh(
 );
 
 // Centro della fascia all’altezza dell’orizzonte
-neumiBand.position.y = 1.55;
+neumiBand.position.y = 1.70;
 neumiBand.rotation.y = 0;
 
 scene.add(neumiBand);
