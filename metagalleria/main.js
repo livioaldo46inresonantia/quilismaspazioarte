@@ -779,7 +779,7 @@ addPanelFaceImage(
 // D18 — segmento I13-I18
 addPanelFaceImage(
   'I13','I18',
-  './D18  I13 - I18.jpg',
+'./INTESTAZIONE_FORTUN_GIALLO_ROSSO_SANGUE.png'
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 // S18 — DISEGNO BIANCO SU ANTRACITE — segmento I13-I18
