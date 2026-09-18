@@ -344,10 +344,11 @@ panoramaBackdrop.position.y =
 panoramaBackdrop.rotation.y =
   PANORAMA_ROTATION;
 
-scene.add(panoramaBackdrop);
+// scene.add(panoramaBackdrop);
 // FASCIA NEUMATICA — O QUAM PRETIOSA
 const neumiTexture = new THREE.TextureLoader().load(
-  './FASCIA_O_QUAM_PRETIOSA_1-9.jpg'
+'./FASCIA_O_QUAM_PRETIOSA_TRASPARENTE.png'
+
 );
 
 neumiTexture.colorSpace = THREE.SRGBColorSpace;
