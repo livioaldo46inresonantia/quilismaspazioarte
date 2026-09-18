@@ -779,9 +779,8 @@ addPanelFaceImage(
 // Pannello: larghezza 6 m × altezza 3 m
 
 const vertex9FortunTexture = textureLoader.load(
-  '../images/PANNELLO_VERTICE_9_FORTUN_600x300.jpg'
+  './PANNELLO_VERTICE_9_FORTUN_600x300.jpg'
 );
-
 vertex9FortunTexture.colorSpace = THREE.SRGBColorSpace;
 vertex9FortunTexture.anisotropy =
   renderer.capabilities.getMaxAnisotropy();
