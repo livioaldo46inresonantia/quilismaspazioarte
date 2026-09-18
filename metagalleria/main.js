@@ -367,14 +367,23 @@ const neumiGeometry = new THREE.CylinderGeometry(
   true
 );
 
-CylinderGeometry
+const neumiMaterial = new THREE.MeshBasicMaterial({
+  map: neumiTexture,
+  color: 0xffffff,
+  transparent: true,
+  opacity: 0.90,
+  alphaTest: 0.02,
+  side: THREE.BackSide,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  toneMapped: false
+});
 
 const neumiBand = new THREE.Mesh(
   neumiGeometry,
   neumiMaterial
 );
 
-// Centro della fascia all’altezza dell’orizzonte
 neumiBand.position.y = 2.15;
 neumiBand.rotation.y = 0;
 
