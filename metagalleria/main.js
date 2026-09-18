@@ -528,6 +528,8 @@ function addAutumnTree(x,z,scale=1,colorIndex=0){
   scene.add(group);
 }
 
+*/
+
 // Prima fila dietro il vertice 9
 addAutumnTree(-2.30,-(R+1.70),0.90,0);
 addAutumnTree( 0.00,-(R+1.95),1.18,1);
@@ -543,6 +545,9 @@ addAutumnTree( 4.25,-(R+3.15),0.88,1);
 addAutumnTree(-3.10,-(R+5.10),0.82,1);
 addAutumnTree( 0.25,-(R+5.35),1.24,2);
 addAutumnTree( 3.35,-(R+5.00),0.96,3);
+
+*/
+
 const panelMaterial=new THREE.MeshStandardMaterial({
   color:0x373a3f,
   roughness:0.85,
