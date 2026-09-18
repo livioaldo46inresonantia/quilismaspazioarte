@@ -779,7 +779,7 @@ addPanelFaceImage(
 // D18 — segmento I13-I18
 addPanelFaceImage(
   'I13','I18',
-  './INTESTAZIONE_FORTUN_GIALLO_ROSSO_SANGUE.png',
+  './INTESTAZIONE_FORTUN_30CM_BASSO_DATE_GIALLE.png',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 
