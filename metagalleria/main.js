@@ -366,8 +366,6 @@ const neumiGeometry = new THREE.CylinderGeometry(
   true
 );
 
-neumiBand.position.y = 1.55;
-
 const neumiMaterial = new THREE.MeshBasicMaterial({
   map: neumiTexture,
   color: 0xe2ddd3,
