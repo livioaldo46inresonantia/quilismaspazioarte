@@ -528,7 +528,7 @@ function addAutumnTree(x,z,scale=1,colorIndex=0){
   scene.add(group);
 }
 
-*/
+/*
 
 // Prima fila dietro il vertice 9
 addAutumnTree(-2.30,-(R+1.70),0.90,0);
