@@ -834,7 +834,7 @@ addPanelFaceImage(
 
 addPanelFaceImage(
   'I2','I5',
-  './PANNELLO_S9_SIMBOLO_CENTRATO_300.jpg.jpg',
+  './PANNELLO_S9_SIMBOLO_CENTRATO_300.jpg',
   {panelWidth:3.00,panelHeight:3.00,face:'center'}
 );
 const centerMaterial=new THREE.MeshPhysicalMaterial({
