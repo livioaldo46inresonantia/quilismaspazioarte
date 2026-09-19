@@ -824,10 +824,17 @@ vertex9FortunPanel.position.set(
 
 scene.add(vertex9FortunPanel);
 
+// S7 — SIMBOLO VIBRANTE
+addPanelFaceImage(
+  'I1','I4',
+  './PANNELLO_S7_SIMBOLO.jpg',
+  {panelWidth:3.00,panelHeight:3.00,face:'center'}
+);
+
 // S9 — SIMBOLO CAMPO VIVENTE
 addPanelFaceImage(
   'I2','I5',
-  './1975 Padova PALEOCAPA 6.jpg',
+  './PANNELLO_S9_SIMBOLO.jpg',
   {panelWidth:3.00,panelHeight:3.00,face:'center'}
 );
 
