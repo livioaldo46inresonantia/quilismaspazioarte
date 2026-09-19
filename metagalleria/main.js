@@ -825,10 +825,11 @@ vertex9FortunPanel.position.set(
 scene.add(vertex9FortunPanel);
 
 // S7 — SIMBOLO VIBRANTE
+// quadro centrato 1.80 x 1.80 m dentro pannello 3 x 3 m
 addPanelFaceImage(
   'I1','I3',
   './PANNELLO_S7_SIMBOLO.jpg',
-  {panelWidth:3.00,panelHeight:3.00,face:'center'}
+  {panelWidth:1.80,panelHeight:1.80,face:'center'}
 );
 
 // S9 — SIMBOLO CAMPO VIVENTE
