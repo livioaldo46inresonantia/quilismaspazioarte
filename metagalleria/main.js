@@ -833,9 +833,10 @@ addPanelFaceImage(
 );
 
 // S9 — SIMBOLO CAMPO VIVENTE
+// quadro 1.80 x 1.80 centrato dentro pannello antracite 3 x 3
 addPanelFaceImage(
   'I2','I5',
-  './PANNELLO_S9_SIMBOLO.jpg',
+  './PANNELLO_S9_SIMBOLO_CENTRATO_300.jpg',
   {panelWidth:3.00,panelHeight:3.00,face:'center'}
 );
 
