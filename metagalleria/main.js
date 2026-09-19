@@ -147,37 +147,6 @@ function addFloorSegment(a,b){
   glow.rotation.y=rotation;
   scene.add(glow);
 
-  // Nuclei luminosi puntiformi
-  const numberOfDots=
-    Math.max(
-      2,
-      Math.ceil(len/LED_SPACING)
-    );
-
-  const dots=new THREE.InstancedMesh(
-    ledDotGeometry,
-    ledDotMaterial,
-    numberOfDots+1
-  );
-
-  const dummy=new THREE.Object3D();
-
-  for(let i=0;i<=numberOfDots;i++){
-    const t=i/numberOfDots;
-
-    dummy.position
-      .copy(start)
-      .lerp(end,t);
-
-    dummy.position.y=LINE_Y+0.027;
-    dummy.updateMatrix();
-
-    dots.setMatrixAt(i,dummy.matrix);
-  }
-
-  dots.instanceMatrix.needsUpdate=true;
-  scene.add(dots);
-
   // Luce reale, calda e uniforme
   const warmLight=new THREE.PointLight(
     LED_GLOW_COLOR,
