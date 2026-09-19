@@ -826,7 +826,7 @@ scene.add(vertex9FortunPanel);
 
 // S7 — SIMBOLO VIBRANTE
 addPanelFaceImage(
-  'I1','I4',
+  'I1','I3',
   './PANNELLO_S7_SIMBOLO.jpg',
   {panelWidth:3.00,panelHeight:3.00,face:'center'}
 );
