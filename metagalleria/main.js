@@ -764,10 +764,11 @@ addPanelFaceImage(
   './PANNELLO S14    SEG. 11 - 15.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'center'}
 );
-// S10 — SALUTO RIVOLTO VERSO IL MARE — segmento 1-I7
+// S10 — SALUTO RIVOLTO VERSO IL MARE
+// biglietto rosso centrato, 60 cm sopra e sotto
 addPanelFaceImage(
   1,'I7',
- './PROVA_S10_ROSSO_SANGUE_PIU_SCURO.jpg',
+  './PANNELLO_S10_ROSSO_CENTRATO_60CM.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
 // D5 — DUE OPERE — segmento 8-I6
