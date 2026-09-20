@@ -786,11 +786,11 @@ addPanelFaceImage(
   './PANNELLO 3  -  SEG. 7 - I10.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
-// S16 — LOGO E PLANIMETRIA DELLA METAGALLERIA
+// S16 — MANIFESTO E LOGO QUILISMASPAZIOARTE
 // segmento 4-I14
 addPanelFaceImage(
   4,'I14',
- './PANNELLO_S16_LOGO_CENTRATO.jpg',
+  './PANNELLO_S16_MANIFESTO_LOGO_ORIGINALE_SHIFT.jpg',
   {panelWidth:5.40,panelHeight:3.00,face:'center'}
 );
 // OPERA DI FORTÚN DIETRO IL VERTICE 9
