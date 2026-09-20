@@ -824,8 +824,14 @@ vertex9FortunPanel.position.set(
 
 scene.add(vertex9FortunPanel);
 
+// D6 — TESTO SOGLIA / APPARTENENZA
+addPanelFaceImage(
+  'I1','I4',
+  './PANNELLO_D6_TESTO_DUE_COLONNE.jpg',
+  {panelWidth:3.00,panelHeight:3.00,face:'center'}
+);
+
 // S7 — SIMBOLO VIBRANTE
-// quadro 1.80 x 1.80 centrato dentro pannello antracite 3 x 3
 addPanelFaceImage(
   'I1','I3',
   './PANNELLO_S7_SIMBOLO_CENTRATO_300.jpg',
