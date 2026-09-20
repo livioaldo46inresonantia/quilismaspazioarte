@@ -798,6 +798,13 @@ addPanelFaceImage(
 // OPERA DI FORTÚN DIETRO IL VERTICE 9
 // Pannello: larghezza 6 m × altezza 3 m
 
+// D8 — FORTUN ZARAGOZA 1980
+addPanelFaceImage(
+  'I2','I5',
+  './PANNELLO_D8_ZARAGOZA_1980_CENTRATO_60CM.jpg',
+  {panelWidth:3.00,panelHeight:3.00,face:'opposite'}
+);
+
 const vertex9FortunTexture = textureLoader.load(
   './PANNELLO_VERTICE_9_FORTUN_600x300.jpg'
 );
