@@ -798,10 +798,10 @@ addPanelFaceImage(
 // OPERA DI FORTÚN DIETRO IL VERTICE 9
 // Pannello: larghezza 6 m × altezza 3 m
 
-// D8 — FORTUN ZARAGOZA 1980
+// D8 — DOSSIER PADOVA 1975
 addPanelFaceImage(
-  'I2','I5',
-  './PANNELLO_D8_ZARAGOZA_1980_CENTRATO_60CM.jpg',
+  'I2','I3',
+  './PANNELLO_D8_DOSSIER_PADOVA_1975_PROVA_V7_SPAZIO_TITOLO.jpg',
   {panelWidth:3.00,panelHeight:3.00,face:'opposite'}
 );
 
