@@ -802,7 +802,7 @@ addPanelFaceImage(
 addPanelFaceImage(
   'I2','I3',
   './PANNELLO_D8_DOSSIER_PADOVA_1975_PROVA_V7_SPAZIO_TITOLO.jpg',
-  {panelWidth:3.00,panelHeight:3.00,face:'opposite'}
+  {panelWidth:3.00,panelHeight:3.00,face:'center'}
 );
 
 const vertex9FortunTexture = textureLoader.load(
