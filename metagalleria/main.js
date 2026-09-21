@@ -833,7 +833,6 @@ addPanelFaceImage(
   }
 );
 
-In più hai duplic
 // D3 — PALEOCAPA 11, 16 E 17 — segmento 7-I10
 addPanelFaceImage(
   7,'I10',
