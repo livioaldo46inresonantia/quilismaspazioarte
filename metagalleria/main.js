@@ -733,6 +733,12 @@ addPanelFaceImage(
   './PANNELLO S 13 -.jpg',
  {panelWidth:4.40,panelHeight:3.00,face:'center'}
 );
+// D13 — PALEOCAPA 9
+addPanelFaceImage(
+  5,'I13',
+  './PANNELLO_D13_PALEOCAPA_9_CENTRATO_SCRITTA_STANDARD.jpg',
+  {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
+);
 // D4 — PALEOCAPA — segmento 7-I6
 addPanelFaceImage(
   7,'I6',
