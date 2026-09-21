@@ -740,7 +740,7 @@ addPanelFaceImage(
 );
 // D13 — PALEOCAPA 9
 addPanelFaceImage(
-  5,'I13',
+  'I17','I9',
   './PANNELLO_D13_PALEOCAPA_9_CENTRATO_SCRITTA_STANDARD.jpg',
   {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
 );
