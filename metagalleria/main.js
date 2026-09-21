@@ -727,6 +727,11 @@ addPanelFaceImage(
   './PANNELLO_D2_ULTIME_DUE_FOTO.jpg',
   {panelWidth:4.40,panelHeight:3.00,face:'center'}
 );
+addPanelFaceImage(
+  'I8','I16',
+  './PANNELLO_D2_ULTIME_DUE_FOTO.jpg',
+  {panelWidth:4.40,panelHeight:3.00,face:'center'}
+);
 // S13 — PALEOCAPA — segmento I9-I17
 addPanelFaceImage(
   'I17','I9',
@@ -739,6 +744,51 @@ addPanelFaceImage(
   './PANNELLO_D13_PALEOCAPA_9_CENTRATO_SCRITTA_STANDARD.jpg',
   {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
 );
+// D4 — PALEOCAPA — segmento 7-I6
+addPanelFaceImage(
+  7,'I6',
+  './PANNELLO D4  7 - I6.jpg',
+  {panelWidth:4.80,panelHeight:3.00,face:'center'}
+);
+// S11 — PALEOCAPA — segmento 2-I7
+addPanelFaceImage(
+  2,'I7',
+  './PANNELLO_S11  2 - I7.jpg',
+  {panelWidth:4.80,panelHeight:3.00,face:'center'}
+);
+// D18 — segmento I13-I18
+addPanelFaceImage(
+  'I13','I18',
+  './INTESTAZIONE_FORTUN_30CM_BASSO_DATE_GIALLE.png',
+  {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
+);
+
+// S18 — DISEGNO BIANCO SU ANTRACITE — segmento I13-I18
+addPanelFaceImage(
+  'I13','I18',
+  './PANNELLO S 18 SEG. I13 - I18.jpg',
+  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+);
+// S14 — PALEOCAPA 6 — segmento I11-I15
+addPanelFaceImage(
+  'I11','I15',
+  './PANNELLO S14    SEG. 11 - 15.jpg',
+  {panelWidth:3.30,panelHeight:3.00,face:'center'}
+);
+// S10 — SALUTO RIVOLTO VERSO IL MARE
+// biglietto rosso centrato, 60 cm sopra e sotto
+addPanelFaceImage(
+  1,'I7',
+  './PANNELLO_S10_ROSSO_CENTRATO_60CM.jpg',
+  {panelWidth:5.50,panelHeight:3.00,face:'center'}
+);
+// D5 — DUE OPERE
+// contenuto centrato, 60 cm sopra e sotto
+addPanelFaceImage(
+  8,'I6',
+  './PANNELLO_D5_DUE_OPERE_CENTRATO_60CM.jpg',
+  {
+    panelWidth:5.50,
 // D4 — PALEOCAPA — segmento 7-I6
 addPanelFaceImage(
   7,'I6',
