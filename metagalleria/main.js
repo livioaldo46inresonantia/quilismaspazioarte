@@ -782,13 +782,7 @@ addPanelFaceImage(
   './PANNELLO_S10_ROSSO_CENTRATO_60CM.jpg',
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
-// D5 — DUE OPERE
-// contenuto centrato, 60 cm sopra e sotto
-addPanelFaceImage(
-  8,'I6',
-  './PANNELLO_D5_DUE_OPERE_CENTRATO_60CM.jpg',
-  {
-    panelWidth:5.50,
+
 // D4 — PALEOCAPA — segmento 7-I6
 addPanelFaceImage(
   7,'I6',
