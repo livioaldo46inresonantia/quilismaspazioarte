@@ -779,13 +779,6 @@ addPanelFaceImage(
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
 
-// S10 — SALUTO RIVOLTO VERSO IL MARE
-// biglietto rosso centrato, 60 cm sopra e sotto
-addPanelFaceImage(
-  1,'I7',
-  './PANNELLO_S10_ROSSO_CENTRATO_60CM.jpg',
-  {panelWidth:5.50,panelHeight:3.00,face:'center'}
-);
 // D5 — DUE OPERE
 // contenuto centrato, 60 cm sopra e sotto
 addPanelFaceImage(
