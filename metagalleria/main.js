@@ -779,12 +779,6 @@ addPanelFaceImage(
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
 
-// S14 — PALEOCAPA 6 — segmento I11-I15
-addPanelFaceImage(
-  'I11','I15',
-  './PANNELLO S14    SEG. 11 - 15.jpg',
-  {panelWidth:3.30,panelHeight:3.00,face:'center'}
-);
 // S10 — SALUTO RIVOLTO VERSO IL MARE
 // biglietto rosso centrato, 60 cm sopra e sotto
 addPanelFaceImage(
