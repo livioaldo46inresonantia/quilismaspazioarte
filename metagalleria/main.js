@@ -779,12 +779,6 @@ addPanelFaceImage(
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
 
-// S18 — DISEGNO BIANCO SU ANTRACITE — segmento I13-I18
-addPanelFaceImage(
-  'I13','I18',
-  './PANNELLO S 18 SEG. I13 - I18.jpg',
-  {panelWidth:3.30,panelHeight:3.00,face:'center'}
-);
 // S14 — PALEOCAPA 6 — segmento I11-I15
 addPanelFaceImage(
   'I11','I15',
