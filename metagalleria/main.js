@@ -778,12 +778,6 @@ addPanelFaceImage(
   './PANNELLO_S11  2 - I7.jpg',
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
-// D18 — segmento I13-I18
-addPanelFaceImage(
-  'I13','I18',
-  './INTESTAZIONE_FORTUN_30CM_BASSO_DATE_GIALLE.png',
-  {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
-);
 
 // S18 — DISEGNO BIANCO SU ANTRACITE — segmento I13-I18
 addPanelFaceImage(
