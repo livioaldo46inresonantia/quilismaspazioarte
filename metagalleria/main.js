@@ -736,7 +736,7 @@ addPanelFaceImage(
 // D13 — PALEOCAPA 9
 addPanelFaceImage(
   'I17','I9',
-  './PANNELLO_D13_PALEOCAPA_9_CENTRATO_SCRITTA_STANDARD.jpg',
+  './D13.jpg',
   {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
 );
 // D4 — PALEOCAPA — segmento 7-I6
