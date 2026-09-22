@@ -778,12 +778,6 @@ addPanelFaceImage(
   {panelWidth:5.50,panelHeight:3.00,face:'center'}
 );
 
-// D4 — PALEOCAPA — segmento 7-I6
-addPanelFaceImage(
-  7,'I6',
-  './PANNELLO D4  7 - I6.jpg',
-  {panelWidth:4.80,panelHeight:3.00,face:'center'}
-);
 // S11 — PALEOCAPA — segmento 2-I7
 addPanelFaceImage(
   2,'I7',
