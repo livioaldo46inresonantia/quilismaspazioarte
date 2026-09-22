@@ -706,7 +706,7 @@ addPanelFaceImage(
 addPanelFaceImage(
   'I17','I9',
   './S2.jpg',
-  {panelWidth:4.40,panelHeight:3.00,face:'center'}
+  {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
 );
 // S15 — OMAGGIO A BENVENUTO
 addPanelFaceImage(
