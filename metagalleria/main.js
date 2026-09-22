@@ -702,7 +702,12 @@ addPanelFaceImage(
   './PANNELLO D15 MAPPA.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
-
+// S2 — PALEOCAPA 5, 20, 21
+addPanelFaceImage(
+  'I17','I9',
+  './S2.jpg',
+  {panelWidth:4.40,panelHeight:3.00,face:'center'}
+);
 // S15 — OMAGGIO A BENVENUTO
 addPanelFaceImage(
   'I14','I19',
