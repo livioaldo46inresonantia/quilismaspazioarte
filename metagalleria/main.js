@@ -727,11 +727,6 @@ addPanelFaceImage(
   './PANNELLO_D2_ULTIME_DUE_FOTO.jpg',
   {panelWidth:4.40,panelHeight:3.00,face:'center'}
 );
-addPanelFaceImage(
-  'I8','I16',
-  './PANNELLO_D2_ULTIME_DUE_FOTO.jpg',
-  {panelWidth:4.40,panelHeight:3.00,face:'center'}
-);
 // S13 — PALEOCAPA — segmento I9-I17
 addPanelFaceImage(
   'I17','I9',
