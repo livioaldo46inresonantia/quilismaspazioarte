@@ -702,12 +702,7 @@ addPanelFaceImage(
   './PANNELLO D15 MAPPA.jpg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
-// S2 — PALEOCAPA 5, 20, 21
-addPanelFaceImage(
-  'I17','I9',
-  './S2.jpg',
-  {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
-);
+
 // S15 — OMAGGIO A BENVENUTO
 addPanelFaceImage(
   'I14','I19',
@@ -731,6 +726,12 @@ addPanelFaceImage(
   'I8','I16',
   './PANNELLO_D2_ULTIME_DUE_FOTO.jpg',
   {panelWidth:4.40,panelHeight:3.00,face:'center'}
+);
+// S2 — PALEOCAPA 5, 20, 21
+addPanelFaceImage(
+  'I8','I16',
+  './S2.jpg',
+  {panelWidth:4.40,panelHeight:3.00,face:'opposite'}
 );
 // S13 — PALEOCAPA — segmento I9-I17
 addPanelFaceImage(
