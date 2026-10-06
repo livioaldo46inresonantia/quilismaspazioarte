@@ -662,7 +662,7 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
   scene.add(face);
 
   const hit=new THREE.Mesh(
-    new THREE.PlaneGeometry(1.50,2.00),
+    new THREE.PlaneGeometry(options.sheetUrl ? panelWidth : 1.50, options.sheetUrl ? panelHeight : 2.00),
     new THREE.MeshBasicMaterial({
       transparent:true,
       opacity:0,
@@ -680,9 +680,9 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
   const visualXSign=faceSign>0 ? 1 : -1;
 
   hit.position.set(
-    face.position.x+tangent.x*(-0.30)*visualXSign+normal.x*0.002*faceSign,
+    face.position.x+tangent.x*(options.sheetUrl ? 0 : -0.30)*visualXSign+normal.x*0.002*faceSign,
     PANEL_RAISE+1.50,
-    face.position.z+tangent.z*(-0.30)*visualXSign+normal.z*0.002*faceSign
+    face.position.z+tangent.z*(options.sheetUrl ? 0 : -0.30)*visualXSign+normal.z*0.002*faceSign
   );
 
   hit.userData={
@@ -692,6 +692,7 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
     details:'Padova, 1975 · Acrilico su tela · 60 × 80 cm'
   };
 
+  if(options.sheetUrl) hit.userData={type:'artwork',title:options.title,artist:'Antonio Fortún',sheetUrl:options.sheetUrl};
   scene.add(hit);
   clickableArtworks.push(hit);
 }
@@ -866,6 +867,23 @@ addPanelFaceImage(
  './PANNELLO_S9_FORTUN_FIRMA_NEGATIVO_PROVA.jpg',
   {panelWidth:3.00,panelHeight:3.00,face:'center'}
 );
+// Pannelli approvati il 5 ottobre 2026: le altre facce restano invariate.
+const latestPanels = [
+  ['S6', 'I1','I4','opposite','S6_D9.html#S6'],
+  ['D7', 'I1','I3','opposite','D7_S8.html#D7'],
+  ['S8', 'I2','I3','opposite','D7_S8.html#S8'],
+  ['D9', 'I2','I5','opposite','S6_D9.html#D9'],
+  ['S12',2,'I11','center','S12.html']
+];
+latestPanels.forEach(([code,a,b,face,sheet])=>{
+ const info=panelRegistry.get(panelKey(a,b));
+ if(!info) throw new Error('Pannello mancante: '+code);
+ addPanelFaceImage(a,b,'./'+code+'.svg',{
+  panelWidth:info.width,panelHeight:PANEL_HEIGHT,face,
+  title:code+' · Antonio Fortún',sheetUrl:'./'+sheet
+ });
+});
+
 const centerMaterial=new THREE.MeshPhysicalMaterial({
   color:0xf5f5f0,
   metalness:0.05,
@@ -990,7 +1008,23 @@ document.body.appendChild(modal);
 const controls=new PointerLockControls(camera,renderer.domElement);
 controls.minPolarAngle=Math.PI/2;
 controls.maxPolarAngle=Math.PI/2;
+const panelReader=document.createElement('div');
+panelReader.id='panelReader';
+panelReader.style.cssText='display:none;position:fixed;inset:0;z-index:11000;background:#17191c';
+const readerClose=document.createElement('button');
+readerClose.textContent='← Torna alla galleria';
+readerClose.style.cssText='position:absolute;top:8px;right:12px;z-index:2;padding:10px 16px;cursor:pointer';
+const readerFrame=document.createElement('iframe');
+readerFrame.title='Scheda del pannello';
+readerFrame.style.cssText='border:0;width:100%;height:calc(100% - 48px);margin-top:48px;background:#17191c';
+panelReader.append(readerClose,readerFrame);document.body.append(panelReader);
+function closePanelReader(){panelReader.style.display='none';readerFrame.src='about:blank';}
+readerClose.addEventListener('click',e=>{e.stopPropagation();closePanelReader();});
+addEventListener('keydown',e=>{if(e.key==='Escape')closePanelReader();});
+
 function openArtworkModal(data){
+  if(data.sheetUrl){controls.unlock();readerFrame.src=data.sheetUrl;panelReader.style.display='block';return;}
+
   modalTitle.textContent=data.title||'';
   modalArtist.textContent=data.artist||'';
   modalDetails.textContent=data.details||'';
@@ -1026,7 +1060,7 @@ bottoneTop.style.cursor='pointer';
 document.body.appendChild(bottoneTop);
 
 document.body.addEventListener('click',e=>{
-  if(e.target.closest?.('#schedaModal')) return;
+  if(e.target.closest?.('#schedaModal, #panelReader')) return;
   if(e.target===bottoneTop) return;
   if(topView) return;
 
