@@ -627,7 +627,11 @@ panels.forEach(([a,b])=>addPanel(a,b));
 const clickableArtworks=[];
 const textureLoader=new THREE.TextureLoader();
 
+const CATALOG_2D = 'https://quilisma-metagalleria-visita.stillaphid64.chatgpt.site';
+const artworkSheets = {"D15_OMAGGIO_A_BENVENUTO.jpg": "S15", "PANNELLO_373A3F_CORNICE_NERA_GROSSA_OMAGGIO_LIVIO.jpg": "D1", "PANNELLO_D2_ULTIME_DUE_FOTO.jpg": "D2", "S2.jpg": "S2", "PANNELLO S 13 -.jpg": "S13", "D13.jpg": "D13", "PANNELLO D4  7 - I6.jpg": "D4", "PANNELLO S14    SEG. 11 - 15.jpg": "S14", "PANNELLO_S11  2 - I7.jpg": "S11", "PANNELLO_D5_DUE_OPERE_CENTRATO_60CM.jpg": "D5", "PANNELLO 3  -  SEG. 7 - I10.jpg": "D3", "S12.svg": "S12"};
 function addPanelFaceImage(aName,bName,imageUrl,options={}){
+  const sheetCode = artworkSheets[imageUrl.split('/').pop()];
+  if (sheetCode) options = {...options, title: sheetCode+' · Antonio Fortún', sheetUrl: CATALOG_2D+'/scheda-'+sheetCode+'.html'};
   const info=panelRegistry.get(panelKey(aName,bName));
   if(!info) return;
 
@@ -661,38 +665,17 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
   );
   scene.add(face);
 
-  const hit=new THREE.Mesh(
-    new THREE.PlaneGeometry(options.sheetUrl ? panelWidth : 1.50, options.sheetUrl ? panelHeight : 2.00),
-    new THREE.MeshBasicMaterial({
-      transparent:true,
-      opacity:0,
-      side:THREE.DoubleSide,
-      depthWrite:false
-    })
+  // Informational faces remain visible without a false artwork label.
+  if (!options.sheetUrl) return;
+  const hit = new THREE.Mesh(
+    new THREE.PlaneGeometry(panelWidth,panelHeight),
+    new THREE.MeshBasicMaterial({transparent:true,opacity:0,
+      side:THREE.FrontSide,depthWrite:false})
   );
-
-  hit.rotation.y=face.rotation.y;
-
-  const tangent=new THREE.Vector3(
-    Math.cos(info.rotY),0,-Math.sin(info.rotY)
-  );
-
-  const visualXSign=faceSign>0 ? 1 : -1;
-
-  hit.position.set(
-    face.position.x+tangent.x*(options.sheetUrl ? 0 : -0.30)*visualXSign+normal.x*0.002*faceSign,
-    PANEL_RAISE+1.50,
-    face.position.z+tangent.z*(options.sheetUrl ? 0 : -0.30)*visualXSign+normal.z*0.002*faceSign
-  );
-
-  hit.userData={
-    type:'artwork',
-    title:'Omaggio a Benvenuto',
-    artist:'Antonio Fortún',
-    details:'Padova, 1975 · Acrilico su tela · 60 × 80 cm'
-  };
-
-  if(options.sheetUrl) hit.userData={type:'artwork',title:options.title,artist:'Antonio Fortún',sheetUrl:options.sheetUrl};
+  hit.rotation.copy(face.rotation);
+  hit.position.copy(face.position).addScaledVector(normal,0.002*faceSign);
+  hit.userData={type:'artwork',title:options.title,
+    artist:'Antonio Fortún',sheetUrl:options.sheetUrl};
   scene.add(hit);
   clickableArtworks.push(hit);
 }
@@ -1015,7 +998,8 @@ const readerClose=document.createElement('button');
 readerClose.textContent='← Torna alla galleria';
 readerClose.style.cssText='position:absolute;top:8px;right:12px;z-index:2;padding:10px 16px;cursor:pointer';
 const readerFrame=document.createElement('iframe');
-readerFrame.title='Scheda del pannello';
+readerFrame.title='Scheda delle opere';
+readerFrame.allow='autoplay';
 readerFrame.style.cssText='border:0;width:100%;height:calc(100% - 48px);margin-top:48px;background:#17191c';
 panelReader.append(readerClose,readerFrame);document.body.append(panelReader);
 function closePanelReader(){panelReader.style.display='none';readerFrame.src='about:blank';}
@@ -1023,7 +1007,13 @@ readerClose.addEventListener('click',e=>{e.stopPropagation();closePanelReader();
 addEventListener('keydown',e=>{if(e.key==='Escape')closePanelReader();});
 
 function openArtworkModal(data){
-  if(data.sheetUrl){controls.unlock();readerFrame.src=data.sheetUrl;panelReader.style.display='block';return;}
+  if(data.sheetUrl){
+    controls.unlock();
+    Object.keys(keys).forEach(key=>{keys[key]=false;});
+    readerFrame.title=data.title || 'Scheda delle opere';
+    readerFrame.src=data.sheetUrl;
+    panelReader.style.display='block';readerClose.focus();return;
+  }
 
   modalTitle.textContent=data.title||'';
   modalArtist.textContent=data.artist||'';
@@ -1059,21 +1049,39 @@ bottoneTop.style.padding='10px 16px';
 bottoneTop.style.cursor='pointer';
 document.body.appendChild(bottoneTop);
 
-document.body.addEventListener('click',e=>{
-  if(e.target.closest?.('#schedaModal, #panelReader')) return;
-  if(e.target===bottoneTop) return;
-  if(topView) return;
-
-  raycaster.setFromCamera(new THREE.Vector2(0,0),camera);
-  const hits=raycaster.intersectObjects(clickableArtworks,false);
-
-  if(hits.length){
-    openArtworkModal(hits[0].object.userData);
-    return;
-  }
-
-if(modal.style.display!=='flex' && !isTouchDevice) controls.lock();
+// A click selects the visible face under the pointer (or the centre while walking).
+let pointerOrigin = null;
+let pointerMoved = false;
+renderer.domElement.addEventListener('pointerdown', e=>{
+  pointerOrigin={x:e.clientX,y:e.clientY};pointerMoved=false;
 });
+renderer.domElement.addEventListener('pointermove', e=>{
+  if(pointerOrigin && Math.hypot(e.clientX-pointerOrigin.x,e.clientY-pointerOrigin.y)>8) pointerMoved=true;
+});
+renderer.domElement.addEventListener('pointercancel', ()=>{pointerOrigin=null;pointerMoved=true;});
+renderer.domElement.addEventListener('click',e=>{
+  if(topView || pointerMoved || panelReader.style.display==='block' || modal.style.display==='flex') return;
+  const rect=renderer.domElement.getBoundingClientRect();
+  const pointer=controls.isLocked ? new THREE.Vector2(0,0) : new THREE.Vector2(
+    ((e.clientX-rect.left)/rect.width)*2-1,
+    -((e.clientY-rect.top)/rect.height)*2+1
+  );
+  scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
+  raycaster.setFromCamera(pointer,camera);
+  const hits=raycaster.intersectObjects(clickableArtworks,false);
+  const walls=raycaster.intersectObjects(Array.from(panelRegistry.values(),p=>p.wall),false);
+  if(hits.length && (!walls.length || hits[0].distance<=walls[0].distance+0.03)){
+    openArtworkModal(hits[0].object.userData);return;
+  }
+  if(!isTouchDevice) controls.lock();
+});
+const artworkHint=document.createElement('div');
+artworkHint.textContent='Clicca o tocca un quadro per aprire la scheda · Esc per liberare il puntatore';
+artworkHint.style.cssText='position:fixed;bottom:12px;left:50%;transform:translateX(-50%);max-width:calc(100% - 28px);padding:9px 14px;background:rgba(3,4,27,.82);color:#f4efe5;border:1px solid #877550;font:14px/1.4 Georgia,serif;text-align:center;pointer-events:none;z-index:100';
+document.body.append(artworkHint);
+controls.addEventListener('lock',()=>{artworkHint.textContent='Punta il quadro al centro dello schermo e fai clic · Esc per liberare il puntatore';});
+controls.addEventListener('unlock',()=>{artworkHint.textContent='Clicca o tocca un quadro per aprire la scheda';});
+addEventListener('blur',()=>{Object.keys(keys).forEach(key=>{keys[key]=false;});});
 
 const keys={};
 
@@ -1264,3 +1272,4 @@ addEventListener('resize',()=>{
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth,innerHeight);
 });
+
