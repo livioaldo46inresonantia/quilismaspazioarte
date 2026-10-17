@@ -628,7 +628,7 @@ const clickableArtworks=[];
 const textureLoader=new THREE.TextureLoader();
 
 const CATALOG_2D = 'https://quilisma-metagalleria-visita.stillaphid64.chatgpt.site';
-const artworkSheets = {"D15_OMAGGIO_A_BENVENUTO.jpg": "S15", "PANNELLO_373A3F_CORNICE_NERA_GROSSA_OMAGGIO_LIVIO.jpg": "D1", "PANNELLO_D2_ULTIME_DUE_FOTO.jpg": "D2", "S2.jpg": "S2", "PANNELLO S 13 -.jpg": "S13", "D13.jpg": "D13", "PANNELLO D4  7 - I6.jpg": "D4", "PANNELLO S14    SEG. 11 - 15.jpg": "S14", "PANNELLO_S11  2 - I7.jpg": "S11", "PANNELLO_D5_DUE_OPERE_CENTRATO_60CM.jpg": "D5", "PANNELLO 3  -  SEG. 7 - I10.jpg": "D3", "S12.svg": "S12"};
+const artworkSheets = {"D15_OMAGGIO_A_BENVENUTO.jpg": "S15", "PANNELLO_373A3F_CORNICE_NERA_GROSSA_OMAGGIO_LIVIO.jpg": "D1", "PANNELLO_D2_ULTIME_DUE_FOTO.jpg": "D2", "S2.jpg": "S2", "PANNELLO S 13 -.jpg": "S13", "D13.jpg": "D13", "PANNELLO D4  7 - I6.jpg": "D4", "PANNELLO S14    SEG. 11 - 15.jpg": "S14", "PANNELLO_S11  2 - I7.jpg": "S11", "D5_TRE_OPERE_PALEOCAPA7.svg": "D5", "PANNELLO 3  -  SEG. 7 - I10.jpg": "D3", "S12.svg": "S12"};
 function addPanelFaceImage(aName,bName,imageUrl,options={}){
   const sheetCode = artworkSheets[imageUrl.split('/').pop()];
   if (sheetCode) options = {...options, title: sheetCode+' · Antonio Fortún', sheetUrl: CATALOG_2D+'/scheda-'+sheetCode+'.html'};
@@ -769,11 +769,11 @@ addPanelFaceImage(
   {panelWidth:4.80,panelHeight:3.00,face:'center'}
 );
 
-// D5 — DUE OPERE
+// D5 — PALEOCAPA 7, A LIVIO E A BEN
 // contenuto centrato, 60 cm sopra e sotto
 addPanelFaceImage(
   8,'I6',
-  './PANNELLO_D5_DUE_OPERE_CENTRATO_60CM.jpg',
+  './D5_TRE_OPERE_PALEOCAPA7.svg',
   {
     panelWidth:5.50,
     panelHeight:3.00,
