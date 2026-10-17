@@ -683,7 +683,7 @@ function addPanelFaceImage(aName,bName,imageUrl,options={}){
 // D15 — MAPPA DELLA METAGALLERIA
 addPanelFaceImage(
   'I14','I19',
-  './PANNELLO D15 MAPPA.jpg',
+  './D15_ENNEAGRAMMA_CORRETTO.svg',
   {panelWidth:3.30,panelHeight:3.00,face:'opposite'}
 );
 
